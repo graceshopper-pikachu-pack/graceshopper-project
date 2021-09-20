@@ -46,11 +46,33 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
-// PUT /api/products/:id  (edit product by id)
+// PUT /api/products/:id  (update product by id)
 router.put('/:id', async (req, res, next) => {
   try {
     let updatedProductInfo = await Product.findByPk(req.params.id);
     res.json(await updatedProductInfo.update(req.body));
+  } catch (err) {
+    next(err);
+  }
+});
+
+// PUT /api/products/:id  (inc product amount by id)
+router.put('/:id/increase', async (req, res, next) => {
+  try {
+    let product = Product.findByPk(req.params.id);
+    product.stockQuantity++;
+    res.json(await product.save());
+  } catch (err) {
+    next(err);
+  }
+});
+
+// PUT /api/products/:id  (dec product amount by id)
+router.put('/:id/decrease', async (req, res, next) => {
+  try {
+    let product = Product.findByPk(req.params.id);
+    product.stockQuantity--;
+    res.json(await product.save());
   } catch (err) {
     next(err);
   }
