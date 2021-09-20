@@ -26,6 +26,20 @@ router.get('/:id', async (req, res, next) => {
   }
 });
 
+//GET /api/products/:productName (gets single product by name)
+router.get('/:productName', async (req, res, next) => {
+  try {
+    const product = await Product.findOne({
+      where: {
+        name: req.params.productName,
+      },
+    });
+    res.status(200).json(product);
+  } catch (err) {
+    next(err);
+  }
+});
+
 //POST /api/products (creates a new product)
 router.post('/', async (req, res, next) => {
   try {
