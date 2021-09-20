@@ -23,9 +23,9 @@ router.get('/:id', async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id); //come back and add an include
     if (user) {
-      res.json(user);
+      res.status(200).json(user);
     } else {
-      res.status(200).json('User not Found');
+      res.status(404).json('User not Found');
     }
   } catch (err) {
     next(err);
