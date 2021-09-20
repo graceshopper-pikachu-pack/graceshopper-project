@@ -18,20 +18,6 @@ router.get('/', async (req, res, next) => {
   }
 });
 
-// GET /api/user/:id (get single user)
-router.get('/:id', async (req, res, next) => {
-  try {
-    const user = await User.findByPk(req.params.id); //come back and add an include
-    if (user) {
-      res.status(200).json(user);
-    } else {
-      res.status(404).json('User not Found');
-    }
-  } catch (err) {
-    next(err);
-  }
-});
-
 //POST /api/users (create a new user)
 router.post('/', async (req, res, next) => {
   try {
@@ -52,7 +38,7 @@ router.delete('/:id', async (req, res, next) => {
   }
 });
 
-// PUT /api/user /:id (edit admin privileges)
+// PUT /api/users/:id (edit admin privileges)
 router.put('/:id', async (req, res, next) => {
   try {
     let updatedUserPrivileges = await User.findByPk(req.params.id);
