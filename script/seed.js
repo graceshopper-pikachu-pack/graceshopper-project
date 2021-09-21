@@ -45,6 +45,26 @@ const users = [
   },
 ];
 
+const cartTestUser1 = {
+  firstName: "Banana",
+  lastName: "Mango",
+  email: "banana@banana.com",
+  address: "1 Banana Ln, Banana Town, Banana Federation",
+  password: "password",
+  username: "banana",
+  adminStatus: false,
+};
+
+const cartTestUser2 = {
+  firstName: "Apple",
+  lastName: "Apple",
+  email: "apple@banana.com",
+  address: "1 Apple drive, Big Apple, NY",
+  password: "password",
+  username: "apple",
+  adminStatus: true,
+};
+
 const products = [
   {
     stockNumber: "SN-123-001",
@@ -124,13 +144,21 @@ const products = [
   },
 ];
 
-// const cartItems1 = [
-//   { productId: 1, cartId: 1, quantity: 1 },
-//   { productId: 2, cartId: 1, quantity: 2 },
-//   { productId: 3, cartId: 1, quantity: 22 },
-//   { productId: 4, cartId: 1, quantity: 3 },
-//   { productId: 5, cartId: 1, quantity: 9 },
-// ];
+const cartItems1 = [
+  { productId: 1, quantity: 1 },
+  { productId: 2, quantity: 2 },
+  { productId: 3, quantity: 1 },
+  { productId: 4, quantity: 1 },
+  { productId: 5, quantity: 2 },
+];
+
+const cartItems2 = [
+  { productId: 2, quantity: 1 },
+  { productId: 6, quantity: 2 },
+  { productId: 7, quantity: 1 },
+  { productId: 4, quantity: 1 },
+  { productId: 3, quantity: 1 },
+];
 
 /**
  * seed - this function clears the database, updates tables to
@@ -140,11 +168,11 @@ async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
 
   // Creating Users
-  const newUsers = await Promise.all(
-    users.map((user) => {
-      return User.create(user);
-      //     const newCart = Cart.create({})
-      // await newCart.setUser(user)
+  await Promise.all(
+    users.map(async (user) => {
+      const newUser = await User.create(user);
+      await Cart.create({ userId: newUser.id });
+      return newUser;
     })
   );
 
@@ -155,9 +183,25 @@ async function seed() {
     })
   );
 
-  await Cart.create({ userId: 3 });
+  // user to test cart
+  const newCartTestUser1 = await User.create(cartTestUser1);
+  const newCart1 = await Cart.create({ userId: newCartTestUser1.id });
 
-  // const cartItems = new Array(5).fill({});
+  const newCartTestUser2 = await User.create(cartTestUser2);
+  const newCart2 = await Cart.create({ userId: newCartTestUser2.id });
+
+  // // Adding items to cart
+  await Promise.all(
+    cartItems1.map((item) => {
+      return CartItem.create({ cartId: newCart1.id, ...item });
+    })
+  );
+
+  await Promise.all(
+    cartItems2.map((item) => {
+      return CartItem.create({ cartId: newCart2.id, ...item });
+    })
+  );
 
   console.log(green(`seeded ${users.length} users`));
   console.log(green(`seeded ${products.length} products`));
