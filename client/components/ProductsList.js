@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Product from "./Product";
+import { fetchProducts } from "../store";
 
 const dummydata = [
   {
@@ -50,10 +51,7 @@ class ProductsList extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.fetchProducts()
-    this.setState({
-      products: [...dummydata],
-    });
+    this.props.fetchProducts();
   }
 
   componentWillUnmount() {}
