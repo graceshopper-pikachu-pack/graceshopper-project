@@ -1,3 +1,4 @@
+
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -8,6 +9,7 @@ import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
 import Cart from "./components/Cart";
 import { me } from "./store";
+
 
 /**
  * COMPONENT
@@ -31,8 +33,10 @@ class Routes extends Component {
               path="/products/:productId"
               component={SingleProduct}
             />
+
             <Route exact path="/cart" component={Cart} />
             <Redirect to="/home" />
+
           </Switch>
         ) : (
           <Switch>
