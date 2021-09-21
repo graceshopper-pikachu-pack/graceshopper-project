@@ -1,11 +1,13 @@
 const router = require("express").Router();
-const { models: Product } = require("../db");
+const {
+  models: { Product },
+} = require("../db");
 module.exports = router;
 
 // GET /api/products (gets all products)
 router.get("/", async (req, res, next) => {
   try {
-    const products = Product.findAll();
+    const products = await Product.findAll();
     res.status(200).json(products);
   } catch (err) {
     next(err);
@@ -15,7 +17,7 @@ router.get("/", async (req, res, next) => {
 //GET /api/products/:id (gets single product by id)
 router.get("/:id", async (req, res, next) => {
   try {
-    const product = Product.findByPk(req.params.id);
+    const product = await Product.findByPk(req.params.id);
     if (product) {
       res.status(200).json(product);
     } else {

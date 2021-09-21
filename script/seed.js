@@ -2,7 +2,7 @@
 
 const {
   db,
-  models: { User, Product },
+  models: { User, Product, Cart, CartItem },
 } = require("../server/db");
 const { green, red } = require("chalk");
 
@@ -124,6 +124,14 @@ const products = [
   },
 ];
 
+// const cartItems1 = [
+//   { productId: 1, cartId: 1, quantity: 1 },
+//   { productId: 2, cartId: 1, quantity: 2 },
+//   { productId: 3, cartId: 1, quantity: 22 },
+//   { productId: 4, cartId: 1, quantity: 3 },
+//   { productId: 5, cartId: 1, quantity: 9 },
+// ];
+
 /**
  * seed - this function clears the database, updates tables to
  *      match the models, and populates the database.
@@ -132,9 +140,11 @@ async function seed() {
   await db.sync({ force: true }); // clears db and matches models to tables
 
   // Creating Users
-  await Promise.all(
+  const newUsers = await Promise.all(
     users.map((user) => {
       return User.create(user);
+      //     const newCart = Cart.create({})
+      // await newCart.setUser(user)
     })
   );
 
@@ -144,6 +154,10 @@ async function seed() {
       return Product.create(product);
     })
   );
+
+  await Cart.create({ userId: 3 });
+
+  // const cartItems = new Array(5).fill({});
 
   console.log(green(`seeded ${users.length} users`));
   console.log(green(`seeded ${products.length} products`));

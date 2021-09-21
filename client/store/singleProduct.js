@@ -9,12 +9,12 @@ const SET_SINGLE_PRODUCT = "SET_SINGLE_PRODUCT";
 /**
  * ACTION CREATORS
  */
-const setSingleProduct = (singleProduct) => ({
+export const setSingleProduct = (singleProduct) => ({
   type: SET_SINGLE_PRODUCT,
   singleProduct,
 });
 
-const clearSingleProduct = () => ({
+export const clearSingleProduct = () => ({
   type: SET_SINGLE_PRODUCT,
   singleProduct: {},
 });
