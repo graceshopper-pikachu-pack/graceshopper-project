@@ -10,7 +10,7 @@ class NavBar extends Component {
         </div>
         <ul className="navbar_links">
           <div>
-            <Link to="/products"> All Animals </Link>
+            <Link to="/products"> Animals </Link>
             <Link to="/cart">
               <img
                 className="cart_image"
