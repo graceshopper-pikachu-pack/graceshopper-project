@@ -33,10 +33,10 @@ router.get('/me', async (req, res, next) => {
   }
 });
 
-// GET /api/users/:id (get single user)
+// GET /api/users/:id (get single user) -- might actually not need
 router.get('/users/:id', async (req, res, next) => {
   try {
-    const user = await User.findByPk(req.params.id); //come back and add an include
+    const user = await User.findByPk(req.params.id);
     if (user) {
       res.status(200).json(user);
     } else {
