@@ -47,5 +47,3 @@ router.put('/:id', async (req, res, next) => {
     next(err);
   }
 });
-
-//GET (get all of the user's orders)
