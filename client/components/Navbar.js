@@ -6,10 +6,10 @@ class NavBar extends Component {
     return (
       <nav className="navbar">
         <div className="navbar_logo">
-          <h1> Animal Conservacy </h1>
+          <h1> Animal Conservancy </h1>
         </div>
         <ul className="navbar_links">
-          <li>
+          <div>
             <Link to="/products"> All Animals </Link>
             <Link to="/cart">
               <img
@@ -21,7 +21,7 @@ class NavBar extends Component {
               />
             </Link>
             <Link to="/signup"> Sign Up</Link>
-          </li>
+          </div>
         </ul>
       </nav>
     );
@@ -29,51 +29,3 @@ class NavBar extends Component {
 }
 
 export default NavBar;
-
-// import React from 'react';
-// import { connect } from 'react-redux';
-// import { Link } from 'react-router-dom';
-// import { logout } from '../store';
-
-// const Navbar = ({ handleClick, isLoggedIn }) => (
-//   <div>
-//     <h1>Animals Store</h1>
-//     <nav>
-//       {isLoggedIn ? (
-//         <div>
-//           {/* The navbar will show these links after you log in */}
-//           <Link to="/home">Home</Link>
-//           <a href="#" onClick={handleClick}>
-//             Logout
-//           </a>
-//         </div>
-//       ) : (
-//         <div>
-//           {/* The navbar will show these links before you log in */}
-//           <Link to="/login">Login</Link>
-//           <Link to="/signup">Sign Up</Link>
-//         </div>
-//       )}
-//     </nav>
-//     <hr />
-//   </div>
-// );
-
-// /**
-//  * CONTAINER
-//  */
-// const mapState = (state) => {
-//   return {
-//     isLoggedIn: !!state.auth.id,
-//   };
-// };
-
-// const mapDispatch = (dispatch) => {
-//   return {
-//     handleClick() {
-//       dispatch(logout());
-//     },
-//   };
-// };
-
-// export default connect(mapState, mapDispatch)(Navbar);
