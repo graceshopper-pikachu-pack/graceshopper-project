@@ -74,7 +74,11 @@ class ProductsList extends React.Component {
           <h4>Loading...</h4>
         ) : (
           products.map((product) => (
-            <Product product={product} key={product.id} />
+            <Product
+              product={product}
+              key={product.id}
+              history={this.props.history}
+            />
           ))
         )}
       </div>
@@ -90,7 +94,6 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    //TODO: write this store and method
     fetchProducts: () => dispatch(fetchProducts()),
   };
 };
