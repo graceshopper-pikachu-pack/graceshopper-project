@@ -6,7 +6,7 @@ class NavBar extends Component {
     return (
       <nav className="navbar">
         <div className="navbar_logo">
-          <h1> Animal Conservancy </h1>
+          <h1> The Animal Conservancy </h1>
         </div>
         <ul className="navbar_links">
           <div>
