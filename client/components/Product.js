@@ -5,9 +5,14 @@ const Product = (props) => {
     return null;
   }
 
+  const routeToProduct = () => {
+    const route = `/products/${product.id}`;
+    props.history.push(route);
+  };
+
   const product = props.product;
   return (
-    <div className="column">
+    <div className="column" onClick={routeToProduct}>
       <img src={product.imageUrl} />
       <div className="row">
         <h2>Product Name: {product.productName}</h2>
