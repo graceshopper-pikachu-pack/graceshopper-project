@@ -15,14 +15,6 @@ const CartItem = db.define("cartItem", {
       isInt: true,
     },
   },
-  cartId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
-  productId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
 });
 
 module.exports = CartItem;

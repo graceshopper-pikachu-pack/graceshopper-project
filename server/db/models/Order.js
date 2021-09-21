@@ -8,10 +8,6 @@ const Order = db.define("order", {
     primaryKey: true,
     allowNull: false,
   },
-  userId: {
-    type: Sequelize.INTEGER,
-    allowNull: false,
-  },
   status: Sequelize.ENUM("pending", "shipped", "completed", "cancelled"),
 });
 

@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     let newUser = await User.create(req.body);
-    res.json(newUser);
+    res.send(201).json(newUser);
   } catch (err) {
     next(err);
   }
@@ -47,5 +47,3 @@ router.put('/:id', async (req, res, next) => {
     next(err);
   }
 });
-
-//GET (get all of the user's orders)
