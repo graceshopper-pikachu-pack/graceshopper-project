@@ -6,6 +6,7 @@ import { Signup } from "./components/SignupForm";
 import Home from "./components/Home";
 import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
+import Cart from "./components/Cart";
 import { me } from "./store";
 
 /**
@@ -24,6 +25,13 @@ class Routes extends Component {
         {isLoggedIn ? (
           <Switch>
             <Route path="/home" component={Home} />
+            <Route exact path="/products" component={ProductsList} />
+            <Route
+              exact
+              path="/products/:productId"
+              component={SingleProduct}
+            />
+            <Route exact path="/cart" component={Cart} />
             <Redirect to="/home" />
           </Switch>
         ) : (
@@ -37,6 +45,7 @@ class Routes extends Component {
               path="/products/:productId"
               component={SingleProduct}
             />
+            <Route exact path="/cart" component={Cart} />
           </Switch>
         )}
       </div>
