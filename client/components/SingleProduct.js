@@ -24,10 +24,7 @@ class SingleProduct extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.fetchSingleProduct(this.props.match.params.productId)
-    this.setState({
-      singleProduct: { ...dummydata },
-    });
+    this.props.fetchSingleProduct(this.props.match.params.productId);
   }
 
   componentWillUnmount() {
