@@ -2,10 +2,15 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 const axios = require("axios");
 
-
-const categories = ['Amphibians', 'Birds', 'Fish', 'Invertebrates', 'Mammals', 'Reptiles']
-const Product = db.define('product', {
-
+const categories = [
+  "amphibians",
+  "birds",
+  "fish",
+  "invertebrates",
+  "mammals",
+  "reptiles",
+];
+const Product = db.define("product", {
   stockNumber: {
     type: Sequelize.STRING,
     unique: true,
