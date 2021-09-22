@@ -12,7 +12,7 @@ const {
 } = require('../../server/db');
 //const seed = require('../../script/seed');
 
-describe('User Routes', () => {
+describe.only('User Routes', () => {
 	beforeEach(async () => {
 		console.log('About to sync db - will wipe out db!');
 		await db.sync({ force: true });
@@ -59,24 +59,23 @@ describe('User Routes', () => {
 			jimmy = createdUsers[2];
 		});
 
-		describe('/api/users/', () => {
-			it('GET /api/users', () => {
-				return (
-					request(app)
-						.get('/users')
-						//.expect('Content-Type', /json/)
-						.expect(200)
-						.expect((res) => {
-							expect(res.body).to.be.an('array');
-							//expect(res.body.length).to.equal(5);
-						})
-				);
+		describe.only('api/users/', () => {
+			xit('GET /api/users', () => {
+				return agent
+					.get('/api/users')
+					.expect('Content-Type', /json/)
+					.expect(200)
+					.expect((res) => {
+						expect(res.body).to.be.an.instanceOf(Array);
+						expect(res.body.length).to.equal(3);
+					});
 			});
 
-			it('POST /api/users', () => {
-				return request(app)
-					.post('/users')
+			xit('POST /api/users', () => {
+				return agent
+					.post('/api/users')
 					.send({
+						username: 'gbelcher',
 						firstName: 'Gene',
 						lastName: 'Belcher',
 						email: 'ilovemom@musiclover.com',
@@ -90,23 +89,22 @@ describe('User Routes', () => {
 					});
 			});
 
-			it('DELETE /api/users/:id', async () => {
-				await request(app).delete(`/users/${louise.id}`).expect(204);
+			xit('DELETE /api/users/:id', async () => {
+				await agent.delete(`/api/users/${louise.id}`).expect(204);
 				const deletedUser = await User.findByPk(louise.id);
-				expect(deletedUser).to.equal.null;
+				console.log(louise.id, 'show me louise id');
+				expect(deletedUser).to.equal(null);
 			});
 
 			it('PUT /api/users/:id', () => {
-				return (
-					request(app)
-						.put(`/users/${tina.id}`)
-						.send({ firstName: 'Linda' })
-						.expect(200)
-						//.expect('Content-Type', /json/)
-						.expect((res) => {
-							expect(res.body.firstName).to.equal('Linda');
-						})
-				);
+				return agent
+					.put(`/api/users/${louise.id}`)
+					.send({ adminStatus: true })
+					.expect(200)
+					.expect('Content-Type', /json/)
+					.expect((res) => {
+						expect(res.body.adminStatus).to.equal(true);
+					});
 			}); // end describe('/api/users')
 		}); // end describe('User routes')
 	});
