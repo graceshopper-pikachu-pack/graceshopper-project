@@ -12,7 +12,7 @@ const {
 } = require('../../server/db');
 //const seed = require('../../script/seed');
 
-describe.only('User Routes', () => {
+describe('User Routes', () => {
 	beforeEach(async () => {
 		console.log('About to sync db - will wipe out db!');
 		await db.sync({ force: true });
@@ -59,7 +59,7 @@ describe.only('User Routes', () => {
 			jimmy = createdUsers[2];
 		});
 
-		describe.only('api/users/', () => {
+		describe('api/users/', () => {
 			xit('GET /api/users', () => {
 				return agent
 					.get('/api/users')
@@ -71,7 +71,7 @@ describe.only('User Routes', () => {
 					});
 			});
 
-			xit('POST /api/users', () => {
+			it('POST /api/users', () => {
 				return agent
 					.post('/api/users')
 					.send({
@@ -92,7 +92,6 @@ describe.only('User Routes', () => {
 			xit('DELETE /api/users/:id', async () => {
 				await agent.delete(`/api/users/${louise.id}`).expect(204);
 				const deletedUser = await User.findByPk(louise.id);
-				console.log(louise.id, 'show me louise id');
 				expect(deletedUser).to.equal(null);
 			});
 

@@ -11,7 +11,7 @@ const {
 	models: { Product },
 } = require('../../server/db');
 
-describe('Product Routes', () => {
+describe.only('Product Routes', () => {
 	beforeEach(async () => {
 		console.log('About to sync db - will wipe out db!');
 		await db.sync({ force: true });
@@ -60,35 +60,35 @@ describe('Product Routes', () => {
 
 			const createdProducts = await Promise.all(productData.map((data) => Product.create(data)));
 
-			dodoBird = createdUsers[0];
-			pandaBear = createdUsers[1];
-			riverOtter = createdUsers[2];
+			dodoBird = createdProducts[0];
+			pandaBear = createdProducts[1];
+			riverOtter = createdProducts[2];
 		});
 
 		describe('/api/products/', () => {
-			it('GET /api/products', () => {
-				return request(app)
-					.get('/products')
+			xit('GET /api/products', () => {
+				return agent
+					.get('/api/products')
 					.expect('Content-Type', /json/)
 					.expect(200)
 					.expect((res) => {
-						expect(res.body).to.be.an('array');
-						//expect(res.body.length).to.equal(5);
+						expect(res.body).to.be.an.instanceOf(Array);
+						expect(res.body.length).to.equal(3);
 					});
 			});
 
 			it('POST /api/products', () => {
-				return request(app)
-					.post('/products')
+				return agent
+					.post('/api/products')
 					.send({
 						stockNumber: 'SN-123-010',
 						productName: 'Loch Ness Monster',
-						imageUrl:
-							'https://animals.sandiegozoo.org/sites/default/files/styles/image_grid_half_width/public/2019-09/shoebill03.jpg',
 						productDescription: 'The fabled monster.',
 						stockQuantity: 1,
+						imageUrl:
+							'https://animals.sandiegozoo.org/sites/default/files/styles/image_grid_half_width/public/2019-09/shoebill03.jpg',
 						category: 'birds',
-						price: 100000000,
+						price: 100000000.0,
 					})
 					.expect(201)
 					.expect('Content-Type', /json/)
@@ -97,24 +97,24 @@ describe('Product Routes', () => {
 					});
 			});
 
-			it('DELETE /api/products/:id', async () => {
-				await request(app).delete(`/products/${loc.id}`).expect(204);
-				const deletedUser = await User.findByPk(dodoBird.id);
-				expect(deletedUser).to.equal.null;
+			xit('DELETE /api/products/:id', async () => {
+				await agent.delete(`/api/products/${dodoBird.id}`).expect(204);
+				const deletedProduct = await Product.findByPk(dodoBird.id);
+				expect(deletedProduct).to.equal(null);
 			});
 
-			it('PUT /api/products/:id', () => {
+			xit('PUT /api/products/:id', () => {
 				return (
 					request(app)
-						.put(`/products/${dodoBird.id}`)
-						.send({ productName: 'Linda' })
+						.put(`/api/products/${dodoBird.id}`)
+						.send({ productName: 'DoDo Bird' })
 						.expect(200)
 						//.expect('Content-Type', /json/)
 						.expect((res) => {
-							expect(res.body.productName).to.equal('Lizard');
+							expect(res.body.productName).to.equal('DoDo Bird');
 						})
 				);
 			}); // end describe('/api/products')
-		}); // end describe('User routes')
+		}); // end describe('Product routes')
 	});
 });
