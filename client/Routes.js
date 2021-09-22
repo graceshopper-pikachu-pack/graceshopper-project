@@ -1,4 +1,3 @@
-
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -10,7 +9,6 @@ import SingleProduct from "./components/SingleProduct";
 import Cart from "./components/Cart";
 import { me } from "./store";
 
-
 /**
  * COMPONENT
  */
@@ -21,6 +19,12 @@ class Routes extends Component {
 
   render() {
     const { isLoggedIn } = this.props;
+
+    // if the user is not logged in
+    if (!isLoggedIn) {
+      // set the cart from the redux store on the local storage
+      localStorage.setItem("cart", JSON.stringify(this.props.cart));
+    }
 
     return (
       <div>
@@ -36,7 +40,6 @@ class Routes extends Component {
 
             <Route exact path="/cart" component={Cart} />
             <Redirect to="/home" />
-
           </Switch>
         ) : (
           <Switch>
@@ -65,6 +68,7 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
+    cart: state.cart,
   };
 };
 
