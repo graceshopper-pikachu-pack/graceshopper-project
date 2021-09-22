@@ -7,6 +7,7 @@ const token = window.localStorage.getItem(TOKEN);
  * ACTION TYPES
  */
 const SET_CART = "SET_CART";
+const CLEAR_CART = "CLEAR_CART";
 const SET_CART_ITEM = "SET_CART_ITEM";
 
 /**
@@ -19,12 +20,15 @@ const setCartItem = (cartItem) => ({
   cartItem,
 });
 
+export const clearCart = () => ({ type: CLEAR_CART, cart: [] });
+
 /**
  * THUNK CREATORS
  */
 export const fetchCart = () => {
   return async (dispatch) => {
     try {
+      console.log("banana");
       const { data } = await axios.get(`/api/cart/cartItems`, {
         headers: {
           authorization: token,
@@ -171,6 +175,8 @@ export const clearLocalCart = () => {
 export default function (state = [], action) {
   switch (action.type) {
     case SET_CART:
+      return action.cart;
+    case CLEAR_CART:
       return action.cart;
     case SET_CART_ITEM:
       return [action.cartItem, ...state];
