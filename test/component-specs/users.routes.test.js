@@ -2,28 +2,40 @@
 
 const { expect } = require('chai');
 const request = require('supertest');
+
+const app = require('../../server/app');
+const agent = request.agent(app);
+
 const {
 	db,
 	models: { User },
 } = require('../../server/db');
-const seed = require('../../script/seed');
-const app = require('../../server/app');
+//const seed = require('../../script/seed');
 
-describe('User routes', () => {
-	let tina;
-	let louise;
-	let jimmy;
+describe('Routes', () => {
+	beforeEach(() => {
+		return db.sync({ force: true });
+	});
 
-	beforeEach(async () => {
-		const userData = [
-			{
-				firstName: 'Tina',
-				lastName: 'Belcher',
-				email: 'horsesRmajestic@unicorns.com',
-				adminStatus: true,
-				address: '354 Bobs Burgers Street',
-			},
-			{
+	describe('User routes', () => {
+		let tina;
+		let louise;
+		let jimmy;
+
+		beforeEach(async () => {
+			console.log('i am right here');
+
+			const userData = [
+				{
+					username: 'username123',
+					password: 'ilovepestoboy',
+					firstName: 'Tina',
+					lastName: 'Belcher',
+					email: 'horsesRmajestic@unicorns.com',
+					adminStatus: true,
+					address: '354 Bobs Burgers Street',
+				},
+				/* 			{
 				firstName: 'Louise',
 				lastName: 'Belcher',
 				email: 'worldDomination@muhaha.com',
@@ -36,60 +48,63 @@ describe('User routes', () => {
 				email: 'live2dance@stars.com',
 				adminStatus: false,
 				address: '357 Pizzeria Avenue',
-			},
-		];
+			}, */
+			];
+			const createdUsers = await Promise.all(userData.map((data) => User.create(data)));
 
-		const createdUsers = await Promise.all(userData.map((data) => User.create(data)));
+			tina = createdUsers[0];
+			/* 		louise = createdUsers[1];
+		jimmy = createdUsers[2]; */
+		});
 
-		tina = createdUsers[0];
-		louise = createdUsers[1];
-		jimmy = createdUsers[2];
+		describe('/api/users/', () => {
+			it('GET /api/users', () => {
+				console.log('i am right here get');
+				return (
+					request(app)
+						.get('/users')
+						//.expect('Content-Type', /json/)
+						.expect(200)
+						.expect((res) => {
+							expect(res.body).to.be.an('array');
+							//expect(res.body.length).to.equal(5);
+						})
+				);
+			});
+
+			it('POST /api/users', () => {
+				return request(app)
+					.post('/users')
+					.send({
+						firstName: 'Gene',
+						lastName: 'Belcher',
+						email: 'ilovemom@musiclover.com',
+						adminStatus: false,
+						address: '354 Bobs Burgers Street',
+					})
+					.expect(201)
+					.expect('Content-Type', /json/)
+					.expect((res) => {
+						expect(res.body.firstName).to.equal('Gene');
+					});
+			});
+
+			it('DELETE /api/users/:id', async () => {
+				await request(app).delete(`/users/${louise.id}`).expect(204);
+				const deletedUser = await User.findByPk(louise.id);
+				expect(deletedUser).to.equal.null;
+			});
+
+			it('PUT /api/users/:id', () => {
+				return request(app)
+					.put(`/users/${tina.id}`)
+					.send({ firstName: 'Linda' })
+					.expect(200)
+					.expect('Content-Type', /json/)
+					.expect((res) => {
+						expect(res.body.firstName).to.equal('Linda');
+					});
+			}); // end describe('/api/users')
+		}); // end describe('User routes')
 	});
-
-	describe('/api/users/', () => {
-		it('GET /api/users', () => {
-			return request(app)
-				.get('/users')
-				.expect('Content-Type', /json/)
-				.expect(200)
-				.expect((res) => {
-					expect(res.body).to.be.an('array');
-					expect(res.body.length).to.equal(5);
-				});
-		});
-
-		it('POST /api/users', () => {
-			return request(app)
-				.post('/users')
-				.send({
-					firstName: 'Gene',
-					lastName: 'Belcher',
-					email: 'ilovemom@musiclover.com',
-					adminStatus: false,
-					address: '354 Bobs Burgers Street',
-				})
-				.expect(201)
-				.expect('Content-Type', /json/)
-				.expect((res) => {
-					expect(res.body.firstName).to.equal('Gene');
-				});
-		});
-
-		it('DELETE /api/users/:id', async () => {
-			await request(app).delete(`/users/${louise.id}`).expect(204);
-			const deletedUser = await User.findByPk(louise.id);
-			expect(deletedUser).to.equal.null;
-		});
-
-		it('PUT /api/users/:id', () => {
-			return request(app)
-				.put(`/users/${tina.id}`)
-				.send({ firstName: 'Linda' })
-				.expect(200)
-				.expect('Content-Type', /json/)
-				.expect((res) => {
-					expect(res.body.firstName).to.equal('Linda');
-				});
-		}); // end describe('/api/users')
-	}); // end describe('User routes')
 });
