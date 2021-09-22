@@ -8,6 +8,7 @@ import Home from "./components/Home";
 import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
 import Cart from "./components/Cart";
+import Admin from "./components/AdminPage"
 import { me } from "./store";
 
 
@@ -33,6 +34,7 @@ class Routes extends Component {
               path="/products/:productId"
               component={SingleProduct}
             />
+            <Route exact path="/admin" component={Admin} />
 
             <Route exact path="/cart" component={Cart} />
             <Redirect to="/home" />
