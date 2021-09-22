@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { logout } from '../store';
+import CartItem from './CartItem';
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
   return (
@@ -21,8 +22,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
                 src="https://cdn-icons-png.flaticon.com/512/263/263142.png"
                 width="25"
                 alt="shopping cart"
-                //need to make a cart counter
               />
+              <div className="cart-btn">
+                <span className="cart_image"> </span>
+                <div className="cart-items">0</div>
+              </div>
             </Link>
             <a href="#" onClick={handleClick}>
               Logout
@@ -37,8 +41,11 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
                 src="https://cdn-icons-png.flaticon.com/512/263/263142.png"
                 width="25"
                 alt="shopping cart"
-                //need to make a cart counter
               />
+              <div className="cart-btn">
+                <span className="cart_image"> </span>
+                <div className="cart-items">0</div>
+              </div>
             </Link>
             <Link to="/login"> Login</Link>
             <Link to="/signup"> Sign Up</Link>
