@@ -65,3 +65,24 @@ form div {
   border-radius: 30%;
   color: var(--mainWhite);
 }
+
+.form-content {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 92vh;
+  width: 100%;
+  background-image: url('https://images.pexels.com/photos/146083/pexels-photo-146083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+.form-inputs {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 10px;
+  border: 1px solid white;
+  border-radius: 15px;
+  backdrop-filter: blur(20px);
+}
