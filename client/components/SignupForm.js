@@ -11,13 +11,8 @@ const SignupForm = (props) => {
   return (
     <div className="form-content">
       <form onSubmit={handleSubmit} name={name}>
-        <h1> 🐜 Join our Animal Family today 🦓 Create Account </h1>
+        <h1 className="signup-text">🐜 Join our Animal Family today 🦓</h1>
         <div className="form-inputs">
-          <label htmlFor="username">
-            <small>Username</small>
-          </label>
-          <input name="username" type="text" />
-
           <div>
             <label htmlFor="firstName">
               <small>First Name</small>
@@ -31,16 +26,22 @@ const SignupForm = (props) => {
             <input name="lastName" type="text" />
           </div>
           <div>
-            <label htmlFor="password">
-              <small>Password</small>
-            </label>
-            <input name="password" type="password" />
-          </div>
-          <div>
             <label htmlFor="email">
               <small>Email</small>
             </label>
             <input name="email" type="text" />
+          </div>
+          <div>
+            <label htmlFor="username">
+              <small>Username</small>
+            </label>
+            <input name="username" type="text" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" />
           </div>
           <div>
             <label htmlFor="address">
@@ -48,10 +49,12 @@ const SignupForm = (props) => {
             </label>
             <input name="address" type="text" />
           </div>
-          <div>
-            <button type="submit">{displayName}</button>
+          <div className="btn-signup">
+            <button className="submit-signup" type="submit">
+              {displayName}
+            </button>
             <span className="form-input-login">
-              Already have an account? Login <a href="/login"> here </a>{' '}
+              Already have an account? Login <a href="/login"> here </a>
             </span>
           </div>
         </div>
