@@ -17,43 +17,43 @@ const SignupForm = (props) => {
             <small>Username</small>
           </label>
           <input name="username" type="text" />
-        </div>
-        <div>
-          <label htmlFor="firstName">
-            <small>First Name</small>
-          </label>
-          <input name="firstName" type="text" />
-        </div>
-        <div>
-          <label htmlFor="lastName">
-            <small>Last Name</small>
-          </label>
-          <input name="lastName" type="text" />
-        </div>
-        <div>
-          <label htmlFor="password">
-            <small>Password</small>
-          </label>
-          <input name="password" type="password" />
-        </div>
-        <div>
-          <label htmlFor="email">
-            <small>Email</small>
-          </label>
-          <input name="email" type="text" />
-        </div>
-        <div>
-          <label htmlFor="address">
-            <small>Address</small>
-          </label>
-          <input name="address" type="text" />
-        </div>
-        <div>
-          <button type="submit">{displayName}</button>
-          <span className="form-input-login">
-            {' '}
-            Already have an account? Login <a href="/login"> here </a>{' '}
-          </span>
+
+          <div>
+            <label htmlFor="firstName">
+              <small>First Name</small>
+            </label>
+            <input name="firstName" type="text" />
+          </div>
+          <div>
+            <label htmlFor="lastName">
+              <small>Last Name</small>
+            </label>
+            <input name="lastName" type="text" />
+          </div>
+          <div>
+            <label htmlFor="password">
+              <small>Password</small>
+            </label>
+            <input name="password" type="password" />
+          </div>
+          <div>
+            <label htmlFor="email">
+              <small>Email</small>
+            </label>
+            <input name="email" type="text" />
+          </div>
+          <div>
+            <label htmlFor="address">
+              <small>Address</small>
+            </label>
+            <input name="address" type="text" />
+          </div>
+          <div>
+            <button type="submit">{displayName}</button>
+            <span className="form-input-login">
+              Already have an account? Login <a href="/login"> here </a>{' '}
+            </span>
+          </div>
         </div>
         {error && error.response && <div> {error.response.data} </div>}
       </form>
