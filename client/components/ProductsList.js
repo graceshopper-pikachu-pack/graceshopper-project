@@ -1,6 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import Product from "./Product";
+import { fetchProducts } from "../store";
 
 const dummydata = [
   {
@@ -50,10 +51,7 @@ class ProductsList extends React.Component {
   }
 
   componentDidMount() {
-    // this.props.fetchProducts()
-    this.setState({
-      products: [...dummydata],
-    });
+    this.props.fetchProducts();
   }
 
   componentWillUnmount() {}
@@ -74,7 +72,11 @@ class ProductsList extends React.Component {
           <h4>Loading...</h4>
         ) : (
           products.map((product) => (
-            <Product product={product} key={product.id} />
+            <Product
+              product={product}
+              key={product.id}
+              history={this.props.history}
+            />
           ))
         )}
       </div>
@@ -90,7 +92,6 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    //TODO: write this store and method
     fetchProducts: () => dispatch(fetchProducts()),
   };
 };

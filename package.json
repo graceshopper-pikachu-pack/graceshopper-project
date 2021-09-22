@@ -1,7 +1,7 @@
 {
-  "name": "fs-app-template",
-  "version": "2.0.0",
-  "description": "Some boilerplate code to get you started - get shakin'!",
+  "name": "zoo-store",
+  "version": "1.0.0",
+  "description": "A store to adopt the coolest animals found in the world",
   "main": "index.js",
   "scripts": {
     "build": "webpack",
@@ -17,7 +17,7 @@
     "test:dev:models": "npm run test:dev -- --grep=model",
     "test:dev:routes": "npm run test:dev -- --grep=route"
   },
-  "author": "Fullstack Academy of Code",
+  "author": "Team Pikachu",
   "license": "MIT",
   "dependencies": {
     "axios": "^0.21.1",

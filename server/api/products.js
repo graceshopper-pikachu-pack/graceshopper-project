@@ -1,11 +1,13 @@
-const router = require('express').Router();
-const { models: Product } = require('../db');
+const router = require("express").Router();
+const {
+  models: { Product },
+} = require("../db");
 module.exports = router;
 
-// GET /api/products/ (gets all products)
-router.get('/', async (req, res, next) => {
+// GET /api/products (gets all products)
+router.get("/", async (req, res, next) => {
   try {
-    const products = Product.findAll();
+    const products = await Product.findAll();
     res.status(200).json(products);
   } catch (err) {
     next(err);
@@ -13,9 +15,9 @@ router.get('/', async (req, res, next) => {
 });
 
 //GET /api/products/:id (gets single product by id)
-router.get('/:id', async (req, res, next) => {
+router.get("/:id", async (req, res, next) => {
   try {
-    const product = Product.findByPk(req.params.id);
+    const product = await Product.findByPk(req.params.id);
     if (product) {
       res.status(200).json(product);
     } else {
@@ -27,7 +29,7 @@ router.get('/:id', async (req, res, next) => {
 });
 
 //GET /api/products/:productName (gets single product by name)
-router.get('/:productName', async (req, res, next) => {
+router.get("/:productName", async (req, res, next) => {
   try {
     const product = await Product.findOne({
       where: {
@@ -41,7 +43,7 @@ router.get('/:productName', async (req, res, next) => {
 });
 
 //POST /api/products (creates a new product)
-router.post('/', async (req, res, next) => {
+router.post("/", async (req, res, next) => {
   try {
     let newProduct = await Product.create(req.body);
     res.json(newProduct);
@@ -51,7 +53,7 @@ router.post('/', async (req, res, next) => {
 });
 
 // DELETE /api/products/:id (delete product)
-router.delete('/:id', async (req, res, next) => {
+router.delete("/:id", async (req, res, next) => {
   try {
     await Product.destroy({ where: { id: req.params.id } });
     res.sendStatus(204);
@@ -61,7 +63,7 @@ router.delete('/:id', async (req, res, next) => {
 });
 
 // PUT /api/products/:id  (update product by id)
-router.put('/:id', async (req, res, next) => {
+router.put("/:id", async (req, res, next) => {
   try {
     let updatedProductInfo = await Product.findByPk(req.params.id);
     res.json(await updatedProductInfo.update(req.body));
@@ -71,7 +73,7 @@ router.put('/:id', async (req, res, next) => {
 });
 
 // PUT /api/products/:id  (inc product amount by id)
-router.put('/:id/increase', async (req, res, next) => {
+router.put("/:id/increase", async (req, res, next) => {
   try {
     let product = Product.findByPk(req.params.id);
     product.stockQuantity++;
@@ -82,7 +84,7 @@ router.put('/:id/increase', async (req, res, next) => {
 });
 
 // PUT /api/products/:id  (dec product amount by id)
-router.put('/:id/decrease', async (req, res, next) => {
+router.put("/:id/decrease", async (req, res, next) => {
   try {
     let product = Product.findByPk(req.params.id);
     product.stockQuantity--;

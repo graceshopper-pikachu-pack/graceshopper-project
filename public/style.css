@@ -1,5 +1,10 @@
+@import url('https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@300&display=swap');
+
 body {
   font-family: sans-serif;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
 }
 
 a {
@@ -18,4 +23,24 @@ nav a {
 form div {
   margin: 1em;
   display: inline-block;
+}
+
+.navbar {
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(176, 27, 1, 1) 0%,
+    rgba(223, 145, 18, 1) 54%,
+    rgba(255, 239, 0, 1) 100%
+  );
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem, 1rem;
+}
+
+.navbar_logo {
+  display: flex;
+  font-family: 'Stick No Bills', sans-serif;
+  font-size: 30px;
 }
