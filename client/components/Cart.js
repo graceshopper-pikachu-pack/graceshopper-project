@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import CartItem from "./CartItem";
-import { clearLocalCart, fetchCart, getLocalCart, clearCart } from "../store";
+import { clearLocalCart, fetchCart, clearCart } from "../store";
 
 /**
  * COMPONENT
@@ -16,11 +16,10 @@ class Cart extends React.Component {
 
   componentDidMount() {
     this.props.fetchCart();
-    if (!this.props.isLoggedIn) {
-      this.setState({
-        cart: this.props.cart,
-      });
-    }
+
+    this.setState({
+      cart: this.props.cart,
+    });
   }
 
   componentWillUnmount() {
@@ -33,30 +32,11 @@ class Cart extends React.Component {
         cart: this.props.cart,
       });
     }
-    if (prevProps.isLoggedIn !== this.props.isLoggedIn) {
-      this.props.clearLocalCart();
-    }
   }
 
   render() {
     const cart = this.state.cart || [];
     console.log("cart", cart);
-
-    // let localCart = localStorage.getItem("cart");
-    // localCart = JSON.parse(localCart);
-    // console.log("empty localstoragecart", localCart);
-
-    // let cartCopy = [...localCart];
-    // cartCopy.push({ id: 1 });
-
-    // localStorage.setItem("cart", JSON.stringify(cartCopy));
-    // localCart = localStorage.getItem("cart");
-    // localCart = JSON.parse(localCart);
-    // console.log("with obj localstoragecart", localCart);
-
-    // if (localCart) {
-    //   console.log("local cart", localCart);
-    // }
 
     return (
       <div>
@@ -85,8 +65,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchCart: () => dispatch(fetchCart()),
-    getLocalCart: () => dispatch(getLocalCart()),
-    clearLocalCart: () => dispatch(clearLocalCart()),
+    clearLocalCart: () => clearLocalCart(),
     clearCart: () => dispatch(clearCart()),
   };
 };

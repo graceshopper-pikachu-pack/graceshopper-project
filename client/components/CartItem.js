@@ -1,6 +1,11 @@
 import React from "react";
 import { connect } from "react-redux";
-import { editCart } from "../store";
+import {
+  editCart,
+  deleteCartItem,
+  deleteLocalCartItem,
+  editLocalCartItem,
+} from "../store";
 
 class CartItem extends React.Component {
   constructor(props) {
@@ -13,6 +18,7 @@ class CartItem extends React.Component {
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleRemove = this.handleRemove.bind(this);
     this.routeToProduct = this.routeToProduct.bind(this);
   }
 
@@ -48,9 +54,38 @@ class CartItem extends React.Component {
 
     // if there are no errors in the quantity
     if (!this.state.errors.quantity) {
-      this.props.editCart({
+      let token = window.localStorage.getItem("token");
+
+      if (token) {
+        this.props.editCart({
+          cartItemId: this.props.item.cartItemId,
+          quantity: this.state.quantity,
+        });
+      } else {
+        this.props.editLocalCartItem({
+          cartItemId: this.props.item.id,
+          quantity: this.state.quantity,
+        });
+      }
+    }
+  }
+
+  routeToProduct() {
+    const route = `/products/${this.props.item.id}`;
+    this.props.history.push(route);
+  }
+
+  handleRemove(evt) {
+    evt.preventDefault();
+    let token = window.localStorage.getItem("token");
+
+    if (token) {
+      this.props.deleteCartItem({
         cartItemId: this.props.item.cartItemId,
-        quantity: this.state.quantity,
+      });
+    } else {
+      this.props.deleteLocalCartItem({
+        cartItemId: this.props.item.id,
       });
     }
   }
@@ -61,7 +96,6 @@ class CartItem extends React.Component {
   }
 
   render() {
-    // console.log(this.props.item);
     if (!this.props.item) {
       return null;
     }
@@ -90,16 +124,26 @@ class CartItem extends React.Component {
             }}
           />
           <button onClick={this.handleClick}>Change Quantity</button>
+          <button onClick={this.handleRemove}>Remove Item</button>
         </div>
       </div>
     );
   }
 }
 
-const mapDispatch = (dispatch) => {
+const mapState = (state) => {
   return {
-    editCart: (editedCartItem) => dispatch(editCart(editedCartItem)),
+    isLoggedIn: !!state.auth.id,
   };
 };
 
-export default connect(null, mapDispatch)(CartItem);
+const mapDispatch = (dispatch) => {
+  return {
+    editCart: (editedCartItem) => dispatch(editCart(editedCartItem)),
+    deleteCartItem: (cartItem) => dispatch(deleteCartItem(cartItem)),
+    deleteLocalCartItem: (cartItem) => dispatch(deleteLocalCartItem(cartItem)),
+    editLocalCartItem: (cartItem) => dispatch(editLocalCartItem(cartItem)),
+  };
+};
+
+export default connect(mapState, mapDispatch)(CartItem);

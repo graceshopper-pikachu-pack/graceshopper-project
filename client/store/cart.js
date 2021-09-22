@@ -28,7 +28,6 @@ export const clearCart = () => ({ type: CLEAR_CART, cart: [] });
 export const fetchCart = () => {
   return async (dispatch) => {
     try {
-      console.log("banana");
       const { data } = await axios.get(`/api/cart/cartItems`, {
         headers: {
           authorization: token,
@@ -39,6 +38,7 @@ export const fetchCart = () => {
         const { quantity, id } = item;
         return { quantity, cartItemId: id, ...item.product };
       });
+
       dispatch(setCart(cart));
     } catch (error) {
       console.log(error);
@@ -122,6 +122,25 @@ export const editCart = (product) => {
   };
 };
 
+export const deleteCartItem = (cartItem) => {
+  return async (dispatch) => {
+    try {
+      console.log(cartItem.cartItemId);
+      const { data } = await axios.delete(
+        `/api/cart/cartItem/delete/${cartItem.cartItemId}`,
+        {
+          headers: {
+            authorization: token,
+          },
+        }
+      );
+      history.push("/cart");
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 export const addToLocalCart = (product) => {
   return async (dispatch) => {
     try {
@@ -148,22 +167,77 @@ export const addToLocalCart = (product) => {
   };
 };
 
-export const getLocalCart = () => {
-  try {
-    // get the current cart from the local storage
-    let localCart = localStorage.getItem("cart");
-    // turn stringified cart into array of objects
-    localCart = JSON.parse(localCart);
-    // put the cart on the redux store
-    dispatch(setCart(localCart));
-  } catch (error) {
-    console.log(error);
-  }
+export const deleteLocalCartItem = (product) => {
+  return async (dispatch) => {
+    try {
+      // get the current cart from the local storage
+      let localCart = localStorage.getItem("cart");
+      // turn stringified cart into array of objects
+      localCart = JSON.parse(localCart);
+
+      // create a copy of the cart
+      let cartCopy = [...localCart];
+
+      // filter for the item we are deleting
+      cartCopy = cartCopy.filter((item) => item.id !== product.cartItemId);
+
+      // overwrite the localstorage cart with the new cart
+      localStorage.setItem("cart", JSON.stringify(cartCopy));
+      // put the new copy of the cart on the redux state
+      dispatch(setCart(cartCopy));
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
+
+export const editLocalCartItem = (product) => {
+  return async (dispatch) => {
+    try {
+      // get the current cart from the local storage
+      let localCart = localStorage.getItem("cart");
+      // turn stringified cart into array of objects
+      localCart = JSON.parse(localCart);
+
+      // create a copy of the cart
+      let cartCopy = [...localCart];
+
+      // map for the item we are editing
+      cartCopy.map((item) => {
+        if (item.id === product.cartItemId) {
+          console.log("banana");
+          item.quantity = product.quantity;
+        }
+        return item;
+      });
+
+      // overwrite the localstorage cart with the new cart
+      localStorage.setItem("cart", JSON.stringify(cartCopy));
+      // put the new copy of the cart on the redux state
+      dispatch(setCart(cartCopy));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+// export const getLocalCart = () => {
+//   try {
+//     // get the current cart from the local storage
+//     let localCart = localStorage.getItem("cart");
+//     // turn stringified cart into array of objects
+//     localCart = JSON.parse(localCart);
+//     // put the cart on the redux store
+//     dispatch(setCart(localCart));
+//   } catch (error) {
+//     console.log(error);
+//   }
+// };
 
 export const clearLocalCart = () => {
   try {
-    localStorage.setItem("cart", JSON.stringify([]));
+    const emptyCart = JSON.stringify([]);
+    window.localStorage.setItem("cart", emptyCart);
   } catch (error) {
     console.log(error);
   }

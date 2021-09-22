@@ -9,6 +9,7 @@ const secret = process.env.JWT;
 
 const authRequired = async (req, res, next) => {
   // We grab the token from the cookies
+  console.log("banana in the server");
   const token = req.headers.authorization;
   // jwt verify throws an exception when the token isn't valid
   try {
@@ -82,7 +83,6 @@ router.post("/:cartId", authRequired, async (req, res, next) => {
 // PUT /api/cartItem/edit/:id (update cartItem by id)
 router.put("/cartItem/edit/:id", authRequired, async (req, res, next) => {
   try {
-    console.log(req.body);
     const updatedCartItem = await CartItem.update(req.body, {
       where: { id: req.params.id },
       returning: true,
@@ -95,7 +95,7 @@ router.put("/cartItem/edit/:id", authRequired, async (req, res, next) => {
   }
 });
 
-// PUT /api/cartItem/edit/:id (add to cartItem by id)
+// PUT /api/cartItem/edit/:id (edit to cartItem by id)
 router.put("/cartItem/add/:id", authRequired, async (req, res, next) => {
   try {
     const cartItem = await CartItem.findByPk(req.params.id);
@@ -105,6 +105,18 @@ router.put("/cartItem/add/:id", authRequired, async (req, res, next) => {
     });
 
     res.status(200).json(incrementedCart);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// PUT /api/cartItem/remove/:id (remove cartItem by id)
+router.delete("/cartItem/delete/:id", authRequired, async (req, res, next) => {
+  try {
+    const deletedCartItem = await CartItem.findByPk(req.params.id);
+    await deletedCartItem.destroy();
+
+    res.status(200).json(deletedCartItem);
   } catch (err) {
     next(err);
   }
