@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from "../history";
+import { clearLocalCart } from "./index";
 
 const TOKEN = "token";
 
@@ -28,13 +29,12 @@ export const me = () => async (dispatch) => {
   }
 };
 
-
-export const authenticate = (formData, method) => async dispatch => {
+export const authenticate = (formData, method) => async (dispatch) => {
   try {
-    const res = await axios.post(`/auth/${method}`, formData)
-    window.localStorage.setItem(TOKEN, res.data.token)
-    dispatch(me())
+    const res = await axios.post(`/auth/${method}`, formData);
+    await window.localStorage.setItem(TOKEN, res.data.token);
 
+    dispatch(me());
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
   }
@@ -42,6 +42,8 @@ export const authenticate = (formData, method) => async dispatch => {
 
 export const logout = () => {
   window.localStorage.removeItem(TOKEN);
+  window.localStorage.removeItem("cart");
+
   history.push("/login");
   return {
     type: SET_AUTH,

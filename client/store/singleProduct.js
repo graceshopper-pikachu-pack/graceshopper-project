@@ -5,6 +5,7 @@ import history from "../history";
  * ACTION TYPES
  */
 const SET_SINGLE_PRODUCT = "SET_SINGLE_PRODUCT";
+const CLEAR_SINGLE_PRODUCT = "CLEAR_SINGLE_PRODUCT";
 
 /**
  * ACTION CREATORS
@@ -15,7 +16,7 @@ export const setSingleProduct = (singleProduct) => ({
 });
 
 export const clearSingleProduct = () => ({
-  type: SET_SINGLE_PRODUCT,
+  type: CLEAR_SINGLE_PRODUCT,
   singleProduct: {},
 });
 
@@ -39,6 +40,8 @@ export const fetchSingleProduct = (productId) => {
 export default function (state = {}, action) {
   switch (action.type) {
     case SET_SINGLE_PRODUCT:
+      return action.singleProduct;
+    case CLEAR_SINGLE_PRODUCT:
       return action.singleProduct;
     default:
       return state;
