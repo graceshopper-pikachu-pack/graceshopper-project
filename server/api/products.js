@@ -44,7 +44,7 @@ router.get('/:productName', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
   try {
     let newProduct = await Product.create(req.body);
-    res.json(newProduct);
+    res.status(201).json(newProduct);
   } catch (err) {
     next(err);
   }
