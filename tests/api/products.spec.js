@@ -11,7 +11,7 @@ const {
 	models: { Product },
 } = require('../../server/db');
 
-describe.only('Product Routes', () => {
+describe('Product Routes', () => {
 	beforeEach(async () => {
 		console.log('About to sync db - will wipe out db!');
 		await db.sync({ force: true });
@@ -23,12 +23,12 @@ describe.only('Product Routes', () => {
 		let riverOtter;
 
 		beforeEach(async () => {
+			console.log('beforeEach');
 			const productData = [
 				{
 					stockNumber: 'SN-123-001',
 					productName: 'Dodo Bird',
-					imageUrl:
-						'https://animals.sandiegozoo.org/sites/default/files/styles/image_grid_half_width/public/2019-09/shoebill03.jpg',
+					imageUrl: 'https://assets.atlasobscura.com/article_images/61281/image.jpg',
 					productDescription:
 						'You probably wouldn’t win a staring contest with it, though you’d be hard pressed to look away. Taller than a mailbox, with an eight-foot wingspan, the shoebill is quite a kick to observe! This hefty bird with its lesson-in-gray plumage is endemic to swamps and wetlands of Central and East Africa. Solitary in nature, even when paired with another, the birds like their space and will feed at opposite ends of their territory.',
 					stockQuantity: 2,
@@ -85,10 +85,9 @@ describe.only('Product Routes', () => {
 						productName: 'Loch Ness Monster',
 						productDescription: 'The fabled monster.',
 						stockQuantity: 1,
-						imageUrl:
-							'https://animals.sandiegozoo.org/sites/default/files/styles/image_grid_half_width/public/2019-09/shoebill03.jpg',
+						imageUrl: 'https://assets.atlasobscura.com/article_images/61281/image.jpg',
 						category: 'birds',
-						price: 100000000.0,
+						price: 1000000.0,
 					})
 					.expect(201)
 					.expect('Content-Type', /json/)
