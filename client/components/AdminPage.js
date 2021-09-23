@@ -1,7 +1,7 @@
 import React from "react";
 import {connect} from "react-redux";
 import {NavLink} from "react-router-dom";
-import {fetchAdminUserData, fetchAdminProductData} from "../store/admin"
+import {fetchAdminData} from "../store/admin"
 
 class Admin extends React.Component {
     constructor() {
@@ -16,11 +16,10 @@ class Admin extends React.Component {
 
     }
 
-    // componentDidMount() {
-    //     console.log("It Mounts!")
-    //     this.props.getAllProducts()
-    //     this.props.getAllUsers()
-    // }
+    componentDidMount() {
+        console.log("It Mounts!")
+        this.props.getData()
+    }
 
     // renderProductState() {
     //     this.setstate({current: this.props.products})
@@ -42,7 +41,7 @@ class Admin extends React.Component {
                     className="btn btn-primary btn-lg"
                     type="button"
                     onClick={()=> {
-                        this.renderProductState()
+                        console.log("ONE", this.state.products)
                     }}>
                         Products
                     </button>{" "}
@@ -55,6 +54,7 @@ class Admin extends React.Component {
                         Users
                     </button>
                 </div>
+
             )
         }
 
@@ -74,8 +74,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
     return {
-        getAllProducts: () => dispatch(fetchAdminProductData()),
-        getAllUsers: () => dispatch(fetchAdminUserData())
+        getData: () => dispatch(fetchAdminData())
     }
 }
 
