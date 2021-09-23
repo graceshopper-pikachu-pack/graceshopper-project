@@ -5,6 +5,8 @@ import {
   clearSingleProduct,
   addToCart,
   addToLocalCart,
+  getLocalCartItem,
+  fetchCartItem,
 } from "../store";
 
 class SingleProduct extends React.Component {
@@ -22,17 +24,37 @@ class SingleProduct extends React.Component {
   }
 
   componentDidMount() {
+    console.log("params", this.props.match.params.productId);
     this.props.fetchSingleProduct(this.props.match.params.productId);
+
+    let token = window.localStorage.getItem("token");
+
+    if (token) {
+      this.props.fetchCartItem({
+        productId: this.props.match.params.productId,
+      });
+      console.log("logged in cart");
+    } else {
+      this.props.getLocalCartItem({
+        productId: this.props.match.params.productId,
+      });
+      console.log("logged out cart");
+    }
   }
 
   componentWillUnmount() {
-    this.props.clearSingleProduct;
+    this.props.clearSingleProduct();
   }
 
   componentDidUpdate(prevProps) {
     if (prevProps.singleProduct !== this.props.singleProduct) {
       this.setState({
         singleProduct: this.props.singleProduct,
+      });
+    }
+    if (prevProps.singleCartItem !== this.props.singleCartItem) {
+      this.setState({
+        quantity: this.props.singleCartItem.quantity,
       });
     }
   }
@@ -84,6 +106,8 @@ class SingleProduct extends React.Component {
   render() {
     const singleProduct = this.state.singleProduct || {};
     const { quantity, errors } = this.state;
+    console.log("singleProduct", singleProduct);
+    console.log("squantity", this.state.quantity);
 
     return (
       <div>
@@ -97,11 +121,15 @@ class SingleProduct extends React.Component {
               <h3>Price: {singleProduct.price}</h3>
               <h3>Product Description: {singleProduct.productDescription}</h3>
 
+              <h4 style={{ color: "red" }}>
+                NOTE: can only add quantity currently, fix to either buttons or
+                reduce quantity
+              </h4>
               {errors.quantity ? (
                 <h6 className="error">{errors.quantity}</h6>
               ) : null}
               <label htmlFor="quantity">
-                <small>Add Quantity:</small>
+                <small>Current Quantity:</small>
               </label>
               <input
                 name="quantity"
@@ -126,6 +154,7 @@ const mapState = (state) => {
   return {
     singleProduct: state.singleProduct,
     auth: state.auth,
+    singleCartItem: state.singleCartItem,
   };
 };
 
@@ -135,6 +164,8 @@ const mapDispatch = (dispatch) => {
     clearSingleProduct: () => dispatch(clearSingleProduct()),
     addToCart: (productId) => dispatch(addToCart(productId)),
     addToLocalCart: (productId) => dispatch(addToLocalCart(productId)),
+    getLocalCartItem: (productId) => dispatch(getLocalCartItem(productId)),
+    fetchCartItem: (productId) => dispatch(fetchCartItem(productId)),
   };
 };
 

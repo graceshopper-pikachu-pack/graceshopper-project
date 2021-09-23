@@ -15,11 +15,6 @@ const SET_CART_ITEM = "SET_CART_ITEM";
  */
 const setCart = (cart) => ({ type: SET_CART, cart });
 
-const setCartItem = (cartItem) => ({
-  type: SET_CART_ITEM,
-  cartItem,
-});
-
 export const clearCart = () => ({ type: CLEAR_CART, cart: [] });
 
 /**
@@ -92,9 +87,6 @@ export const addToCart = (product) => {
             authorization: token,
           },
         });
-        // set the returned cartItem on the state
-        // do we need to have this?
-        dispatch(setCartItem(response.data));
       }
       history.push("/cart");
     } catch (error) {
@@ -146,17 +138,36 @@ export const addToLocalCart = (product) => {
     try {
       // find the product that matches from the server
       const { data } = await axios.get(`/api/products/${product.productId}`);
-      // add the quantity to the product
+      // set the new object as a local variable
       const localCartItem = { quantity: product.quantity, ...data };
-
       // get the current cart from the local storage
       let localCart = localStorage.getItem("cart");
       // turn stringified cart into array of objects
       localCart = JSON.parse(localCart);
       // create a copy of the cart
       let cartCopy = [...localCart];
-      // add the newly created item to the cart
-      cartCopy.push(localCartItem);
+
+      // confirm local cart does not already contain local cart item
+      let inCart = false;
+      cartCopy.forEach((item) => {
+        if (item.id === localCartItem.id) {
+          inCart = true;
+        }
+      });
+
+      // if the cartItem is already in the local cart
+      if (inCart) {
+        // increase the quantity by the added quantity
+        cartCopy.map((item) => {
+          if (item.id === localCartItem.id) {
+            item.quantity =
+              Number(item.quantity) + Number(localCartItem.quantity);
+          }
+        });
+      } else {
+        // add the newly created item to the cart
+        cartCopy.push(localCartItem);
+      }
       // overwrite the localstorage cart with the new cart
       localStorage.setItem("cart", JSON.stringify(cartCopy));
       // put the new copy of the cart on the redux state
@@ -205,7 +216,6 @@ export const editLocalCartItem = (product) => {
       // map for the item we are editing
       cartCopy.map((item) => {
         if (item.id === product.cartItemId) {
-          console.log("banana");
           item.quantity = product.quantity;
         }
         return item;

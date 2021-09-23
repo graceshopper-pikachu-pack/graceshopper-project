@@ -22,10 +22,6 @@ class Cart extends React.Component {
     });
   }
 
-  componentWillUnmount() {
-    this.props.clearCart();
-  }
-
   componentDidUpdate(prevProps) {
     if (prevProps.cart !== this.props.cart) {
       this.setState({

@@ -95,15 +95,15 @@ router.put("/cartItem/edit/:id", authRequired, async (req, res, next) => {
   }
 });
 
-// PUT /api/cartItem/edit/:id (edit to cartItem by id)
+// PUT /api/cartItem/add/:id (add to cartItem by id)
 router.put("/cartItem/add/:id", authRequired, async (req, res, next) => {
   try {
     const cartItem = await CartItem.findByPk(req.params.id);
-
+    console.log("cartItem", cartItem);
     const incrementedCart = await cartItem.increment("quantity", {
       by: req.body.quantity,
     });
-
+    console.log("incremenbted", incrementedCart);
     res.status(200).json(incrementedCart);
   } catch (err) {
     next(err);
