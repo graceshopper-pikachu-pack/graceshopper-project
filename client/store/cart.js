@@ -7,12 +7,15 @@ const token = window.localStorage.getItem(TOKEN);
  * ACTION TYPES
  */
 const SET_CART = "SET_CART";
+const EDIT_CART_ITEM = "EDIT_CART_ITEM";
 const CLEAR_CART = "CLEAR_CART";
 
 /**
  * ACTION CREATORS
  */
 const setCart = (cart) => ({ type: SET_CART, cart });
+
+const editCartItem = (item) => ({ type: EDIT_CART_ITEM, item });
 
 export const clearCart = () => ({ type: CLEAR_CART, cart: [] });
 
@@ -75,6 +78,8 @@ export const addToCart = (product) => {
             },
           }
         );
+
+        dispatch(editCartItem(response.data));
       } else {
         // if it is not already in the cart
         // set the cartId to the cartId returned from the get req
@@ -248,8 +253,15 @@ export default function (state = [], action) {
       return action.cart;
     case CLEAR_CART:
       return action.cart;
-    // case SET_CART_ITEM:
-    //   return [action.cartItem, ...state];
+    case EDIT_CART_ITEM:
+      const stateCopy = [...state];
+      stateCopy.forEach((item) => {
+        if (item.id === action.item.id) {
+          item.quantity = action.item.quantity;
+        }
+      });
+      console.log("stateCopy", stateCopy);
+      return stateCopy;
     default:
       return state;
   }

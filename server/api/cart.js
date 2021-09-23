@@ -102,6 +102,7 @@ router.put("/cartItem/add/:id", authRequired, async (req, res, next) => {
     console.log("cartItem", cartItem);
     const incrementedCart = await cartItem.increment("quantity", {
       by: req.body.quantity,
+      returning: true,
     });
     console.log("incremenbted", incrementedCart);
     res.status(200).json(incrementedCart);
