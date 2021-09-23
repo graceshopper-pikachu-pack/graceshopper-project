@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
 			// explicitly select only the id and username fields - even though
 			// users' passwords are encrypted, it won't help if we just
 			// send everything to anyone who asks!
-			//attributes: ['id', 'username'],
+			attributes: ['id', 'username'],
 		});
 		res.status(200).json(users);
 	} catch (err) {
@@ -22,7 +22,7 @@ router.get('/', async (req, res, next) => {
 router.post('/', async (req, res, next) => {
 	try {
 		let newUser = await User.create(req.body);
-		res.send(201).json(newUser);
+		res.status(201).json(newUser);
 	} catch (err) {
 		next(err);
 	}
