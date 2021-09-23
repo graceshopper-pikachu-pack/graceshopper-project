@@ -43,6 +43,7 @@ router.get('/:productName', async (req, res, next) => {
 });
 
 //POST /api/products (creates a new product)
+
 router.post('/', async (req, res, next) => {
 	try {
 		let newProduct = await Product.create(req.body);

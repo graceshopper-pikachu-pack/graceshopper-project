@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import CartItem from "./CartItem";
-import { fetchCart } from "../store";
+import { clearLocalCart, fetchCart, clearCart } from "../store";
 
 /**
  * COMPONENT
@@ -10,18 +10,19 @@ class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: {},
       cart: [],
     };
   }
 
+  componentDidMount() {
+    this.props.fetchCart();
+
+    this.setState({
+      cart: this.props.cart,
+    });
+  }
+
   componentDidUpdate(prevProps) {
-    if (prevProps.auth !== this.props.auth) {
-      this.setState({
-        user: { ...this.props.auth },
-      });
-      this.props.fetchCart(this.props.auth.id);
-    }
     if (prevProps.cart !== this.props.cart) {
       this.setState({
         cart: this.props.cart,
@@ -31,11 +32,12 @@ class Cart extends React.Component {
 
   render() {
     const cart = this.state.cart || [];
+    console.log("cart", cart);
 
     return (
       <div>
         {!cart.length ? (
-          <h4>Loading...</h4>
+          <h4>There are no items in your cart!</h4>
         ) : (
           cart.map((item) => (
             <CartItem item={item} key={item.id} history={this.props.history} />
@@ -51,14 +53,16 @@ class Cart extends React.Component {
  */
 const mapState = (state) => {
   return {
-    auth: state.auth,
+    isLoggedIn: !!state.auth.id,
     cart: state.cart,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchCart: (userId) => dispatch(fetchCart(userId)),
+    fetchCart: () => dispatch(fetchCart()),
+    clearLocalCart: () => clearLocalCart(),
+    clearCart: () => dispatch(clearCart()),
   };
 };
 
