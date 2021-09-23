@@ -1,6 +1,7 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { AdminPage } from './components/AdminPage';
 import { Login } from './components/AuthForm';
 import { Signup } from './components/SignupForm';
 import Home from './components/Home';
@@ -28,22 +29,26 @@ class Routes extends Component {
 
 		return (
 			<div>
-				<Route path="/home" component={ProductsList} />
-				<Route exact path="/products" component={ProductsList} />
-				<Route exact path="/products/:productId" component={SingleProduct} />
-				<Route exact path="/cart" component={Cart} />
-				<Redirect to="/home" />
-				<Route exact path="/products" component={ProductsList} />
-				<Route exact path="/products/:productId" component={SingleProduct} />
-				<Route exact path="/cart" component={Cart} />
-				(if !isLoggedIn)
-				{
+				{/* code for GENERAL VIEWERS */}
+				<Switch>
+					<Route path="/home" component={ProductsList} />
+					<Route exact path="/products" component={ProductsList} />
+					<Route exact path="/products/:productId" component={SingleProduct} />
+					<Route exact path="/cart" component={Cart} />
+					<Redirect to="/home" />
+				</Switch>
+				{/* code that runs IN ADDITION to the above */}
+				{!isLoggedIn ? (
 					<Switch>
-						<Route path="/" exact component={Login} />
 						<Route path="/login" component={Login} />
 						<Route path="/signup" component={Signup} />
 					</Switch>
-				}
+				) : null}
+				{/* 				{!isAdmin ? (
+					<Switch>
+						<Route exact path="/admin" exact component={AdminPage} />
+					</Switch>
+				) : null} */}
 			</div>
 		);
 	}
