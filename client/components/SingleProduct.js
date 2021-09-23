@@ -106,8 +106,6 @@ class SingleProduct extends React.Component {
   render() {
     const singleProduct = this.state.singleProduct || {};
     const { quantity, errors } = this.state;
-    console.log("singleProduct", singleProduct);
-    console.log("squantity", this.state.quantity);
 
     return (
       <div>

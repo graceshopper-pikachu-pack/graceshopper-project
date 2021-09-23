@@ -41,6 +41,7 @@ export const fetchCartItem = (product) => {
       const cartItem = cart.filter(
         (item) => item.id === Number(product.productId)
       );
+      console.log("cartItem", cartItem);
 
       dispatch(setCartItem(cartItem[0]));
     } catch (error) {

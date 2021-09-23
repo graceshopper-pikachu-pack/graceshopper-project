@@ -8,7 +8,6 @@ const token = window.localStorage.getItem(TOKEN);
  */
 const SET_CART = "SET_CART";
 const CLEAR_CART = "CLEAR_CART";
-const SET_CART_ITEM = "SET_CART_ITEM";
 
 /**
  * ACTION CREATORS
@@ -231,19 +230,6 @@ export const editLocalCartItem = (product) => {
   };
 };
 
-// export const getLocalCart = () => {
-//   try {
-//     // get the current cart from the local storage
-//     let localCart = localStorage.getItem("cart");
-//     // turn stringified cart into array of objects
-//     localCart = JSON.parse(localCart);
-//     // put the cart on the redux store
-//     dispatch(setCart(localCart));
-//   } catch (error) {
-//     console.log(error);
-//   }
-// };
-
 export const clearLocalCart = () => {
   try {
     const emptyCart = JSON.stringify([]);
@@ -262,8 +248,8 @@ export default function (state = [], action) {
       return action.cart;
     case CLEAR_CART:
       return action.cart;
-    case SET_CART_ITEM:
-      return [action.cartItem, ...state];
+    // case SET_CART_ITEM:
+    //   return [action.cartItem, ...state];
     default:
       return state;
   }
