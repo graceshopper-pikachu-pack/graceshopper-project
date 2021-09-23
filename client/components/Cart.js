@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import CartItem from "./CartItem";
-import { clearLocalCart, fetchCart, clearCart } from "../store";
+import { fetchCart, clearCart } from "../store";
 
 /**
  * COMPONENT
@@ -32,7 +32,6 @@ class Cart extends React.Component {
 
   render() {
     const cart = this.state.cart || [];
-    console.log("cart", cart);
 
     return (
       <div>
@@ -61,7 +60,6 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchCart: () => dispatch(fetchCart()),
-    clearLocalCart: () => clearLocalCart(),
     clearCart: () => dispatch(clearCart()),
   };
 };

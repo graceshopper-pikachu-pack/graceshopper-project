@@ -7,7 +7,7 @@ import Home from "./components/Home";
 import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
 import Cart from "./components/Cart";
-import Admin from "./components/AdminPage"
+import Admin from "./components/AdminPage";
 import { me } from "./store";
 
 /**
@@ -22,10 +22,10 @@ class Routes extends Component {
     const { isLoggedIn } = this.props;
 
     // if the user is not logged in
-    if (!isLoggedIn) {
-      // set the cart from the redux store on the local storage
-      localStorage.setItem("cart", JSON.stringify(this.props.cart));
-    }
+    // if (!isLoggedIn) {
+    //   // set the cart from the redux store on the local storage
+    //   localStorage.setItem("cart", JSON.stringify(this.props.cart));
+    // }
 
     return (
       <div>
@@ -70,7 +70,6 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
-    cart: state.cart,
   };
 };
 
