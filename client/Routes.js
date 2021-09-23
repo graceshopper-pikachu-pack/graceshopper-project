@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { connect } from 'react-redux';
 import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { AdminPage } from './components/AdminPage';
 import { Login } from './components/AuthForm';
 import { Signup } from './components/SignupForm';
 import Home from './components/Home';
@@ -9,6 +8,7 @@ import ProductsList from './components/ProductsList';
 import SingleProduct from './components/SingleProduct';
 import Cart from './components/Cart';
 import { me } from './store';
+import { logout } from './store/auth';
 
 /**
  * COMPONENT
@@ -21,11 +21,11 @@ class Routes extends Component {
 	render() {
 		const { isLoggedIn } = this.props;
 
-		/* require the following routes: 
-    everyone - guests, users, admin
-    isLoggedIn - users only
-    isAdmin - admin only
-    */
+		// if the user is not logged in
+		if (!isLoggedIn) {
+			// set the cart from the redux store on the local storage
+			localStorage.setItem('cart', JSON.stringify(this.props.cart));
+		}
 
 		return (
 			<div>
@@ -35,20 +35,18 @@ class Routes extends Component {
 					<Route exact path="/products" component={ProductsList} />
 					<Route exact path="/products/:productId" component={SingleProduct} />
 					<Route exact path="/cart" component={Cart} />
-					<Redirect to="/home" />
-				</Switch>
-				{/* code that runs IN ADDITION to the above */}
-				{!isLoggedIn ? (
-					<Switch>
-						<Route path="/login" component={Login} />
-						<Route path="/signup" component={Signup} />
-					</Switch>
-				) : null}
-				{/* 				{!isAdmin ? (
+					{!isLoggedIn && (
+						<>
+							<Route path="/login" component={Login} />
+							<Route path="/signup" component={Signup} />
+						</>
+						/* {!isAdmin && (
 					<Switch>
 						<Route exact path="/admin" exact component={AdminPage} />
-					</Switch>
-				) : null} */}
+					</Switch> */
+					)}
+					<Redirect to="/home" />
+				</Switch>
 			</div>
 		);
 	}
@@ -62,6 +60,7 @@ const mapState = (state) => {
 		// Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
 		// Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
 		isLoggedIn: !!state.auth.id,
+		cart: state.cart,
 	};
 };
 
