@@ -1,71 +1,72 @@
-"use strict";
+'use strict';
 
 const {
-  db,
-  models: { User, Product, Cart, CartItem },
-} = require("../server/db");
-const { green, red } = require("chalk");
+	db,
+	models: { User, Product, Cart, CartItem },
+} = require('../server/db');
+const { green, red } = require('chalk');
 
 const users = [
-  {
-    firstName: "Suzanne",
-    lastName: "Wong",
-    email: "suzanne@ghp.com",
-    address: "8037 Pine Road Orange Park, FL 32065",
-    password: "blueorange3",
-    username: "swong",
-    adminStatus: false,
-  },
-  {
-    firstName: "Gabby",
-    lastName: "Apeadu",
-    email: "gabby@ghp.com",
-    address: "352 Talbot Street Olive Branch, MS 38654",
-    password: "animalsloveme",
-    username: "gapeadu",
-    adminStatus: false,
-  },
-  {
-    firstName: "Randy",
-    lastName: "Stopa",
-    email: "randy@ghp.com",
-    address: "5 Sussex Street Rapid City, SD 57701",
-    password: "Aquatica3!",
-    username: "rstopa",
-    adminStatus: true,
-  },
-  {
-    firstName: "Audrey",
-    lastName: "Maldonado",
-    email: "audrey@ghp.com",
-    address: "57 Arcadia Street Hendersonville, NC 28792",
-    password: "DinosLand98~",
-    username: "amaldonado",
-    adminStatus: true,
-  },
+	{
+		firstName: 'Suzanne',
+		lastName: 'Wong',
+		email: 'suzanne@ghp.com',
+		address: '8037 Pine Road Orange Park, FL 32065',
+		password: 'blueorange3',
+		username: 'swong',
+		adminStatus: false,
+	},
+	{
+		firstName: 'Gabby',
+		lastName: 'Apeadu',
+		email: 'gabby@ghp.com',
+		address: '352 Talbot Street Olive Branch, MS 38654',
+		password: 'animalsloveme',
+		username: 'gapeadu',
+		adminStatus: false,
+	},
+	{
+		firstName: 'Randy',
+		lastName: 'Stopa',
+		email: 'randy@ghp.com',
+		address: '5 Sussex Street Rapid City, SD 57701',
+		password: 'Aquatica3!',
+		username: 'rstopa',
+		adminStatus: true,
+	},
+	{
+		firstName: 'Audrey',
+		lastName: 'Maldonado',
+		email: 'audrey@ghp.com',
+		address: '57 Arcadia Street Hendersonville, NC 28792',
+		password: 'DinosLand98~',
+		username: 'amaldonado',
+		adminStatus: true,
+	},
 ];
 
 const cartTestUser1 = {
-  firstName: "Banana",
-  lastName: "Mango",
-  email: "banana@banana.com",
-  address: "1 Banana Ln, Banana Town, Banana Federation",
-  password: "password",
-  username: "banana",
-  adminStatus: false,
+	firstName: 'Banana',
+	lastName: 'Mango',
+	email: 'banana@banana.com',
+	address: '1 Banana Ln, Banana Town, Banana Federation',
+	password: 'password',
+	username: 'banana',
+	adminStatus: false,
 };
 
 const cartTestUser2 = {
-  firstName: "Apple",
-  lastName: "Apple",
-  email: "apple@banana.com",
-  address: "1 Apple drive, Big Apple, NY",
-  password: "password",
-  username: "apple",
-  adminStatus: true,
+	firstName: 'Apple',
+	lastName: 'Apple',
+	email: 'apple@banana.com',
+	address: '1 Apple drive, Big Apple, NY',
+	password: 'password',
+	username: 'apple',
+	adminStatus: true,
 };
 
 const products = [
+
   {
     stockNumber: "SN-123-001",
     productName: "Shoebill Stork",
@@ -142,22 +143,23 @@ const products = [
     category: "reptiles",
     price: 800007,
   },
+
 ];
 
 const cartItems1 = [
-  { productId: 1, quantity: 1 },
-  { productId: 2, quantity: 2 },
-  { productId: 3, quantity: 1 },
-  { productId: 4, quantity: 1 },
-  { productId: 5, quantity: 2 },
+	{ productId: 1, quantity: 1 },
+	{ productId: 2, quantity: 2 },
+	{ productId: 3, quantity: 1 },
+	{ productId: 4, quantity: 1 },
+	{ productId: 5, quantity: 2 },
 ];
 
 const cartItems2 = [
-  { productId: 2, quantity: 1 },
-  { productId: 6, quantity: 2 },
-  { productId: 7, quantity: 1 },
-  { productId: 4, quantity: 1 },
-  { productId: 3, quantity: 1 },
+	{ productId: 2, quantity: 1 },
+	{ productId: 6, quantity: 2 },
+	{ productId: 7, quantity: 1 },
+	{ productId: 4, quantity: 1 },
+	{ productId: 3, quantity: 1 },
 ];
 
 /**
@@ -165,47 +167,47 @@ const cartItems2 = [
  *      match the models, and populates the database.
  */
 async function seed() {
-  await db.sync({ force: true }); // clears db and matches models to tables
+	await db.sync({ force: true }); // clears db and matches models to tables
 
-  // Creating Users
-  await Promise.all(
-    users.map(async (user) => {
-      const newUser = await User.create(user);
-      await Cart.create({ userId: newUser.id });
-      return newUser;
-    })
-  );
+	// Creating Users
+	await Promise.all(
+		users.map(async (user) => {
+			const newUser = await User.create(user);
+			await Cart.create({ userId: newUser.id });
+			return newUser;
+		})
+	);
 
-  // Creating Products
-  await Promise.all(
-    products.map((product) => {
-      return Product.create(product);
-    })
-  );
+	// Creating Products
+	await Promise.all(
+		products.map((product) => {
+			return Product.create(product);
+		})
+	);
 
-  // user to test cart
-  const newCartTestUser1 = await User.create(cartTestUser1);
-  const newCart1 = await Cart.create({ userId: newCartTestUser1.id });
+	// user to test cart
+	const newCartTestUser1 = await User.create(cartTestUser1);
+	const newCart1 = await Cart.create({ userId: newCartTestUser1.id });
 
-  const newCartTestUser2 = await User.create(cartTestUser2);
-  const newCart2 = await Cart.create({ userId: newCartTestUser2.id });
+	const newCartTestUser2 = await User.create(cartTestUser2);
+	const newCart2 = await Cart.create({ userId: newCartTestUser2.id });
 
-  // // Adding items to cart
-  await Promise.all(
-    cartItems1.map((item) => {
-      return CartItem.create({ cartId: newCart1.id, ...item });
-    })
-  );
+	// // Adding items to cart
+	await Promise.all(
+		cartItems1.map((item) => {
+			return CartItem.create({ cartId: newCart1.id, ...item });
+		})
+	);
 
-  await Promise.all(
-    cartItems2.map((item) => {
-      return CartItem.create({ cartId: newCart2.id, ...item });
-    })
-  );
+	await Promise.all(
+		cartItems2.map((item) => {
+			return CartItem.create({ cartId: newCart2.id, ...item });
+		})
+	);
 
-  console.log(green(`seeded ${users.length} users`));
-  console.log(green(`seeded ${products.length} products`));
-  console.log(green("Seeding success!"));
+	console.log(green(`seeded ${users.length} users`));
+	console.log(green(`seeded ${products.length} products`));
+	console.log(green('Seeding success!'));
 }
 
 /*
@@ -214,19 +216,19 @@ async function seed() {
  The `seed` function is concerned only with modifying the database.
 */
 async function runSeed() {
-  console.log("seeding...");
-  try {
-    await seed();
-  } catch (err) {
-    console.error(red("Oh no! Something went wrong!"));
-    console.error(err);
-    console.log(red(err));
-    process.exitCode = 1;
-  } finally {
-    console.log("closing db connection");
-    await db.close();
-    console.log("db connection closed");
-  }
+	console.log('seeding...');
+	try {
+		await seed();
+	} catch (err) {
+		console.error(red('Oh no! Something went wrong!'));
+		console.error(err);
+		console.log(red(err));
+		process.exitCode = 1;
+	} finally {
+		console.log('closing db connection');
+		await db.close();
+		console.log('db connection closed');
+	}
 }
 
 /*
@@ -235,7 +237,7 @@ async function runSeed() {
   any errors that might occur inside of `seed`.
 */
 if (module === require.main) {
-  runSeed();
+	runSeed();
 }
 
 // we export the seed function for testing purposes (see `./seed.spec.js`)
