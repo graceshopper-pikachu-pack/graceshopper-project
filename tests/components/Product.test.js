@@ -21,17 +21,17 @@ const initialState = {
  */
 
 import mockAxios from './component-specs/mock-axios';
-import { setProducts, fetchProducts } from '../client/store/products';
+import { setProducts, fetchProducts } from '../../client/store/products';
 
-import productsReducer from '../client/store/products';
+import productsReducer from '../../client/store/products';
 import { createStore } from 'redux';
 
-const app = require('../server/app');
+const app = require('../../server/app');
 const agent = require('supertest')(app);
 
-const db = require('../server/db/db');
+const db = require('../../server/db/db');
 
-const seed = require('../script/seed');
+const seed = require('../../script/seed');
 
 // NOTE: Make sure you pay attention to the path below. This is where your React components should live!
 // ProductsList is the default export from that module, and it is connected to Redux.
@@ -40,9 +40,9 @@ const seed = require('../script/seed');
 //import Product, {ProductsList as UnconnectedAllCampuses} from '../../app/components/ProductsList';
 import ProductsList, {
 	ProductsList as UnconnectedProductsList,
-} from '../client/components/Product';
-import Routes from '../client/Routes';
-import Product from '../client/components/Product';
+} from '../../client/components/Product';
+import Routes from '../../client/Routes';
+import Product from '../../client/components/Product';
 
 describe('Tier One: Products', () => {
 	// We'll use this array of products as dummy data for testing purposes
