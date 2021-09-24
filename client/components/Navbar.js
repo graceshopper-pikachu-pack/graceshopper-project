@@ -1,8 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { logout } from '../store';
-import CartItem from './CartItem';
+import { logout, fetchCart } from '../store';
+import Cart from './Cart';
+import cart from '../store/cart';
 
 const Navbar = ({ handleClick, isLoggedIn }) => {
   return (
@@ -25,7 +26,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
               />
               <div className="cart-btn">
                 <span className="cart_image"> </span>
-                <div className="cart-items">0</div>
+                <div className="cart-items"></div>
               </div>
             </Link>
             <a href="#" onClick={handleClick}>
@@ -44,7 +45,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
               />
               <div className="cart-btn">
                 <span className="cart_image"> </span>
-                <div className="cart-items">0</div>
+                <div className="cart-items"></div>
               </div>
             </Link>
             <Link to="/login"> Login</Link>
