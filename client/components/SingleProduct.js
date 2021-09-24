@@ -3,9 +3,7 @@ import { connect } from "react-redux";
 import {
   fetchSingleProduct,
   clearSingleProduct,
-  addToCart,
-  addToLocalCart,
-  getLocalCartItem,
+  editCart,
   fetchCartItem,
 } from "../store";
 
@@ -15,31 +13,22 @@ class SingleProduct extends React.Component {
     this.state = {
       singleProduct: {},
       quantity: 0,
+      cartItemId: "",
       errors: {
         quantity: "",
       },
     };
     this.handleChange = this.handleChange.bind(this);
-    this.handleClick = this.handleClick.bind(this);
+    this.handleEdit = this.handleEdit.bind(this);
   }
 
   componentDidMount() {
-    console.log("params", this.props.match.params.productId);
     this.props.fetchSingleProduct(this.props.match.params.productId);
 
-    let token = window.localStorage.getItem("token");
-
-    if (token) {
-      this.props.fetchCartItem({
-        productId: this.props.match.params.productId,
-      });
-      console.log("logged in cart");
-    } else {
-      this.props.getLocalCartItem({
-        productId: this.props.match.params.productId,
-      });
-      console.log("logged out cart");
-    }
+    // handles in the redux store for both guest and signed in
+    this.props.fetchCartItem({
+      productId: this.props.match.params.productId,
+    });
   }
 
   componentWillUnmount() {
@@ -55,6 +44,7 @@ class SingleProduct extends React.Component {
     if (prevProps.singleCartItem !== this.props.singleCartItem) {
       this.setState({
         quantity: this.props.singleCartItem.quantity,
+        cartItemId: this.props.singleCartItem.id,
       });
     }
   }
@@ -81,25 +71,16 @@ class SingleProduct extends React.Component {
     });
   }
 
-  handleClick(evt) {
+  handleEdit(evt) {
     evt.preventDefault();
-    // if quantity has no errors
+
+    // if there are no errors in the quantity
     if (!this.state.errors.quantity) {
-      if (this.props.auth.id) {
-        // CHECK IF ITEM ALREADY IN CART
-        // if the user is signed in, add the item to the cart in the db
-        this.props.addToCart({
-          productId: this.state.singleProduct.id,
-          quantity: this.state.quantity,
-        });
-      } else {
-        // else, just add the cart to the store
-        // for now, look into session storage for longer term storage
-        this.props.addToLocalCart({
-          productId: this.state.singleProduct.id,
-          quantity: this.state.quantity,
-        });
-      }
+      this.props.editCart({
+        productId: this.state.singleProduct.id,
+        cartItemId: this.state.cartItemId,
+        quantity: this.state.quantity,
+      });
     }
   }
 
@@ -139,7 +120,7 @@ class SingleProduct extends React.Component {
                 }}
               />
 
-              <button onClick={this.handleClick}>Add to Cart</button>
+              <button onClick={this.handleEdit}>Add to Cart</button>
             </div>
           </div>
         )}
@@ -151,7 +132,6 @@ class SingleProduct extends React.Component {
 const mapState = (state) => {
   return {
     singleProduct: state.singleProduct,
-    auth: state.auth,
     singleCartItem: state.singleCartItem,
   };
 };
@@ -160,9 +140,7 @@ const mapDispatch = (dispatch) => {
   return {
     fetchSingleProduct: (id) => dispatch(fetchSingleProduct(id)),
     clearSingleProduct: () => dispatch(clearSingleProduct()),
-    addToCart: (productId) => dispatch(addToCart(productId)),
-    addToLocalCart: (productId) => dispatch(addToLocalCart(productId)),
-    getLocalCartItem: (productId) => dispatch(getLocalCartItem(productId)),
+    editCart: (product) => dispatch(editCart(product)),
     fetchCartItem: (productId) => dispatch(fetchCartItem(productId)),
   };
 };

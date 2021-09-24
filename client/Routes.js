@@ -1,14 +1,15 @@
-import React, { Component, Fragment } from "react";
-import { connect } from "react-redux";
-import { withRouter, Route, Switch, Redirect } from "react-router-dom";
-import { Login } from "./components/AuthForm";
-import { Signup } from "./components/SignupForm";
-import Home from "./components/Home";
-import ProductsList from "./components/ProductsList";
-import SingleProduct from "./components/SingleProduct";
-import Cart from "./components/Cart";
-import Admin from "./components/AdminPage"
-import { me } from "./store";
+import React, { Component, Fragment } from 'react';
+import { connect } from 'react-redux';
+import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
+import { Login } from './components/AuthForm';
+import { Signup } from './components/SignupForm';
+import Home from './components/Home';
+import ProductsList from './components/ProductsList';
+import SingleProduct from './components/SingleProduct';
+import Cart from './components/Cart';
+import Admin from './components/AdminPage';
+import { me } from './store';
+import AdminPage from './components/AdminPage';
 
 /**
  * COMPONENT
@@ -21,42 +22,27 @@ class Routes extends Component {
   render() {
     const { isLoggedIn } = this.props;
 
-    // if the user is not logged in
-    if (!isLoggedIn) {
-      // set the cart from the redux store on the local storage
-      localStorage.setItem("cart", JSON.stringify(this.props.cart));
-    }
-
     return (
       <div>
-        {isLoggedIn ? (
-          <Switch>
-            <Route path="/home" component={Home} />
-            <Route exact path="/products" component={ProductsList} />
-            <Route
-              exact
-              path="/products/:productId"
-              component={SingleProduct}
-            />
-            <Route exact path="/admin" component={Admin} />
-
-            <Route exact path="/cart" component={Cart} />
-            <Redirect to="/home" />
-          </Switch>
-        ) : (
-          <Switch>
-            <Route path="/" exact component={Login} />
-            <Route path="/login" component={Login} />
-            <Route path="/signup" component={Signup} />
-            <Route exact path="/products" component={ProductsList} />
-            <Route
-              exact
-              path="/products/:productId"
-              component={SingleProduct}
-            />
-            <Route exact path="/cart" component={Cart} />
-          </Switch>
-        )}
+        {/* code for GENERAL VIEWERS */}
+        <Switch>
+          <Route path="/home" component={ProductsList} />
+          <Route exact path="/products" component={ProductsList} />
+          <Route exact path="/products/:productId" component={SingleProduct} />
+          <Route exact path="/cart" component={Cart} />
+          {!isLoggedIn && (
+            <>
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route exact path="/admin" component={AdminPage} />
+            </>
+            /* {!isAdmin && (
+					<Switch>
+						<Route exact path="/admin" exact component={AdminPage} />
+					</Switch> */
+          )}
+          <Redirect to="/home" />
+        </Switch>
       </div>
     );
   }
@@ -70,7 +56,6 @@ const mapState = (state) => {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: !!state.auth.id,
-    cart: state.cart,
   };
 };
 

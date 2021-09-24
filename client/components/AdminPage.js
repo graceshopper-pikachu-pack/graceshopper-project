@@ -1,81 +1,61 @@
-import React from "react";
-import {connect} from "react-redux";
-import {NavLink} from "react-router-dom";
-import {fetchAdminData} from "../store/admin"
+import React from 'react';
+import { connect } from 'react-redux';
+import { NavLink, Link } from 'react-router-dom';
+import { fetchAdminData, updateAdminData } from '../store/admin';
+import ProductsList from './ProductsList';
 
 class Admin extends React.Component {
-    constructor() {
-        super()
-        this.state = {
-            products: [],
-            users: []
-            // current: []
-        }
-        // this.renderProductState = this.renderProductState.bind(this)
-        // this.renderUserState = this.renderUserState.bind(this)
+  constructor() {
+    super();
+    this.state = {
+      products: [],
+      users: [],
+    };
+  }
 
-    }
+  componentDidMount() {
+    this.props.getData();
+  }
 
-    componentDidMount() {
-        console.log("It Mounts!")
-        this.props.getData()
-    }
+  handleUpdate(product) {
+    this.props.updateData(product);
+  }
 
-    // renderProductState() {
-    //     this.setstate({current: this.props.products})
-    //     this.forceUpdate()
-    // }
+  renderUserState() {
+    this.setState({ current: this.props.users });
+    this.forceUpdate();
+  }
 
-    renderUserState() {
-        this.setState({current:this.props.users})
-        this.forceUpdate()
-    }
-
-    render(){
-        console.log("HERE ARE THE PROPS", this.props)
-        // if (this.state.length < 1)
-        {
-            return (
-                <div>
-                    <button
-                    className="btn btn-primary btn-lg"
-                    type="button"
-                    onClick={()=> {
-                        console.log("ONE", this.state.products)
-                    }}>
-                        Products
-                    </button>{" "}
-                    <button
-                    className="btn btn-primary btn-lg"
-                    type="button"
-                    onClick={()=> {
-                        this.renderUserState()
-                    }}>
-                        Users
-                    </button>
-                </div>
-
-            )
-        }
-
-
-
-
-
-    }
+  render() {
+    console.log('props', this.props);
+    return (
+      <div>
+        <button
+          type="button"
+          onClick={() => this.props.history.push('/products')}
+        >
+          Products
+        </button>
+        {/* <button type="button" onClick={() => }>
+          Users
+        </button> */}
+      </div>
+    );
+  }
 }
 
-const mapState = state => {
-    return {
-        products: state.products,
-        users: state.users
-    }
-}
+const mapState = (state) => {
+  return {
+    products: state.admin.products,
+    users: state.admin.users,
+  };
+};
 
-const mapDispatch = dispatch => {
-    return {
-        getData: () => dispatch(fetchAdminData())
-    }
-}
+const mapDispatch = (dispatch) => {
+  return {
+    getData: () => dispatch(fetchAdminData()),
+    updateData: (product) => dispatch(updateAdminData(product)),
+  };
+};
 
-export default connect(mapState, mapDispatch)(Admin)
+export default connect(mapState, mapDispatch)(Admin);
