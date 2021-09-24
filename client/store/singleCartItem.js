@@ -9,6 +9,7 @@ const token = window.localStorage.getItem(TOKEN);
 
 const CLEAR_CART_ITEM = "CLEAR_CART_ITEM";
 const SET_CART_ITEM = "SET_CART_ITEM";
+const EDIT_CART_ITEM = "EDIT_CART_ITEM";
 
 /**
  * ACTION CREATORS
@@ -20,6 +21,8 @@ export const setCartItem = (item) => ({
 });
 
 export const clearCartItem = () => ({ type: CLEAR_CART_ITEM, item: {} });
+
+export const editCartItem = (item) => ({ type: EDIT_CART_ITEM, item });
 
 /**
  * THUNK CREATORS
@@ -98,6 +101,10 @@ export default function (state = {}, action) {
       return action.item;
     case SET_CART_ITEM:
       return action.item;
+    case EDIT_CART_ITEM:
+      const stateCopy = { ...state };
+      stateCopy.quantity = action.item.quantity;
+      return stateCopy;
     default:
       return state;
   }

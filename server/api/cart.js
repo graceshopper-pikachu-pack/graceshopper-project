@@ -58,7 +58,7 @@ router.delete("/id", authRequired, async (req, res, next) => {
 
     if (cart.id) {
       cart.cartItems.forEach(async (item) => await item.destroy());
-      console.log("cart after destroy", cart);
+
       res.status(200).json(cart);
     }
   } catch (err) {

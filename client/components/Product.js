@@ -72,7 +72,7 @@ class Product extends React.Component {
 
     let errors = this.state.errors;
     // error handling for valid quantity
-    if (this.state.quantity - 1 <= 0) {
+    if (this.state.quantity - 1 < 0) {
       errors.quantity = "This item is not in your cart!";
     } else {
       errors.quantity = "";
@@ -95,6 +95,7 @@ class Product extends React.Component {
   }
 
   render() {
+    console.log(this.state);
     if (!this.props.product) {
       return null;
     }

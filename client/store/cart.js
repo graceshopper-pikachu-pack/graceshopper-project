@@ -1,5 +1,6 @@
 import axios from "axios";
 import history from "../history";
+import { editCartItem } from "./index";
 
 const TOKEN = "token";
 const token = window.localStorage.getItem(TOKEN);
@@ -7,7 +8,7 @@ const token = window.localStorage.getItem(TOKEN);
  * ACTION TYPES
  */
 const SET_CART = "SET_CART";
-const EDIT_CART_ITEM = "EDIT_CART_ITEM";
+const SET_EDITED_CART = "SET_EDITED_CART";
 const CLEAR_CART = "CLEAR_CART";
 
 /**
@@ -15,7 +16,7 @@ const CLEAR_CART = "CLEAR_CART";
  */
 const setCart = (cart) => ({ type: SET_CART, cart });
 
-const editCartItem = (item) => ({ type: EDIT_CART_ITEM, item });
+const setEditedCart = (item) => ({ type: SET_EDITED_CART, item });
 
 export const clearReduxCart = () => ({ type: CLEAR_CART, cart: [] });
 
@@ -123,6 +124,8 @@ export const incrementDBCart = (cartItem) => {
           }
         );
       }
+      console.log("edited cart item", response.data);
+      dispatch(setEditedCart(response.data));
       dispatch(editCartItem(response.data));
     } catch (error) {
       console.log(error);
@@ -194,6 +197,7 @@ export const decrementDBCart = (cartItem) => {
         }
       );
 
+      dispatch(setEditedCart(data));
       dispatch(editCartItem(data));
     } catch (error) {
       console.log(error);
@@ -400,7 +404,7 @@ export default function (state = [], action) {
       return action.cart;
     case CLEAR_CART:
       return action.cart;
-    case EDIT_CART_ITEM:
+    case SET_EDITED_CART:
       const stateCopy = [...state];
       stateCopy.forEach((item) => {
         if (item.id === action.item.id) {
