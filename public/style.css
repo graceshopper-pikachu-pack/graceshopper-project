@@ -2,158 +2,161 @@
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
 
 * {
-	box-sizing: border-box;
-	margin: 0;
-	padding: 0;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-	font-family: sans-serif;
-	font-size: 20px;
+  font-family: sans-serif;
+  font-size: 20px;
 }
 
 a {
-	text-decoration: none;
+  text-decoration: none;
 }
 
 label {
-	display: block;
+  display: block;
 }
 
 nav a {
-	display: inline-block;
-	margin: 1em;
+  display: inline-block;
+  margin: 1em;
 }
 
 form div {
-	margin: 1em;
-	display: inline-block;
+  margin: 1em;
+  display: inline-block;
 }
 
 .navbar {
-	position: sticky;
-	top: 0;
-	height: 60pn;
-	width: 100%;
-	background: linear-gradient(
-		90deg,
-		rgba(176, 27, 1, 1) 0%,
-		rgba(223, 145, 18, 1) 54%,
-		rgba(255, 239, 0, 1) 100%
-	);
-	display: flex;
-	justify-content: space-between;
-	align-items: center;
-	z-index: 1;
+  position: sticky;
+  top: 0;
+  height: 60pn;
+  width: 100%;
+  background: linear-gradient(
+    90deg,
+    rgba(176, 27, 1, 1) 0%,
+    rgba(223, 145, 18, 1) 54%,
+    rgba(255, 239, 0, 1) 100%
+  );
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  z-index: 1;
 }
 
 .navbar_logo {
-	display: flex;
-	font-family: 'Stick No Bills', sans-serif;
-	font-size: 30px;
+  display: flex;
+  font-family: 'Stick No Bills', sans-serif;
+  font-size: 30px;
 }
-
+.navbar_links {
+  display: flex;
+  flex-direction: row;
+}
 .cart-btn {
-	position: relative;
-	cursor: pointer;
+  position: relative;
+  cursor: pointer;
 }
 
 .cart-items {
-	position: absolute;
-	top: -45px;
-	right: 0px;
-	padding: 0 5px;
-	border-radius: 30%;
-	color: var(--mainWhite);
+  position: absolute;
+  top: -45px;
+  right: 0px;
+  padding: 0 5px;
+  border-radius: 30%;
+  color: var(--mainWhite);
 }
 
 .form-content {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	width: 100%;
-	background-image: url('https://images.pexels.com/photos/146083/pexels-photo-146083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
-	background-size: cover;
-	background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  background-image: url('https://images.pexels.com/photos/146083/pexels-photo-146083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 .form-inputs {
-	font-size: 1.2 rem;
-	width: 100%;
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: space-around;
-	padding: 20px;
-	border: 1px solid white;
-	border-radius: 15px;
-	backdrop-filter: blur(20px);
-	-webkit-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
-	-moz-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
-	box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+  font-size: 1.2 rem;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding: 20px;
+  border: 1px solid white;
+  border-radius: 15px;
+  backdrop-filter: blur(20px);
+  -webkit-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+  box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
 }
 
 .signup-text {
-	color: white;
-	font-family: 'Bebas Neue', cursive;
-	font-size: 50px;
+  color: white;
+  font-family: 'Bebas Neue', cursive;
+  font-size: 50px;
 }
 
 input[type='text'] {
-	background: rgba(255, 255, 255, 0.2);
-	font-size: 1.5rem;
-	font-weight: 300;
-	border: 0;
-	width: 100%;
-	padding: 10px;
-	margin: 8px 0;
-	box-sizing: border-box;
-	border-bottom: 1px solid #05f7ff;
-	outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 1.5rem;
+  font-weight: 300;
+  border: 0;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  box-sizing: border-box;
+  border-bottom: 1px solid #05f7ff;
+  outline: none;
 }
 input[type='password'] {
-	background: rgba(255, 255, 255, 0.2);
-	font-size: 1.5rem;
-	width: 100%;
-	padding: 10px;
-	margin: 8px 0;
-	border: 0;
-	border-bottom: 1px solid #05f7ff;
-	box-sizing: border-box;
-	outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  font-size: 1.5rem;
+  width: 100%;
+  padding: 10px;
+  margin: 8px 0;
+  border: 0;
+  border-bottom: 1px solid #05f7ff;
+  box-sizing: border-box;
+  outline: none;
 }
 .submit-signup {
-	font-size: 20px;
-	background-color: #05f7ff;
+  font-size: 20px;
+  background-color: #05f7ff;
 }
 
 .btn-signup {
-	display: flex;
-	flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .grid-layout {
-	display: flex;
-	flex-wrap: wrap;
-	align-content: center;
-	justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  align-content: center;
+  justify-content: center;
 }
 
 .row {
-	display: flex;
-	flex-direction: row;
+  display: flex;
+  flex-direction: row;
 }
 
 .column {
-	display: flex;
-	flex-direction: column;
-	padding: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
 #single-product {
-	align-items: center;
-	display: flex;
-	flex-wrap: wrap;
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
 }
 
 .login-form {
