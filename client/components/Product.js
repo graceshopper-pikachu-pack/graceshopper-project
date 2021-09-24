@@ -43,8 +43,22 @@ class Product extends React.Component {
   handleIncrement(evt) {
     evt.preventDefault();
 
+    let errors = this.state.errors;
+    // error handling for valid quantity
+    if (this.state.quantity + 1 > this.props.product.stockQuantity) {
+      errors.quantity = "Requested quantity in cart exceeds stock quantity";
+    } else {
+      errors.quantity = "";
+    }
+
+    this.setState({
+      errors: {
+        quantity: errors.quantity,
+      },
+    });
+
     // if there are no errors in the quantity
-    if (!this.state.errors.quantity) {
+    if (!errors.quantity) {
       this.props.incrementCartItem({
         productId: this.state.singleProduct.id,
         cartItemId: this.state.singleProduct.cartItemId,
@@ -55,6 +69,20 @@ class Product extends React.Component {
 
   handleDecrement(evt) {
     evt.preventDefault();
+
+    let errors = this.state.errors;
+    // error handling for valid quantity
+    if (this.state.quantity - 1 <= 0) {
+      errors.quantity = "This item is not in your cart!";
+    } else {
+      errors.quantity = "";
+    }
+
+    this.setState({
+      errors: {
+        quantity: errors.quantity,
+      },
+    });
 
     // if there are no errors in the quantity
     if (!this.state.errors.quantity) {
@@ -85,6 +113,9 @@ class Product extends React.Component {
           <h2>Product Name: {singleProduct.productName}</h2>
           <h3>Category: {singleProduct.category}</h3>
           <h3>Price: {singleProduct.price}</h3>
+          {errors.quantity ? (
+            <h6 className="error">{errors.quantity}</h6>
+          ) : null}
           <button onClick={this.handleIncrement}>Add to Cart</button>
           <h3>Quantity: {quantity}</h3>
           <button onClick={this.handleDecrement}>Subtract from Cart</button>

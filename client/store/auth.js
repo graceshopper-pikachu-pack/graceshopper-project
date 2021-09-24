@@ -1,6 +1,6 @@
 import axios from "axios";
 import history from "../history";
-import { clearLocalCart, clearCart } from "./index";
+import { clearReduxCart } from "./index";
 
 const TOKEN = "token";
 
@@ -42,7 +42,7 @@ export const authenticate = (formData, method) => async (dispatch) => {
     window.localStorage.removeItem("cart");
     window.localStorage.setItem(TOKEN, res.data.token);
 
-    dispatch(clearCart());
+    dispatch(clearReduxCart());
     dispatch(me());
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
@@ -54,13 +54,9 @@ export const logout = () => {
     window.localStorage.removeItem(TOKEN);
     // if we log out, we want to remove the cart that may have been there
     window.localStorage.removeItem("cart");
-    dispatch(clearCart());
+    dispatch(clearReduxCart());
     dispatch(setAuth({}));
     history.push("/login");
-    // return {
-    //   type: SET_AUTH,
-    //   auth: {},
-    // };
   };
 };
 

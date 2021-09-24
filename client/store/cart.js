@@ -17,7 +17,7 @@ const setCart = (cart) => ({ type: SET_CART, cart });
 
 const editCartItem = (item) => ({ type: EDIT_CART_ITEM, item });
 
-export const clearCart = () => ({ type: CLEAR_CART, cart: [] });
+export const clearReduxCart = () => ({ type: CLEAR_CART, cart: [] });
 
 /**
  * THUNK CREATORS
@@ -133,7 +133,6 @@ export const incrementDBCart = (cartItem) => {
 export const incrementLocalCart = (cartItem) => {
   return async (dispatch) => {
     try {
-      console.log(cartItem);
       // get the current cart from the local storage
       let localCart = localStorage.getItem("cart");
       // turn stringified cart into array of objects
@@ -143,7 +142,6 @@ export const incrementLocalCart = (cartItem) => {
 
       // if the cartItem is already in the local cart increase by one
       if (cartItem.quantity && cartItem.quantity !== 0) {
-        console.log("quantity");
         cartCopy.map((item) => {
           if (item.id === cartItem.productId) {
             item.quantity += 1;
@@ -155,7 +153,7 @@ export const incrementLocalCart = (cartItem) => {
         // set the new object as a local variable
         const localCartItem = { quantity: 1, ...data };
         // add the newly created item to the cart
-        console.log(localCartItem);
+
         cartCopy.push(localCartItem);
       }
       // overwrite the localstorage cart with the new cart
@@ -353,6 +351,31 @@ export const deleteLocalCartItem = (cartItem) => {
       localStorage.setItem("cart", JSON.stringify(cartCopy));
       // put the new copy of the cart on the redux state
       dispatch(setCart(cartCopy));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const clearCart = () => {
+  return async (dispatch) => {
+    if (token) {
+      dispatch(clearDBCart());
+    } else {
+      dispatch(clearLocalCart());
+    }
+    dispatch(clearReduxCart());
+  };
+};
+
+export const clearDBCart = () => {
+  return async () => {
+    try {
+      const { data } = await axios.delete(`/api/cart/id`, {
+        headers: {
+          authorization: token,
+        },
+      });
     } catch (error) {
       console.log(error);
     }

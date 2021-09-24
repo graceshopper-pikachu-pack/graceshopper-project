@@ -42,6 +42,30 @@ router.get("/id", authRequired, async (req, res, next) => {
   }
 });
 
+// DELETE /api/cart/id (delete cart by cart Id)
+router.delete("/id", authRequired, async (req, res, next) => {
+  try {
+    const cart = await Cart.findOne({
+      where: {
+        userId: req.userId,
+      },
+      include: [
+        {
+          model: CartItem,
+        },
+      ],
+    });
+
+    if (cart.id) {
+      cart.cartItems.forEach(async (item) => await item.destroy());
+      console.log("cart after destroy", cart);
+      res.status(200).json(cart);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 // GET /api/cart/products (a single order w/products assoicated with a user)
 router.get("/cartItems", authRequired, async (req, res, next) => {
   try {
@@ -56,6 +80,7 @@ router.get("/cartItems", authRequired, async (req, res, next) => {
         },
       ],
     });
+    console.log(cart);
     if (cart) {
       res.status(200).json(cart);
     }
