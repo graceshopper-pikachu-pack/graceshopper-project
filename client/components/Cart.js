@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import CartItem from "./CartItem";
-import { clearLocalCart, fetchCart, clearCart } from "../store";
+import { fetchCart, clearCart } from "../store";
 
 /**
  * COMPONENT
@@ -12,6 +12,7 @@ class Cart extends React.Component {
     this.state = {
       cart: [],
     };
+    this.clearCart = this.clearCart.bind(this);
   }
 
   componentDidMount() {
@@ -30,18 +31,32 @@ class Cart extends React.Component {
     }
   }
 
+  clearCart(evt) {
+    evt.preventDefault();
+
+    if (this.state.cart.length) {
+      this.props.clearCart();
+    }
+  }
+
   render() {
     const cart = this.state.cart || [];
-    console.log("cart", cart);
 
     return (
       <div>
         {!cart.length ? (
           <h4>There are no items in your cart!</h4>
         ) : (
-          cart.map((item) => (
-            <CartItem item={item} key={item.id} history={this.props.history} />
-          ))
+          <>
+            <button onClick={this.clearCart}>Clear Cart</button>
+            {cart.map((item) => (
+              <CartItem
+                item={item}
+                key={item.id}
+                history={this.props.history}
+              />
+            ))}
+          </>
         )}
       </div>
     );
@@ -61,7 +76,6 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchCart: () => dispatch(fetchCart()),
-    clearLocalCart: () => clearLocalCart(),
     clearCart: () => dispatch(clearCart()),
   };
 };

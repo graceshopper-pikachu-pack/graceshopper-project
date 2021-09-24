@@ -9,7 +9,6 @@ const secret = process.env.JWT;
 
 const authRequired = async (req, res, next) => {
   // We grab the token from the cookies
-  console.log("banana in the server");
   const token = req.headers.authorization;
   // jwt verify throws an exception when the token isn't valid
   try {
@@ -43,6 +42,30 @@ router.get("/id", authRequired, async (req, res, next) => {
   }
 });
 
+// DELETE /api/cart/id (delete cart by cart Id)
+router.delete("/id", authRequired, async (req, res, next) => {
+  try {
+    const cart = await Cart.findOne({
+      where: {
+        userId: req.userId,
+      },
+      include: [
+        {
+          model: CartItem,
+        },
+      ],
+    });
+
+    if (cart.id) {
+      cart.cartItems.forEach(async (item) => await item.destroy());
+
+      res.status(200).json(cart);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
 // GET /api/cart/products (a single order w/products assoicated with a user)
 router.get("/cartItems", authRequired, async (req, res, next) => {
   try {
@@ -57,6 +80,7 @@ router.get("/cartItems", authRequired, async (req, res, next) => {
         },
       ],
     });
+    console.log(cart);
     if (cart) {
       res.status(200).json(cart);
     }
@@ -80,6 +104,17 @@ router.post("/:cartId", authRequired, async (req, res, next) => {
   }
 });
 
+// GET /api/cartItem/get/:id (gets cartItem by id)
+router.get("/cartItem/get/:id", authRequired, async (req, res, next) => {
+  try {
+    const cartItem = await CartItem.findByPk(req.params.id);
+
+    res.status(200).json(cartItem);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // PUT /api/cartItem/edit/:id (update cartItem by id)
 router.put("/cartItem/edit/:id", authRequired, async (req, res, next) => {
   try {
@@ -88,24 +123,39 @@ router.put("/cartItem/edit/:id", authRequired, async (req, res, next) => {
       returning: true,
     });
 
-    console.log(updatedCartItem);
     res.status(200).json(updatedCartItem);
   } catch (err) {
     next(err);
   }
 });
 
-// PUT /api/cartItem/add/:id (add to cartItem by id)
-router.put("/cartItem/add/:id", authRequired, async (req, res, next) => {
+// PUT /api/cartItem/increment/:id (add to cartItem by id)
+router.put("/cartItem/increment/:id", authRequired, async (req, res, next) => {
   try {
     const cartItem = await CartItem.findByPk(req.params.id);
-    console.log("cartItem", cartItem);
+
     const incrementedCart = await cartItem.increment("quantity", {
-      by: req.body.quantity,
+      by: 1,
       returning: true,
     });
-    console.log("incremenbted", incrementedCart);
+
     res.status(200).json(incrementedCart);
+  } catch (err) {
+    next(err);
+  }
+});
+
+// PUT /api/cartItem/decrement/:id (add to cartItem by id)
+router.put("/cartItem/decrement/:id", authRequired, async (req, res, next) => {
+  try {
+    const cartItem = await CartItem.findByPk(req.params.id);
+
+    const decrementedCart = await cartItem.decrement("quantity", {
+      by: 1,
+      returning: true,
+    });
+
+    res.status(200).json(decrementedCart);
   } catch (err) {
     next(err);
   }

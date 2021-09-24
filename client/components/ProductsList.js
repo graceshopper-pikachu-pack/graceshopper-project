@@ -1,53 +1,26 @@
 import React from "react";
 import { connect } from "react-redux";
 import Product from "./Product";
-import { fetchProducts } from "../store";
-
-const dummydata = [
-  {
-    id: 1,
-    stockNumber: 1,
-    productName: "apples",
-    productDescription:
-      "An apple is an edible fruit produced by an apple tree. Apple trees are cultivated worldwide and are the most widely grown species in the genus Malus. The tree originated in Central Asia, where its wild ancestor, Malus sieversii, is still found today",
-    stockQuantity: 99,
-    imageUrl:
-      "https://snaped.fns.usda.gov/sites/default/files/styles/crop_ratio_7_5/public/seasonal-produce/2018-05/apples_2.jpg?h=65b39431&itok=MoJheg5x",
-    price: 4.99,
-    category: "fruit",
-  },
-  {
-    id: 2,
-    stockNumber: 2,
-    productName: "bananas",
-    productDescription:
-      'A banana is an elongated, edible fruit – botanically a berry – produced by several kinds of large herbaceous flowering plants in the genus Musa. In some countries, bananas used for cooking may be called "plantains", distinguishing them from dessert bananas.',
-    stockQuantity: 99,
-    imageUrl:
-      "https://api.time.com/wp-content/uploads/2019/11/gettyimages-459761948.jpg",
-    price: 3.99,
-    category: "fruit",
-  },
-  {
-    id: 3,
-    stockNumber: 3,
-    productName: "oranges",
-    productDescription:
-      "The orange is the fruit of various citrus species in the family Rutaceae; it primarily refers to Citrus × sinensis, which is also called sweet orange, to distinguish it from the related Citrus × aurantium, referred to as bitter orange.",
-    stockQuantity: 99,
-    imageUrl:
-      "https://cdn-prod.medicalnewstoday.com/content/images/articles/272/272782/oranges-in-a-box.jpg",
-    price: 2.99,
-    category: "fruit",
-  },
-];
+import {
+  fetchProducts,
+  filterByAll,
+  filterByCategory,
+  orderByName,
+  orderByPriceAsc,
+  orderByPriceDesc,
+} from "../store";
 
 class ProductsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       products: [],
+      filteredAndOrdered: [],
+      category: "all",
+      orderBy: "name",
     };
+    this.filterProducts = this.filterProducts.bind(this);
+    this.orderProducts = this.orderProducts.bind(this);
   }
 
   componentDidMount() {
@@ -62,23 +35,102 @@ class ProductsList extends React.Component {
         products: this.props.products,
       });
     }
+
+    if (prevProps.filterAndOrder !== this.props.filterAndOrder) {
+      this.setState({
+        filteredAndOrdered: this.props.filterAndOrder,
+      });
+    }
+  }
+
+  filterProducts(evt) {
+    this.setState({
+      category: evt.target.value,
+    });
+
+    if (evt.target.value === "all") {
+      this.props.filterByAll(this.state.products, this.state.orderBy);
+    } else {
+      this.props.filterByCategory(
+        this.state.products,
+        this.state.orderBy,
+        evt.target.value
+      );
+    }
+  }
+
+  orderProducts(evt) {
+    this.setState({
+      orderBy: evt.target.value,
+    });
+
+    // this checks whether a filter has already been applied
+    let products = this.state.filteredAndOrdered.length
+      ? this.state.filteredAndOrdered
+      : this.state.products;
+
+    if (evt.target.value === "name") {
+      this.props.orderByName(products);
+    } else if (evt.target.value === "ascending-price") {
+      this.props.orderByPriceAsc(products);
+    } else if (evt.target.value === "descending-price") {
+      this.props.orderByPriceDesc(products);
+    }
   }
 
   render() {
-    const products = this.state.products || [];
+    let products = [];
+
+    if (this.state.filteredAndOrdered.length) {
+      products = this.state.filteredAndOrdered;
+    } else {
+      products = this.state.products;
+    }
+
+    if (!products.length) {
+      return <h4>Loading...</h4>;
+    }
+    console.log(products);
     return (
       <div>
-        {!products.length ? (
-          <h4>Loading...</h4>
-        ) : (
-          products.map((product) => (
-            <Product
-              product={product}
-              key={product.id}
-              history={this.props.history}
-            />
-          ))
-        )}
+        <div>
+          <div>
+            <label>Order By: </label>
+            <select
+              id="dropdown"
+              value={this.state.orderBy}
+              onChange={this.orderProducts}
+            >
+              <option value="name">Name</option>
+              <option value="ascending-price">Price Ascending</option>
+              <option value="descending-price">Price Descending</option>
+            </select>
+          </div>
+          <div>
+            <label>Filter By: </label>
+            <select
+              id="dropdown"
+              value={this.state.category}
+              // when the value changes call the method
+              onChange={this.filterProducts}
+            >
+              <option value="all">All Animals</option>
+              <option value="amphibians">Amphibians</option>
+              <option value="birds">Birds</option>
+              <option value="fish">Fish</option>
+              <option value="invertebrates">Invertebrates</option>
+              <option value="mammals">Mammals</option>
+              <option value="reptiles">Reptiles</option>
+            </select>
+          </div>
+        </div>
+        {products.map((product) => (
+          <Product
+            product={product}
+            key={product.id}
+            history={this.props.history}
+          />
+        ))}
       </div>
     );
   }
@@ -87,12 +139,20 @@ class ProductsList extends React.Component {
 const mapState = (state) => {
   return {
     products: state.products,
+    filterAndOrder: state.filterAndOrder,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
     fetchProducts: () => dispatch(fetchProducts()),
+    filterByAll: (products, orderBy) =>
+      dispatch(filterByAll(products, orderBy)),
+    filterByCategory: (products, orderBy, category) =>
+      dispatch(filterByCategory(products, orderBy, category)),
+    orderByName: (products) => dispatch(orderByName(products)),
+    orderByPriceAsc: (products) => dispatch(orderByPriceAsc(products)),
+    orderByPriceDesc: (products) => dispatch(orderByPriceDesc(products)),
   };
 };
 
