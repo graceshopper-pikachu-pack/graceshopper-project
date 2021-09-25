@@ -24,7 +24,7 @@ const Navbar = ({ handleClick, isLoggedIn }) => {
 						/>
 						<div className="cart-btn">
 							<span className="cart_image"> </span>
-							<div className="cart-items">0</div>
+							<div className="cart-items"></div>
 						</div>
 					</Link>
 				</div>
