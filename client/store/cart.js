@@ -132,10 +132,13 @@ export const incrementDBCart = (cartItem) => {
             },
           }
         );
+        response.data = { cartItemId: response.data.id, ...response.data };
       }
+
       const newItem = { cartItemId: response.data.id, ...response.data };
 
       dispatch(setEditedProductsDisplay(newItem));
+
     } catch (error) {
       console.log(error);
     }
@@ -210,12 +213,14 @@ export const decrementDBCart = (cartItem) => {
             },
           }
         );
+
         const newItem = { cartItemId: data.id, ...data };
         dispatch(setEditedProductsDisplay(newItem));
 
         if (cartItem.quantity - 1 === 0) {
           dispatch(deleteDBCartItem(cartItem));
         }
+
       }
     } catch (error) {
       console.log(error);
@@ -366,8 +371,10 @@ export const deleteDBCartItem = (cartItem) => {
           },
         }
       );
+
       console.log("deleted cart item", data);
       dispatch(setDeletedCartItem(data));
+
     } catch (error) {
       console.log(error);
     }
