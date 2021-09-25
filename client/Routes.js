@@ -1,4 +1,3 @@
-
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -9,68 +8,74 @@ import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
 import Cart from "./components/Cart";
 //import AdminPage from "./components/AdminPage";
-//import AdminDashboard from "./components/AdminDashboard";
+import AdminDashboard from "./components/AdminDashboard";
+import EditProduct from "./components/EditProduct";
+import AddProduct from "./components/AddProduct";
 import { me } from "./store";
-
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-	componentDidMount() {
-		this.props.loadInitialData();
-	}
+  componentDidMount() {
+    this.props.loadInitialData();
+  }
 
-
-	render() {
-		const { isLoggedIn } = this.props;
-		return (
-			<div>
-				{/* code for GENERAL VIEWERS */}
-				<Switch>
-					<Route exact path="/" component={ProductsList} />
-					<Route exact path="/products" component={ProductsList} />
-					<Route exact path="/products/:productId" component={SingleProduct} />
-					<Route exact path="/cart" component={Cart} />
-					{!isLoggedIn ? (
-						<>
-							<Route path="/login" component={Login} />
-							<Route path="/signup" component={Signup} />
-							<Route exact path="/home" component={ProductsList} />
-						</>
-					) : (
-						<Route exact path="/home" component={Home} />
-					)}
-					{/* {isAdmin && (
+  render() {
+    const { isLoggedIn } = this.props;
+    return (
+      <div>
+        {/* code for GENERAL VIEWERS */}
+        <Switch>
+          <Route exact path="/" component={ProductsList} />
+          <Route exact path="/products" component={ProductsList} />
+          <Route exact path="/products/:productId" component={SingleProduct} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/admin/products" component={AdminDashboard} />
+          <Route exact path="/admin/products/add" component={AddProduct} />
+          <Route
+            exact
+            path="/admin/products/edit/:productId"
+            component={EditProduct}
+          />
+          {!isLoggedIn ? (
+            <>
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route exact path="/home" component={ProductsList} />
+            </>
+          ) : (
+            <Route exact path="/home" component={Home} />
+          )}
+          {/* {isAdmin && (
 						<>
 							<Route exact path="/admin" component={AdminPage} />
 						</>
 					)} */}
-					<Redirect to="/home" />
-				</Switch>
-			</div>
-		);
-	}
-
+          <Redirect to="/home" />
+        </Switch>
+      </div>
+    );
+  }
 }
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
-	return {
-		// Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-		// Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-		isLoggedIn: !!state.auth.id,
-	};
+  return {
+    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
+    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
+    isLoggedIn: !!state.auth.id,
+  };
 };
 
 const mapDispatch = (dispatch) => {
-	return {
-		loadInitialData() {
-			dispatch(me());
-		},
-	};
+  return {
+    loadInitialData() {
+      dispatch(me());
+    },
+  };
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked

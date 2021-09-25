@@ -34,6 +34,29 @@ export const fetchSingleProduct = (productId) => {
   };
 };
 
+export const editProduct = (product, productId) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.put(`/api/products/${productId}`, product);
+      history.push(`/products/${productId}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const addProduct = (product) => {
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.post(`/api/products`, product);
+      console.log(data);
+      history.push(`/products/${data.id}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 /**
  * REDUCER
  */

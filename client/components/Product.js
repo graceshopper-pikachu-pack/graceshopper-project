@@ -3,10 +3,9 @@ import React from "react";
 const Product = (props) => {
   const routeToProduct = () => {
     const route = `/products/${props.product.id}`;
-    this.props.history.push(route);
-
+    props.history.push(route);
   };
-  
+
   const singleProduct = props.product;
 
   return (
@@ -36,7 +35,6 @@ const Product = (props) => {
       </div>
     </div>
   );
-
 };
 
 export default Product;
