@@ -1,13 +1,12 @@
 import React from "react";
 import { connect } from "react-redux";
-import { incrementCartItem, decrementCartItem, fetchCartItem } from "../store";
+import { incrementCartItem, decrementCartItem } from "../store";
 
 class Product extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       singleProduct: {},
-      quantity: 0,
       errors: {
         quantity: "",
       },
@@ -22,21 +21,24 @@ class Product extends React.Component {
       this.setState({
         singleProduct: this.props.product,
       });
-
-      this.props.fetchCartItem({
-        productId: this.props.product.id,
-      });
     }
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.singleCartItem !== this.props.singleCartItem) {
-      if (this.props.singleCartItem.id === this.state.singleProduct.id) {
-        this.setState({
-          singleProduct: this.props.singleCartItem,
-          quantity: this.props.singleCartItem.quantity,
-        });
-      }
+    if (prevProps.product !== this.props.product) {
+      this.setState({
+        singleProduct: {
+          quantity: this.props.singleProduct.quantity,
+        },
+      });
+    }
+
+    if (prevProps.product.quantity !== this.props.product.quantity) {
+      this.setState({
+        singleProduct: {
+          quantity: this.props.singleProduct.quantity,
+        },
+      });
     }
   }
 
@@ -95,7 +97,6 @@ class Product extends React.Component {
   }
 
   render() {
-    console.log(this.state);
     if (!this.props.product) {
       return null;
     }
@@ -105,20 +106,19 @@ class Product extends React.Component {
       this.props.history.push(route);
     };
 
-    const { singleProduct, quantity, errors } = this.state;
+    const { singleProduct, errors } = this.state;
 
     return (
       <div className="column">
         <img src={singleProduct.imageUrl} onClick={routeToProduct} />
         <div className="row">
           <h2>Product Name: {singleProduct.productName}</h2>
-          <h3>Category: {singleProduct.category}</h3>
           <h3>Price: {singleProduct.price}</h3>
           {errors.quantity ? (
             <h6 className="error">{errors.quantity}</h6>
           ) : null}
           <button onClick={this.handleIncrement}>Add to Cart</button>
-          <h3>Quantity: {quantity}</h3>
+          <h3>Quantity: {singleProduct.quantity}</h3>
           <button onClick={this.handleDecrement}>Subtract from Cart</button>
         </div>
       </div>
@@ -134,7 +134,6 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchCartItem: (productId) => dispatch(fetchCartItem(productId)),
     incrementCartItem: (cartItem) => dispatch(incrementCartItem(cartItem)),
     decrementCartItem: (cartItem) => dispatch(decrementCartItem(cartItem)),
   };
