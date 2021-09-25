@@ -79,7 +79,7 @@ router.get("/cartItems", authRequired, async (req, res, next) => {
         },
       ],
     });
-    console.log(cart);
+
     if (cart) {
       res.status(200).json(cart);
     }
@@ -102,7 +102,7 @@ router.get("/cartItem", authRequired, async (req, res, next) => {
         },
       ],
     });
-    console.log(cart);
+
     if (cart) {
       res.status(200).json(cart);
     }
@@ -156,12 +156,16 @@ router.put("/cartItem/increment/:id", authRequired, async (req, res, next) => {
   try {
     const cartItem = await CartItem.findByPk(req.params.id);
 
-    const incrementedCart = await cartItem.increment("quantity", {
-      by: 1,
-      returning: true,
-    });
+    if (req.body.stockQuantity >= cartItem.quantity + 1) {
+      const incrementedCart = await cartItem.increment("quantity", {
+        by: 1,
+        returning: true,
+      });
 
-    res.status(200).json(incrementedCart);
+      res.status(200).json(incrementedCart);
+    } else {
+      res.status(400).json({ message: "Quantity exceeds stock quantity" });
+    }
   } catch (err) {
     next(err);
   }
