@@ -90,7 +90,7 @@ class ProductsList extends React.Component {
     if (!products.length) {
       return <h4>Loading...</h4>;
     }
-    console.log(products);
+
     return (
       <div>
         <div>
