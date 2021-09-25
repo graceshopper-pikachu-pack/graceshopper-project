@@ -7,11 +7,14 @@
 	padding: 0;
 }
 
+<<<<<<< Updated upstream
 body {
 	font-family: sans-serif;
 	font-size: 20px;
 }
 
+=======
+>>>>>>> Stashed changes
 a {
 	text-decoration: none;
 }
@@ -157,39 +160,72 @@ input[type='password'] {
 }
 
 .login-form {
+<<<<<<< Updated upstream
   display: flex;
   flex-direction: column;
   align-items: center;
   width: 100%;
   height: 100vh;
+<<<<<<< Updated upstream
   background-image: url('https://images.unsplash.com/photo-1601870431533-c658027e3d96?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80');
+=======
+  background-image: url("https://images.unsplash.com/photo-1601870431533-c658027e3d96?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80");
+=======
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	height: 100vh;
+	background-image: url('https://images.unsplash.com/photo-1601870431533-c658027e3d96?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80');
+>>>>>>> Stashed changes
+>>>>>>> Stashed changes
 }
 .signup-input {
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
-  border-radius: 15px;
-  backdrop-filter: blur(10px);
-  -webkit-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
-  -moz-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
-  box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+	display: flex;
+	flex-direction: column;
+	padding: 20px;
+	border-radius: 15px;
+	backdrop-filter: blur(10px);
+	-webkit-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+	-moz-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+	box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
 }
 
 .btn-login {
-  display: flex;
-  flex-direction: column;
+	display: flex;
+	flex-direction: column;
 }
 
 .submit-login {
-  font-size: 20px;
-  background-color: whitesmoke;
+	font-size: 20px;
+	background-color: whitesmoke;
 }
 
 .login-text {
+<<<<<<< Updated upstream
   display: flex;
   justify-content: space-around;
   color: skyblue;
   align-items: center;
   font-family: 'Bebas Neue', cursive;
   font-size: 75px;
+=======
+	display: flex;
+	justify-content: space-around;
+	color: skyblue;
+	align-items: center;
+	font-family: 'Bebas Neue', cursive;
+	font-size: 75px;
+}
+
+.mr1 {
+	margin-right: 0.5em;
+}
+
+img {
+	max-height: 400px;
+	max-width: 400px;
+	border-radius: 5px;
+	margin-right: 5px;
+>>>>>>> Stashed changes
 }
