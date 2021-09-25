@@ -1,16 +1,17 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login } from './components/AuthForm';
-import { Signup } from './components/SignupForm';
-import Home from './components/Home';
-import ProductsList from './components/ProductsList';
-import SingleProduct from './components/SingleProduct';
-import Cart from './components/Cart';
 
-import { me } from './store';
-import AdminPage from './components/AdminPage';
-//import AdminDashboard from './components/AdminDashboard';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login } from "./components/AuthForm";
+import { Signup } from "./components/SignupForm";
+import Home from "./components/Home";
+import ProductsList from "./components/ProductsList";
+import SingleProduct from "./components/SingleProduct";
+import Cart from "./components/Cart";
+//import AdminPage from "./components/AdminPage";
+//import AdminDashboard from "./components/AdminDashboard";
+import { me } from "./store";
+
 
 /**
  * COMPONENT
@@ -19,6 +20,7 @@ class Routes extends Component {
 	componentDidMount() {
 		this.props.loadInitialData();
 	}
+
 
 	render() {
 		const { isLoggedIn } = this.props;
@@ -49,6 +51,7 @@ class Routes extends Component {
 			</div>
 		);
 	}
+
 }
 
 /**

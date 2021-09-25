@@ -8,32 +8,35 @@ import {
   orderByName,
   orderByPriceAsc,
   orderByPriceDesc,
+  incrementCartItem,
+  decrementCartItem,
 } from "../store";
 
 class ProductsList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      products: [],
       filteredAndOrdered: [],
+      products: [],
       category: "all",
       orderBy: "name",
     };
     this.filterProducts = this.filterProducts.bind(this);
     this.orderProducts = this.orderProducts.bind(this);
+    this.handleIncrement = this.handleIncrement.bind(this);
+    this.handleDecrement = this.handleDecrement.bind(this);
   }
 
   componentDidMount() {
     this.props.fetchProducts();
   }
 
-  componentWillUnmount() {}
-
   componentDidUpdate(prevProps) {
     if (prevProps.products !== this.props.products) {
       this.setState({
         products: this.props.products,
       });
+      this.filterProducts();
     }
 
     if (prevProps.filterAndOrder !== this.props.filterAndOrder) {
@@ -44,18 +47,30 @@ class ProductsList extends React.Component {
   }
 
   filterProducts(evt) {
-    this.setState({
-      category: evt.target.value,
-    });
+    if (evt) {
+      this.setState({
+        category: evt.target.value,
+      });
 
-    if (evt.target.value === "all") {
-      this.props.filterByAll(this.state.products, this.state.orderBy);
+      if (evt.target.value === "all") {
+        this.props.filterByAll(this.state.products, this.state.orderBy);
+      } else {
+        this.props.filterByCategory(
+          this.state.products,
+          this.state.orderBy,
+          evt.target.value
+        );
+      }
     } else {
-      this.props.filterByCategory(
-        this.state.products,
-        this.state.orderBy,
-        evt.target.value
-      );
+      if (this.state.category === "all") {
+        this.props.filterByAll(this.props.products, this.state.orderBy);
+      } else {
+        this.props.filterByCategory(
+          this.props.products,
+          this.state.orderBy,
+          this.state.category
+        );
+      }
     }
   }
 
@@ -64,10 +79,7 @@ class ProductsList extends React.Component {
       orderBy: evt.target.value,
     });
 
-    // this checks whether a filter has already been applied
-    let products = this.state.filteredAndOrdered.length
-      ? this.state.filteredAndOrdered
-      : this.state.products;
+    let products = this.state.filteredAndOrdered;
 
     if (evt.target.value === "name") {
       this.props.orderByName(products);
@@ -78,19 +90,78 @@ class ProductsList extends React.Component {
     }
   }
 
-  render() {
-    let products = [];
+  handleIncrement(product, evt) {
+    evt.preventDefault();
 
-    if (this.state.filteredAndOrdered.length) {
-      products = this.state.filteredAndOrdered;
-    } else {
-      products = this.state.products;
+    let cartItem;
+    const updatedItems = this.state.filteredAndOrdered.map((item) => {
+      if (item.id === product.id) {
+        if (item.quantity + 1 > item.stockQuantity) {
+          item.errors = "Requested quantity in cart exceeds stock quantity";
+        } else {
+          item.errors = "";
+        }
+        cartItem = { ...item };
+      }
+
+      return item;
+    });
+
+    this.setState({
+      filterAndOrder: [...updatedItems],
+    });
+
+    // if there are no errors in the quantity
+    if (!cartItem.errors) {
+      this.props.incrementCartItem({
+        productId: cartItem.id,
+        cartItemId: cartItem.cartItemId,
+        quantity: cartItem.quantity,
+        stockQuantity: cartItem.stockQuantity,
+      });
     }
+  }
+
+  handleDecrement(product, evt) {
+    evt.preventDefault();
+
+    let cartItem;
+    const updatedItems = this.state.filteredAndOrdered.map((item) => {
+      if (item.id === product.id) {
+        if (item.quantity - 1 < 0) {
+          item.errors = "This item is not in your cart!";
+        } else {
+          item.errors = "";
+        }
+        cartItem = { ...item };
+      }
+
+      return item;
+    });
+
+    this.setState({
+      filterAndOrder: [...updatedItems],
+    });
+
+    // if there are no errors in the quantity
+    if (!cartItem.errors) {
+      this.props.decrementCartItem({
+        productId: cartItem.id,
+        cartItemId: cartItem.cartItemId,
+        quantity: cartItem.quantity,
+      });
+    }
+  }
+
+  render() {
+    let products = this.state.filteredAndOrdered.length
+      ? this.state.filteredAndOrdered
+      : [];
 
     if (!products.length) {
       return <h4>Loading...</h4>;
     }
-    console.log(products);
+
     return (
       <div>
         <div>
@@ -129,6 +200,8 @@ class ProductsList extends React.Component {
             product={product}
             key={product.id}
             history={this.props.history}
+            handleIncrement={this.handleIncrement}
+            handleDecrement={this.handleDecrement}
           />
         ))}
       </div>
@@ -153,6 +226,8 @@ const mapDispatch = (dispatch) => {
     orderByName: (products) => dispatch(orderByName(products)),
     orderByPriceAsc: (products) => dispatch(orderByPriceAsc(products)),
     orderByPriceDesc: (products) => dispatch(orderByPriceDesc(products)),
+    incrementCartItem: (cartItem) => dispatch(incrementCartItem(cartItem)),
+    decrementCartItem: (cartItem) => dispatch(decrementCartItem(cartItem)),
   };
 };
 

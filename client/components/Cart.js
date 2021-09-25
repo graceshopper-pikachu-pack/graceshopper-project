@@ -16,6 +16,7 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
+
     this.props.fetchCart();
 
     this.setState({

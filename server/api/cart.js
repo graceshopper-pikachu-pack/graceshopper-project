@@ -66,8 +66,30 @@ router.delete("/id", authRequired, async (req, res, next) => {
   }
 });
 
-// GET /api/cart/products (a single order w/products assoicated with a user)
+// GET /api/cart/cart (a single order w/products assoicated with a user)
 router.get("/cartItems", authRequired, async (req, res, next) => {
+  try {
+    const cart = await Cart.findOne({
+      where: {
+        userId: req.userId,
+      },
+      include: [
+        {
+          model: CartItem,
+        },
+      ],
+    });
+
+    if (cart) {
+      res.status(200).json(cart);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/cart/cartItems (a single order w/products assoicated with a user)
+router.get("/cartItem", authRequired, async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {
@@ -80,7 +102,7 @@ router.get("/cartItems", authRequired, async (req, res, next) => {
         },
       ],
     });
-    console.log(cart);
+
     if (cart) {
       res.status(200).json(cart);
     }
@@ -134,12 +156,16 @@ router.put("/cartItem/increment/:id", authRequired, async (req, res, next) => {
   try {
     const cartItem = await CartItem.findByPk(req.params.id);
 
-    const incrementedCart = await cartItem.increment("quantity", {
-      by: 1,
-      returning: true,
-    });
+    if (req.body.stockQuantity >= cartItem.quantity + 1) {
+      const incrementedCart = await cartItem.increment("quantity", {
+        by: 1,
+        returning: true,
+      });
 
-    res.status(200).json(incrementedCart);
+      res.status(200).json(incrementedCart);
+    } else {
+      res.status(400).json({ message: "Quantity exceeds stock quantity" });
+    }
   } catch (err) {
     next(err);
   }
@@ -150,12 +176,16 @@ router.put("/cartItem/decrement/:id", authRequired, async (req, res, next) => {
   try {
     const cartItem = await CartItem.findByPk(req.params.id);
 
-    const decrementedCart = await cartItem.decrement("quantity", {
-      by: 1,
-      returning: true,
-    });
+    if (cartItem.quantity - 1 >= 0) {
+      const decrementedCart = await cartItem.decrement("quantity", {
+        by: 1,
+        returning: true,
+      });
 
-    res.status(200).json(decrementedCart);
+      res.status(200).json(decrementedCart);
+    } else {
+      res.status(400).json({ message: "Quantity must be a positive integer" });
+    }
   } catch (err) {
     next(err);
   }
