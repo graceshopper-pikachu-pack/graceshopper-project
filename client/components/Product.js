@@ -26,6 +26,7 @@ class Product extends React.Component {
 
   componentDidUpdate(prevProps) {
     if (prevProps.product !== this.props.product) {
+      console.log(this.props.product);
       this.setState({
         singleProduct: {
           quantity: this.props.singleProduct.quantity,
@@ -34,6 +35,7 @@ class Product extends React.Component {
     }
 
     if (prevProps.product.quantity !== this.props.product.quantity) {
+      console.log("quantity dfferent");
       this.setState({
         singleProduct: {
           quantity: this.props.singleProduct.quantity,
@@ -47,7 +49,10 @@ class Product extends React.Component {
 
     let errors = this.state.errors;
     // error handling for valid quantity
-    if (this.state.quantity + 1 > this.props.product.stockQuantity) {
+    if (
+      this.state.singleProduct.quantity + 1 >
+      this.props.product.stockQuantity
+    ) {
       errors.quantity = "Requested quantity in cart exceeds stock quantity";
     } else {
       errors.quantity = "";
@@ -74,7 +79,7 @@ class Product extends React.Component {
 
     let errors = this.state.errors;
     // error handling for valid quantity
-    if (this.state.quantity - 1 < 0) {
+    if (this.state.singleProduct.quantity - 1 < 0) {
       errors.quantity = "This item is not in your cart!";
     } else {
       errors.quantity = "";

@@ -1,6 +1,6 @@
 import axios from "axios";
 import history from "../history";
-import { editCartItem, setEditedProductsDisplay } from "./index";
+import { setEditedProductsDisplay } from "./index";
 
 const TOKEN = "token";
 const token = window.localStorage.getItem(TOKEN);
@@ -133,7 +133,6 @@ export const incrementDBCart = (cartItem) => {
       }
 
       dispatch(setEditedProductsDisplay(response.data));
-      dispatch(editCartItem(response.data));
     } catch (error) {
       console.log(error);
     }
@@ -210,7 +209,6 @@ export const decrementDBCart = (cartItem) => {
         );
 
         dispatch(setEditedProductsDisplay(data));
-        dispatch(editCartItem(data));
       }
     } catch (error) {
       console.log(error);
