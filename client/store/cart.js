@@ -56,6 +56,8 @@ export const fetchDBCart = () => {
         return { quantity, cartItemId: id, ...item.product };
       });
 
+      console.log("cart", cart);
+
       dispatch(setCart(cart));
     } catch (error) {
       console.log(error);
@@ -102,11 +104,12 @@ export const incrementCartItem = (cartItem) => {
 export const incrementDBCart = (cartItem) => {
   return async (dispatch) => {
     try {
+      console.log("CARTITEM", cartItem);
       let response;
       if (cartItem.quantity > 0) {
         response = await axios.put(
           `/api/cart/cartItem/increment/${cartItem.cartItemId}`,
-          null,
+          cartItem,
           {
             headers: {
               authorization: token,
@@ -132,7 +135,10 @@ export const incrementDBCart = (cartItem) => {
         response.data = { cartItemId: response.data.id, ...response.data };
       }
 
-      dispatch(setEditedProductsDisplay(response.data));
+      const newItem = { cartItemId: response.data.id, ...response.data };
+
+      dispatch(setEditedProductsDisplay(newItem));
+
     } catch (error) {
       console.log(error);
     }
@@ -208,7 +214,13 @@ export const decrementDBCart = (cartItem) => {
           }
         );
 
-        dispatch(setEditedProductsDisplay(data));
+        const newItem = { cartItemId: data.id, ...data };
+        dispatch(setEditedProductsDisplay(newItem));
+
+        if (cartItem.quantity - 1 === 0) {
+          dispatch(deleteDBCartItem(cartItem));
+        }
+
       }
     } catch (error) {
       console.log(error);
@@ -359,8 +371,10 @@ export const deleteDBCartItem = (cartItem) => {
           },
         }
       );
+
+      console.log("deleted cart item", data);
       dispatch(setDeletedCartItem(data));
-      history.push("/cart");
+
     } catch (error) {
       console.log(error);
     }
@@ -452,6 +466,7 @@ export default function (state = [], action) {
           (item) => item.id !== action.cartItem.productId
         );
       }
+      console.log("deletedstatecopy", deletedStateCopy);
       return deletedStateCopy;
     default:
       return state;

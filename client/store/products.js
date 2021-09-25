@@ -114,13 +114,16 @@ export default function (state = [], action) {
         stateCopy = stateCopy.map((item) => {
           if (item.id === action.cartItem.productId) {
             item.quantity = action.cartItem.quantity;
-            if (!item.cartItemId && action.cartItem.cartItemId) {
-              item.cartItemId = action.cartItem.cartItemId;
-            }
+
+            item.cartItemId = action.cartItem.cartItemId;
+
           }
           return item;
         });
       }
+
+      console.log(stateCopy);
+
       return stateCopy;
     default:
       return state;

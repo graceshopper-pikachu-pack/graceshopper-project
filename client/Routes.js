@@ -1,15 +1,15 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login } from './components/AuthForm';
-import { Signup } from './components/SignupForm';
-import Home from './components/Home';
-import ProductsList from './components/ProductsList';
-import SingleProduct from './components/SingleProduct';
-import Cart from './components/Cart';
-import Admin from './components/AdminPage';
-import { me } from './store';
-import AdminPage from './components/AdminPage';
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login } from "./components/AuthForm";
+import { Signup } from "./components/SignupForm";
+import Home from "./components/Home";
+import ProductsList from "./components/ProductsList";
+import SingleProduct from "./components/SingleProduct";
+import Cart from "./components/Cart";
+import Admin from "./components/AdminPage";
+import AdminDashboard from "./components/AdminDashboard";
+import { me } from "./store";
 
 /**
  * COMPONENT
@@ -35,6 +35,7 @@ class Routes extends Component {
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
               <Route exact path="/admin" component={AdminPage} />
+
             </>
             /* {!isAdmin && (
 					<Switch>
