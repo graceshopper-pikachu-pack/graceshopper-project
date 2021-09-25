@@ -34,6 +34,8 @@ class Routes extends Component {
             <>
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
+              <Route exact path="/admin" component={AdminPage} />
+
             </>
             /* {!isAdmin && (
 					<Switch>
