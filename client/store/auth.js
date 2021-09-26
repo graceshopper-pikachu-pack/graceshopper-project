@@ -1,6 +1,6 @@
 import axios from "axios";
 import history from "../history";
-import { clearReduxCart, addToUserCart } from "./index";
+import { clearReduxCart, addToUserCart, getToken } from "./index";
 
 const TOKEN = "token";
 
@@ -18,22 +18,29 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
  * THUNK CREATORS
  */
 export const me = () => async (dispatch) => {
-  // check if there is a cart on the local storage
-  const localCart = window.localStorage.getItem("cart");
-  // if there is not, initialize a new empty cart
-  if (!localCart) {
-    window.localStorage.setItem("cart", JSON.stringify([]));
-  }
-  const token = window.localStorage.getItem(TOKEN);
-  if (token) {
-    window.localStorage.removeItem("cart");
-    const res = await axios.get("/auth/me", {
-      headers: {
-        authorization: token,
-      },
-    });
-    // dispatch(addToUserCart(localCart))
-    return dispatch(setAuth(res.data));
+  try {
+    // check if there is a cart on the local storage
+    const localCart = window.localStorage.getItem("cart");
+    localCart = JSON.parse(localCart);
+    // if there is not, initialize a new empty cart
+    if (!localCart) {
+      window.localStorage.setItem("cart", JSON.stringify([]));
+    }
+    const token = getToken();
+    console.log("token", token);
+    if (token) {
+      window.localStorage.removeItem("cart");
+      const res = await axios.get("/auth/me", {
+        headers: {
+          authorization: token,
+        },
+      });
+
+      dispatch(addToUserCart(localCart));
+      return dispatch(setAuth(res.data));
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 
