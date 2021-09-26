@@ -59,8 +59,10 @@ router.post("/", async (req, res, next) => {
 // DELETE /api/products/:id (delete product)
 router.delete("/:id", async (req, res, next) => {
   try {
-    await Product.destroy({ where: { id: req.params.id } });
-    res.sendStatus(204);
+    const deleteCount = await Product.destroy({
+      where: { id: req.params.id },
+    });
+    res.status(200).json(deleteCount);
   } catch (err) {
     next(err);
   }

@@ -1,8 +1,8 @@
 import axios from "axios";
 import history from "../history";
+import { getToken } from "./index";
 
-const TOKEN = "token";
-const token = window.localStorage.getItem(TOKEN);
+let token;
 /**
  * ACTION TYPES
  */
@@ -32,6 +32,7 @@ export const editCartItem = (item) => ({ type: EDIT_CART_ITEM, item });
 
 export const fetchCartItem = (product) => {
   return async (dispatch) => {
+    token = getToken();
     if (token) {
       dispatch(getDBCartItem(product));
     } else {

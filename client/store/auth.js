@@ -37,9 +37,10 @@ export const me = () => async (dispatch) => {
 
 export const authenticate = (formData, method) => async (dispatch) => {
   try {
-    const res = await axios.post(`/auth/${method}`, formData);
     // if we log in, we want to remove the cart that may have been there
     window.localStorage.removeItem("cart");
+    const res = await axios.post(`/auth/${method}`, formData);
+
     window.localStorage.setItem(TOKEN, res.data.token);
 
     dispatch(clearReduxCart());
@@ -54,6 +55,7 @@ export const logout = () => {
     window.localStorage.removeItem(TOKEN);
     // if we log out, we want to remove the cart that may have been there
     window.localStorage.removeItem("cart");
+    localStorage.setItem("cart", JSON.stringify([]));
     dispatch(clearReduxCart());
     dispatch(setAuth({}));
     history.push("/login");

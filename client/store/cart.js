@@ -1,9 +1,10 @@
 import axios from "axios";
 import history from "../history";
-import { setEditedProductsDisplay } from "./index";
+import { setEditedProductsDisplay, getToken } from "./index";
 
-const TOKEN = "token";
-const token = window.localStorage.getItem(TOKEN);
+let token;
+// const TOKEN = "token";
+// let token = window.localStorage.getItem(TOKEN);
 /**
  * ACTION TYPES
  */
@@ -33,6 +34,8 @@ export const clearReduxCart = () => ({ type: CLEAR_CART, cart: [] });
 // FETCH CART:
 export const fetchCart = () => {
   return async (dispatch) => {
+    token = getToken();
+
     if (token) {
       dispatch(fetchDBCart());
     } else {
@@ -89,6 +92,7 @@ export const fetchLocalCart = () => {
 export const incrementCartItem = (cartItem) => {
   return async (dispatch) => {
     // if there is a token on the local storage
+    token = getToken();
 
     if (token) {
       // send to the logged in user route
@@ -138,7 +142,6 @@ export const incrementDBCart = (cartItem) => {
       const newItem = { cartItemId: response.data.id, ...response.data };
 
       dispatch(setEditedProductsDisplay(newItem));
-
     } catch (error) {
       console.log(error);
     }
@@ -189,7 +192,7 @@ export const incrementLocalCart = (cartItem) => {
 export const decrementCartItem = (cartItem) => {
   return async (dispatch) => {
     // if there is a token on the local storage
-
+    token = getToken();
     if (token) {
       // send to the logged in user route
       dispatch(decrementDBCart(cartItem));
@@ -220,7 +223,6 @@ export const decrementDBCart = (cartItem) => {
         if (cartItem.quantity - 1 === 0) {
           dispatch(deleteDBCartItem(cartItem));
         }
-
       }
     } catch (error) {
       console.log(error);
@@ -266,6 +268,7 @@ export const decrementLocalCart = (cartItem) => {
 // EDIT CART:
 export const editCart = (product) => {
   return async (dispatch) => {
+    token = getToken();
     if (token) {
       dispatch(editDBCart(product));
     } else {
@@ -352,6 +355,7 @@ export const editLocalCartItem = (product) => {
 // DELETE CART:
 export const deleteCartItem = (cartItem) => {
   return async (dispatch) => {
+    token = getToken();
     if (token) {
       dispatch(deleteDBCartItem(cartItem));
     } else {
@@ -374,7 +378,6 @@ export const deleteDBCartItem = (cartItem) => {
 
       console.log("deleted cart item", data);
       dispatch(setDeletedCartItem(data));
-
     } catch (error) {
       console.log(error);
     }
@@ -407,6 +410,7 @@ export const deleteLocalCartItem = (cartItem) => {
 
 export const clearCart = () => {
   return async (dispatch) => {
+    token = getToken();
     if (token) {
       dispatch(clearDBCart());
     } else {
@@ -466,7 +470,6 @@ export default function (state = [], action) {
           (item) => item.id !== action.cartItem.productId
         );
       }
-      console.log("deletedstatecopy", deletedStateCopy);
       return deletedStateCopy;
     default:
       return state;

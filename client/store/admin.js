@@ -1,8 +1,9 @@
-import axios from 'axios';
+import axios from "axios";
 
 //types
-const SET_ADMIN_DATA = 'SET_ADMIN_DATA';
-const EDIT_ADMIN_DATA = 'EDIT_ADMIN_DATA';
+const SET_ADMIN_DATA = "SET_ADMIN_DATA";
+const EDIT_ADMIN_DATA = "EDIT_ADMIN_DATA";
+const UPDATE_DELETED_PRODUCTS = "UPDATE_DELETED_PRODUCTS";
 
 const initialState = {
   users: [],
@@ -21,6 +22,11 @@ const edit_admin_data = (products) => ({
   products,
 });
 
+export const updateDeletedProducts = (productArr) => ({
+  type: UPDATE_DELETED_PRODUCTS,
+  productArr,
+});
+
 //thunks
 export const fetchAdminData = () => {
   return async (dispatch) => {
@@ -35,6 +41,7 @@ export const fetchAdminData = () => {
     }
   };
 };
+
 export const updateAdminData = (product) => {
   return async (dispatch) => {
     try {
@@ -54,6 +61,18 @@ export default function (state = initialState, action) {
       return {
         users: action.users,
         products: action.products,
+      };
+    case UPDATE_DELETED_PRODUCTS:
+      let updatedProducts = [...state.products];
+      if (action.productArr.length) {
+        updatedProducts = updatedProducts.filter((product) => {
+          if (!action.productArr.includes(product.id)) {
+            return product;
+          }
+        });
+      }
+      return {
+        products: updatedProducts,
       };
     // case EDIT_ADMIN_DATA:
     //   return action.product;
