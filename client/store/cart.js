@@ -47,7 +47,6 @@ export const fetchCart = () => {
 export const fetchDBCart = () => {
   return async (dispatch) => {
     try {
-      console.log("db cart fetched");
       const { data } = await axios.get(`/api/cart/cartItem`, {
         headers: {
           authorization: token,
@@ -59,8 +58,6 @@ export const fetchDBCart = () => {
         return { quantity, cartItemId: id, ...item.product };
       });
 
-      console.log("cart", cart);
-
       dispatch(setCart(cart));
     } catch (error) {
       console.log(error);
@@ -70,7 +67,6 @@ export const fetchDBCart = () => {
 
 export const fetchLocalCart = () => {
   return async (dispatch) => {
-    console.log("storage cart fetched");
     let localCart = localStorage.getItem("cart");
     // if there is a local cart on localStorage
     if (localCart) {
@@ -108,7 +104,6 @@ export const incrementCartItem = (cartItem) => {
 export const incrementDBCart = (cartItem) => {
   return async (dispatch) => {
     try {
-      console.log("CARTITEM", cartItem);
       let response;
       if (cartItem.quantity > 0) {
         response = await axios.put(
@@ -280,9 +275,11 @@ export const editCart = (product) => {
 export const editDBCart = (product) => {
   return async (dispatch) => {
     try {
+      console.log(product);
       if (Number(product.quantity) === 0) {
         dispatch(deleteDBCartItem(product));
-      } else {
+      } /*else if (product.quantity === 1) {
+      } */ else {
         const { data } = await axios.put(
           `/api/cart/cartItem/edit/${product.cartItemId}`,
           product,
@@ -376,7 +373,6 @@ export const deleteDBCartItem = (cartItem) => {
         }
       );
 
-      console.log("deleted cart item", data);
       dispatch(setDeletedCartItem(data));
     } catch (error) {
       console.log(error);
@@ -441,6 +437,19 @@ export const clearLocalCart = () => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const addToUserCart = (localCart) => {
+  return async () => {
+    try {
+      localCart = JSON.parse(localCart);
+      let cartCopy = [...localCart];
+
+      // update cart
+    } catch (error) {
+      console.log(error);
+    }
+  };
 };
 
 /**

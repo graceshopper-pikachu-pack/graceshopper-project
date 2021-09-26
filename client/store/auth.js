@@ -1,6 +1,6 @@
 import axios from "axios";
 import history from "../history";
-import { clearReduxCart } from "./index";
+import { clearReduxCart, addToUserCart } from "./index";
 
 const TOKEN = "token";
 
@@ -19,18 +19,20 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
  */
 export const me = () => async (dispatch) => {
   // check if there is a cart on the local storage
-  const localCart = localStorage.getItem("cart");
+  const localCart = window.localStorage.getItem("cart");
   // if there is not, initialize a new empty cart
   if (!localCart) {
-    localStorage.setItem("cart", JSON.stringify([]));
+    window.localStorage.setItem("cart", JSON.stringify([]));
   }
   const token = window.localStorage.getItem(TOKEN);
   if (token) {
+    window.localStorage.removeItem("cart");
     const res = await axios.get("/auth/me", {
       headers: {
         authorization: token,
       },
     });
+    // dispatch(addToUserCart(localCart))
     return dispatch(setAuth(res.data));
   }
 };
@@ -38,7 +40,8 @@ export const me = () => async (dispatch) => {
 export const authenticate = (formData, method) => async (dispatch) => {
   try {
     // if we log in, we want to remove the cart that may have been there
-    window.localStorage.removeItem("cart");
+    const localCart = localStorage.getItem("cart");
+
     const res = await axios.post(`/auth/${method}`, formData);
 
     window.localStorage.setItem(TOKEN, res.data.token);

@@ -11,6 +11,7 @@ import Cart from "./components/Cart";
 import AdminDashboard from "./components/AdminDashboard";
 import EditProduct from "./components/EditProduct";
 import AddProduct from "./components/AddProduct";
+import ConfirmationPage from "./components/ConfirmationPage";
 import { me } from "./store";
 
 /**
@@ -45,7 +46,10 @@ class Routes extends Component {
               <Route exact path="/home" component={ProductsList} />
             </>
           ) : (
-            <Route exact path="/home" component={Home} />
+            <>
+              <Route exact path="/home" component={Home} />
+              <Route exact path="/confirmation" component={ConfirmationPage} />
+            </>
           )}
           {/* {isAdmin && (
 						<>

@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import CartItem from "./CartItem";
-import { fetchCart, clearCart } from "../store";
+import { fetchCart, clearCart, getToken } from "../store";
 
 /**
  * COMPONENT
@@ -11,8 +11,10 @@ class Cart extends React.Component {
     super(props);
     this.state = {
       cart: [],
+      errors: "",
     };
     this.clearCart = this.clearCart.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
   }
 
   componentDidMount() {
@@ -42,6 +44,21 @@ class Cart extends React.Component {
     }
   }
 
+  placeOrder(evt) {
+    evt.preventDefault();
+
+    const token = getToken();
+
+    if (token) {
+      this.props.clearCart();
+      this.props.history.push("/confirmation");
+    } else {
+      this.setState({
+        errors: "Please login or sign up to place your order!",
+      });
+    }
+  }
+
   render() {
     const cart = this.state.cart || [];
 
@@ -51,6 +68,10 @@ class Cart extends React.Component {
           <h4>There are no items in your cart!</h4>
         ) : (
           <>
+            {this.state.errors ? (
+              <h6 className="error">{this.state.errors}</h6>
+            ) : null}
+            <button onClick={this.placeOrder}>Place Order</button>
             <button onClick={this.clearCart}>Clear Cart</button>
             {cart.map((item) => (
               <CartItem
