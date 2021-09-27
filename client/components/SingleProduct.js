@@ -84,18 +84,26 @@ class SingleProduct extends React.Component {
 		const { quantity, errors } = this.state;
 
 		return (
-			<div>
+			<div class="single-product-body">
 				{!singleProduct.id ? (
 					<h4>Loading...</h4>
 				) : (
-					<div id="single-product" className="column">
-						<div id="single-product-detail" className="row">
-							<img src={singleProduct.imageUrl} />
-							<div className="mr1">
-								<h2>Product Name: {singleProduct.productName}</h2>
-								<h3>Price: {singleProduct.price}</h3>
-								<h3>Product Description: {singleProduct.productDescription}</h3>
-
+					<div class="single-product-body">
+						<header>
+							<h2>{singleProduct.productName}</h2>
+						</header>
+						<div id="single-product-main">
+							<aside>Fun Facts</aside>
+							<article>
+								<div class="img-text-container">
+									<img src={singleProduct.imageUrl} />
+									<div class="img-text-block">
+										    <h4>{singleProduct.category}</h4>
+										    <p>{singleProduct.productName}</p>
+									</div>
+								</div>
+								<h3>Minimal Donation Amount: ${singleProduct.price}</h3>
+								<h3>{singleProduct.productDescription}</h3>
 								<h4 style={{ color: 'red' }}>
 									NOTE: can only add quantity currently, fix to either buttons or reduce quantity
 								</h4>
@@ -112,9 +120,9 @@ class SingleProduct extends React.Component {
 										border: errors.quantity ? '2px solid red' : this.state.value,
 									}}
 								/>
-
 								<button onClick={this.handleEdit}>Add to Cart</button>
-							</div>
+							</article>
+							<nav>Fun Facts</nav>
 						</div>
 					</div>
 				)}
