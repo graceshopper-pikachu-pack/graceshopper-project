@@ -22,12 +22,15 @@ class Routes extends Component {
     this.props.loadInitialData();
   }
 
+
   render() {
     const { isLoggedIn } = this.props;
+
     return (
       <div>
         {/* code for GENERAL VIEWERS */}
         <Switch>
+
           <Route exact path="/" component={ProductsList} />
           <Route exact path="/products" component={ProductsList} />
           <Route exact path="/products/:productId" component={SingleProduct} />
@@ -56,11 +59,13 @@ class Routes extends Component {
 							<Route exact path="/admin" component={AdminPage} />
 						</>
 					)} */}
+
           <Redirect to="/home" />
         </Switch>
       </div>
     );
   }
+
 }
 
 /**
