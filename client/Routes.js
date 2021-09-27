@@ -43,16 +43,16 @@ class Routes extends Component {
             component={EditProduct}
           />
           {!isLoggedIn ? (
-            <>
+            <Switch>
               <Route path="/login" component={Login} />
               <Route path="/signup" component={Signup} />
               <Route exact path="/home" component={ProductsList} />
-            </>
+            </Switch>
           ) : (
-            <>
+            <Switch>
               <Route exact path="/home" component={Home} />
               <Route exact path="/confirmation" component={ConfirmationPage} />
-            </>
+            </Switch>
           )}
           {/* {isAdmin && (
 						<>
