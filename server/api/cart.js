@@ -66,7 +66,7 @@ router.delete("/id", authRequired, async (req, res, next) => {
   }
 });
 
-// GET /api/cart/cart (a single order w/products assoicated with a user)
+// GET /api/cart/cartItems (cartItems assoicated with a user)
 router.get("/cartItems", authRequired, async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
@@ -88,7 +88,7 @@ router.get("/cartItems", authRequired, async (req, res, next) => {
   }
 });
 
-// GET /api/cart/cartItems (a single order w/products assoicated with a user)
+// GET /api/cart/cartItem (a single order w/products assoicated with a user)
 router.get("/cartItem", authRequired, async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
@@ -170,6 +170,27 @@ router.put("/cartItem/increment/:id", authRequired, async (req, res, next) => {
     next(err);
   }
 });
+
+// PUT /api/cartItem/increment/:id (add to cartItem by id)
+router.put(
+  "/cartItem/incrementBy/:id",
+  authRequired,
+  async (req, res, next) => {
+    try {
+      const cartItem = await CartItem.findByPk(req.params.id);
+      // have to make sure they do not exceed stock quantity
+
+      const incrementedCart = await cartItem.increment("quantity", {
+        by: req.body.quantity,
+        returning: true,
+      });
+
+      res.status(200).json(incrementedCart);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
 
 // PUT /api/cartItem/decrement/:id (add to cartItem by id)
 router.put("/cartItem/decrement/:id", authRequired, async (req, res, next) => {

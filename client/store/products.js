@@ -1,8 +1,9 @@
 import axios from "axios";
 import history from "../history";
+import { updateDeletedProducts, getToken } from "./index";
 
-const TOKEN = "token";
-const token = window.localStorage.getItem(TOKEN);
+let token;
+
 /**
  * ACTION TYPES
  */
@@ -13,6 +14,7 @@ const SET_EDITED_PRODUCTS_DISPLAY = "SET_EDITED_PRODUCTS_DISPLAY";
  * ACTION CREATORS
  */
 const setProducts = (products) => ({ type: SET_PRODUCTS, products });
+
 export const setEditedProductsDisplay = (cartItem) => ({
   type: SET_EDITED_PRODUCTS_DISPLAY,
   cartItem,
@@ -35,6 +37,7 @@ export const fetchProducts = () => {
 
 export const fetchProductsQuantity = (product) => {
   return async (dispatch) => {
+    token = getToken();
     if (token) {
       dispatch(fetchDBProductsQuantity(product));
     } else {
@@ -101,6 +104,25 @@ export const fetchLocalProductsQuantity = (products) => {
   };
 };
 
+export const bulkDelete = (productIdsArr) => {
+  return async (dispatch) => {
+    try {
+      if (productIdsArr.length) {
+        let deletedProducts = [];
+        productIdsArr.forEach((productId) => {
+          let response = axios.delete(`/api/products/${productId}`);
+          if (response) {
+            deletedProducts.push(productId);
+          }
+        });
+        dispatch(updateDeletedProducts(deletedProducts));
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 /**
  * REDUCER
  */
@@ -114,16 +136,11 @@ export default function (state = [], action) {
         stateCopy = stateCopy.map((item) => {
           if (item.id === action.cartItem.productId) {
             item.quantity = action.cartItem.quantity;
-
             item.cartItemId = action.cartItem.cartItemId;
-
           }
           return item;
         });
       }
-
-      console.log(stateCopy);
-
       return stateCopy;
     default:
       return state;

@@ -10,6 +10,12 @@ import cart from "./cart";
 import singleCartItem from "./singleCartItem";
 import filterAndOrder from "./filterAndOrder";
 
+export const getToken = () => {
+  const TOKEN = "token";
+  const token = window.localStorage.getItem(TOKEN);
+  return token;
+};
+
 const reducer = combineReducers({
   auth,
   products,

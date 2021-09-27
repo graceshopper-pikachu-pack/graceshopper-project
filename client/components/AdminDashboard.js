@@ -8,6 +8,7 @@ import {
   orderByName,
   orderByPriceAsc,
   orderByPriceDesc,
+  bulkDelete,
 } from "../store";
 
 class AdminDashboard extends React.Component {
@@ -19,10 +20,12 @@ class AdminDashboard extends React.Component {
       category: "all",
       orderBy: "name",
       checkedState: [],
+      checkedProductIds: [],
     };
     this.filterProducts = this.filterProducts.bind(this);
     this.orderProducts = this.orderProducts.bind(this);
     this.handleChecked = this.handleChecked.bind(this);
+    this.bulkDelete = this.bulkDelete.bind(this);
   }
 
   componentDidMount() {
@@ -40,6 +43,13 @@ class AdminDashboard extends React.Component {
     if (prevProps.filterAndOrder !== this.props.filterAndOrder) {
       this.setState({
         filteredAndOrdered: this.props.filterAndOrder,
+      });
+
+      const checkedState = new Array(this.props.filterAndOrder.length).fill(
+        false
+      );
+      this.setState({
+        checkedState: checkedState,
       });
     }
   }
@@ -90,12 +100,39 @@ class AdminDashboard extends React.Component {
     }
   }
 
-  handleChecked(productIdx) {
-    const updatedCheckedState = this.state.checkedState.map((item, index) =>
-      index === productIdx ? !item : item
-    );
+  handleChecked(productIdx, productId) {
+    let updatedCheckedState = [...this.state.checkedState];
+    updatedCheckedState = updatedCheckedState.map((item, index) => {
+      if (index === productIdx) {
+        item = !item;
+      }
+      return item;
+    });
 
-    this.setState({ checkedState: updatedCheckedState });
+    let checkedProductIds = [...this.state.checkedProductIds];
+
+    if (
+      updatedCheckedState[productIdx] &&
+      !checkedProductIds.includes(productId)
+    ) {
+      checkedProductIds = [productId, ...checkedProductIds];
+    } else {
+      const index = checkedProductIds.indexOf(productId);
+      checkedProductIds.splice(index, 1);
+    }
+
+    this.setState({
+      checkedState: updatedCheckedState,
+      checkedProductIds: checkedProductIds,
+    });
+  }
+
+  bulkDelete(evt) {
+    evt.preventDefault();
+
+    if (this.state.checkedProductIds.length) {
+      this.props.bulkDelete(this.state.checkedProductIds);
+    }
   }
 
   render() {
@@ -110,6 +147,8 @@ class AdminDashboard extends React.Component {
     if (!products.length) {
       return <h4>Loading...</h4>;
     }
+
+    console.log("checkedState", this.state.checkedState);
 
     return (
       <div>
@@ -149,6 +188,9 @@ class AdminDashboard extends React.Component {
         >
           Add Animal
         </button>
+        <button type="button" onClick={this.bulkDelete}>
+          Delete Selected
+        </button>
         <div className="column">
           <div className="row">
             <img
@@ -167,6 +209,7 @@ class AdminDashboard extends React.Component {
               product={product}
               key={product.id}
               handleChecked={this.handleChecked}
+              index={index}
             />
           ))}
         </div>
@@ -186,6 +229,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     getData: () => dispatch(fetchAdminData()),
+    bulkDelete: (productIdsArr) => dispatch(bulkDelete(productIdsArr)),
     filterByAll: (products, orderBy) =>
       dispatch(filterByAll(products, orderBy)),
     filterByCategory: (products, orderBy, category) =>

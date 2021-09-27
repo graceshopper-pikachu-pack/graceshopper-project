@@ -14,7 +14,7 @@ const AdminProduct = (props) => {
         name={adminProduct.productName}
         value={adminProduct.productName}
         checked={adminProduct.checked}
-        onChange={() => props.handleChecked(props.index)}
+        onChange={() => props.handleChecked(props.index, adminProduct.id)}
       />
       <img className="admin-dashboard-img" src={adminProduct.imageUrl} />
       <div className="admin-dashboard-name">{adminProduct.productName}</div>

@@ -1,9 +1,9 @@
 import axios from "axios";
 import history from "../history";
-import { setEditedProductsDisplay } from "./index";
+import { setEditedProductsDisplay, getToken } from "./index";
 
-const TOKEN = "token";
-const token = window.localStorage.getItem(TOKEN);
+let token;
+
 /**
  * ACTION TYPES
  */
@@ -33,6 +33,8 @@ export const clearReduxCart = () => ({ type: CLEAR_CART, cart: [] });
 // FETCH CART:
 export const fetchCart = () => {
   return async (dispatch) => {
+    token = getToken();
+
     if (token) {
       dispatch(fetchDBCart());
     } else {
@@ -44,7 +46,6 @@ export const fetchCart = () => {
 export const fetchDBCart = () => {
   return async (dispatch) => {
     try {
-      console.log("db cart fetched");
       const { data } = await axios.get(`/api/cart/cartItem`, {
         headers: {
           authorization: token,
@@ -56,8 +57,6 @@ export const fetchDBCart = () => {
         return { quantity, cartItemId: id, ...item.product };
       });
 
-      console.log("cart", cart);
-
       dispatch(setCart(cart));
     } catch (error) {
       console.log(error);
@@ -67,7 +66,6 @@ export const fetchDBCart = () => {
 
 export const fetchLocalCart = () => {
   return async (dispatch) => {
-    console.log("storage cart fetched");
     let localCart = localStorage.getItem("cart");
     // if there is a local cart on localStorage
     if (localCart) {
@@ -89,6 +87,7 @@ export const fetchLocalCart = () => {
 export const incrementCartItem = (cartItem) => {
   return async (dispatch) => {
     // if there is a token on the local storage
+    token = getToken();
 
     if (token) {
       // send to the logged in user route
@@ -104,7 +103,6 @@ export const incrementCartItem = (cartItem) => {
 export const incrementDBCart = (cartItem) => {
   return async (dispatch) => {
     try {
-      console.log("CARTITEM", cartItem);
       let response;
       if (cartItem.quantity > 0) {
         response = await axios.put(
@@ -138,7 +136,6 @@ export const incrementDBCart = (cartItem) => {
       const newItem = { cartItemId: response.data.id, ...response.data };
 
       dispatch(setEditedProductsDisplay(newItem));
-
     } catch (error) {
       console.log(error);
     }
@@ -189,7 +186,7 @@ export const incrementLocalCart = (cartItem) => {
 export const decrementCartItem = (cartItem) => {
   return async (dispatch) => {
     // if there is a token on the local storage
-
+    token = getToken();
     if (token) {
       // send to the logged in user route
       dispatch(decrementDBCart(cartItem));
@@ -220,7 +217,6 @@ export const decrementDBCart = (cartItem) => {
         if (cartItem.quantity - 1 === 0) {
           dispatch(deleteDBCartItem(cartItem));
         }
-
       }
     } catch (error) {
       console.log(error);
@@ -266,6 +262,7 @@ export const decrementLocalCart = (cartItem) => {
 // EDIT CART:
 export const editCart = (product) => {
   return async (dispatch) => {
+    token = getToken();
     if (token) {
       dispatch(editDBCart(product));
     } else {
@@ -277,9 +274,11 @@ export const editCart = (product) => {
 export const editDBCart = (product) => {
   return async (dispatch) => {
     try {
+      console.log(product);
       if (Number(product.quantity) === 0) {
         dispatch(deleteDBCartItem(product));
-      } else {
+      } /*else if (product.quantity === 1) {
+      } */ else {
         const { data } = await axios.put(
           `/api/cart/cartItem/edit/${product.cartItemId}`,
           product,
@@ -352,6 +351,7 @@ export const editLocalCartItem = (product) => {
 // DELETE CART:
 export const deleteCartItem = (cartItem) => {
   return async (dispatch) => {
+    token = getToken();
     if (token) {
       dispatch(deleteDBCartItem(cartItem));
     } else {
@@ -372,9 +372,7 @@ export const deleteDBCartItem = (cartItem) => {
         }
       );
 
-      console.log("deleted cart item", data);
       dispatch(setDeletedCartItem(data));
-
     } catch (error) {
       console.log(error);
     }
@@ -407,6 +405,7 @@ export const deleteLocalCartItem = (cartItem) => {
 
 export const clearCart = () => {
   return async (dispatch) => {
+    token = getToken();
     if (token) {
       dispatch(clearDBCart());
     } else {
@@ -439,6 +438,61 @@ export const clearLocalCart = () => {
   }
 };
 
+export const addToUserCart = (localCart) => {
+  return async () => {
+    try {
+      console.log("add to user cart");
+      console.log(localCart);
+      if (localCart.length) {
+        console.log("hello");
+
+        let cartCopy = [...localCart];
+        token = getToken();
+        console.log(token);
+        const { data } = await axios.get(`/api/cart/cartItems`, {
+          headers: {
+            authorization: token,
+          },
+        });
+        console.log("token, data");
+        console.log(token, data);
+
+        for (let i = 0; i < cartCopy.length; i++) {
+          for (let j = 0; j < data.cartItems.length; j++) {
+            if (cartCopy[i].productId === data.cartItems[j].productId) {
+              await axios.put(
+                `/api/cart/cartItem/incrementBy/${data.cartItems[j].id}`,
+                { quantity: cartCopy[i].quantity },
+                {
+                  headers: {
+                    authorization: token,
+                  },
+                }
+              );
+              break;
+            } else if (j + 1 === data.cartItems.length) {
+              await axios.post(
+                `/api/cart/${data.id}`,
+                {
+                  productId: cartCopy[i].productId,
+                  quantity: cartCopy[i].quantity,
+                },
+                {
+                  headers: {
+                    authorization: token,
+                  },
+                }
+              );
+            }
+          }
+        }
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
 /**
  * REDUCER
  */
@@ -466,7 +520,6 @@ export default function (state = [], action) {
           (item) => item.id !== action.cartItem.productId
         );
       }
-      console.log("deletedstatecopy", deletedStateCopy);
       return deletedStateCopy;
     default:
       return state;

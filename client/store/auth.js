@@ -1,6 +1,6 @@
 import axios from "axios";
 import history from "../history";
-import { clearReduxCart } from "./index";
+import { clearReduxCart, addToUserCart, getToken } from "./index";
 
 const TOKEN = "token";
 
@@ -18,28 +18,39 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
  * THUNK CREATORS
  */
 export const me = () => async (dispatch) => {
-  // check if there is a cart on the local storage
-  const localCart = localStorage.getItem("cart");
-  // if there is not, initialize a new empty cart
-  if (!localCart) {
-    localStorage.setItem("cart", JSON.stringify([]));
-  }
-  const token = window.localStorage.getItem(TOKEN);
-  if (token) {
-    const res = await axios.get("/auth/me", {
-      headers: {
-        authorization: token,
-      },
-    });
-    return dispatch(setAuth(res.data));
+  try {
+    // check if there is a cart on the local storage
+    const localCart = window.localStorage.getItem("cart");
+    localCart = JSON.parse(localCart);
+    // if there is not, initialize a new empty cart
+    if (!localCart) {
+      window.localStorage.setItem("cart", JSON.stringify([]));
+    }
+    const token = getToken();
+    console.log("token", token);
+    if (token) {
+      window.localStorage.removeItem("cart");
+      const res = await axios.get("/auth/me", {
+        headers: {
+          authorization: token,
+        },
+      });
+
+      dispatch(addToUserCart(localCart));
+      return dispatch(setAuth(res.data));
+    }
+  } catch (error) {
+    console.log(error);
   }
 };
 
 export const authenticate = (formData, method) => async (dispatch) => {
   try {
-    const res = await axios.post(`/auth/${method}`, formData);
     // if we log in, we want to remove the cart that may have been there
-    window.localStorage.removeItem("cart");
+    const localCart = localStorage.getItem("cart");
+
+    const res = await axios.post(`/auth/${method}`, formData);
+
     window.localStorage.setItem(TOKEN, res.data.token);
 
     dispatch(clearReduxCart());
@@ -54,6 +65,7 @@ export const logout = () => {
     window.localStorage.removeItem(TOKEN);
     // if we log out, we want to remove the cart that may have been there
     window.localStorage.removeItem("cart");
+    localStorage.setItem("cart", JSON.stringify([]));
     dispatch(clearReduxCart());
     dispatch(setAuth({}));
     history.push("/login");
