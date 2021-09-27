@@ -1,7 +1,7 @@
-import React from "react";
-import { connect } from "react-redux";
-import CartItem from "./CartItem";
-import { fetchCart, clearCart, getToken } from "../store";
+import React from 'react';
+import { connect } from 'react-redux';
+import CartItem from './CartItem';
+import { fetchCart, clearCart, getToken } from '../store';
 
 /**
  * COMPONENT
@@ -10,15 +10,16 @@ class Cart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      user: {},
       cart: [],
-      errors: "",
+      errors: '',
     };
     this.clearCart = this.clearCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
   }
 
   componentDidMount() {
-    const TOKEN = "token";
+    const TOKEN = 'token';
     const token = window.localStorage.getItem(TOKEN);
     this.props.fetchCart();
 
@@ -28,6 +29,12 @@ class Cart extends React.Component {
   }
 
   componentDidUpdate(prevProps) {
+    if (prevProps.auth !== this.props.auth) {
+      this.setState({
+        user: { ...this.props.auth },
+      });
+      this.props.fetchCart(this.props.auth.id);
+    }
     if (prevProps.cart !== this.props.cart) {
       this.setState({
         cart: this.props.cart,
@@ -50,10 +57,10 @@ class Cart extends React.Component {
 
     if (token) {
       this.props.clearCart();
-      this.props.history.push("/confirmation");
+      this.props.history.push('/confirmation');
     } else {
       this.setState({
-        errors: "Please login or sign up to place your order!",
+        errors: 'Please login or sign up to place your order!',
       });
     }
   }
@@ -64,7 +71,7 @@ class Cart extends React.Component {
     return (
       <div>
         {!cart.length ? (
-          <h4>There are no items in your cart!</h4>
+          <h4>Loading...</h4>
         ) : (
           <>
             {this.state.errors ? (
@@ -91,7 +98,7 @@ class Cart extends React.Component {
  */
 const mapState = (state) => {
   return {
-    isLoggedIn: !!state.auth.id,
+    auth: state.auth,
     cart: state.cart,
   };
 };
