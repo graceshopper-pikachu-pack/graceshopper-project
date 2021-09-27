@@ -1,6 +1,5 @@
 import React from "react";
 import {connect} from "react-redux"
-import { Link } from "react-router-dom";
 import { fetchAdminData, updateAdminData } from "../store/admin";
 
 class AdminView extends React.Component{
@@ -21,30 +20,32 @@ class AdminView extends React.Component{
   }
 
   render() {
-    const Checkbox = (props) => <input type="checkbox" {...props} />;
+    // const Checkbox = (this.props) => <input type="checkbox" {...this.props} />;
 
-  const adminUser = this.props.user;
-  console.log(adminUser)
-  console.log(props)
-  const route = `/admin/users/edit/${adminUser.id}`;
+    const adminUsers = this.props.users;
+    console.log("user: ", adminUsers)
+    console.log("props", this.props)
+    // const route = `/admin/users/edit/${adminUser.id}`;
 
-  return (
-    <div className="row">
-      <Checkbox
-        id={adminUser.id}
-        name={adminUser.username}
-        value={adminUser.username}
-        checked={adminUser.checked}
-        onChange={() => props.handleChecked(props.index, adminUser.id)}
-      />
-      <div className="admin-dashboard-username">{adminUser.username}</div>
-      <div className="admin-dashboard-firstName">{adminUser.firstName}</div>
-      <div className="admin-dashboard-lastname">{adminUser.lastName}</div>
-      <div className="admin-dashboard-email">{adminUser.email}</div>
-      <div className="admin-dashboard-address">{adminUser.address}</div>
-      <div className="admin-dashboard-adminstatus">{adminUser.adminStatus}</div>
-      <Link to={route}>Edit</Link>
-    </div>
+    return (
+      <table>
+
+      {adminUsers.map((adminUser) => {
+        return(
+          <tbody key={adminUser.id}>
+              <tr className="admin-dashboard-usernames" >
+                <td>Username: {adminUser.username} </td>
+                <td>First Name: {adminUser.firstName} </td>
+                <td> Last Name: {adminUser.lastName} </td>
+                <td> Email: {adminUser.email} </td>
+                <td> Admin Status: {adminUser.adminStatus.toString()} </td>
+
+              </tr>
+              </tbody>
+        )
+      })}
+
+    </table>
     );
   }
   }
