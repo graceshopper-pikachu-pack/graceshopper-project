@@ -142,6 +142,84 @@ const products = [
     category: 'REPTILES',
     price: 10000,
   },
+  {
+    stockNumber: 'SN-123-008',
+    productName: 'Siamese Fighting Fish',
+    imageUrl:
+      'https://www.peta.org/wp-content/uploads/2019/08/iStock-644996948_itthipolB-1.jpg',
+    productDescription: `Betta fish are native to Asia, where they live in the shallow water of marshes, ponds, or slow-moving streams. Male bettas are devoted fathers who build bubble nests for their young with their mouths and fiercely protect their babies from predators. Just like us, betta fish are diurnal. That means they’re active during the day and sleep at night, requiring darkness to get a good night’s rest.`,
+    stockQuantity: 15,
+    category: 'FISH',
+    price: 550,
+  },
+  {
+    stockNumber: 'SN-123-009',
+    productName: 'Common Clownfish',
+    imageUrl: 'https://s28164.pcdn.co/files/common-clownfish-89-1280x720.jpg',
+    productDescription: `Both the anemone and clownfish live in a symbiotic relationship, meaning the anemone benefits from the presence of the clownfish, while the clownfish benefits from living with the anemone. It is thought that the clownfish feeds upon parasites and debris amongst the anemone’s tentacles, and in return scares away fish that may prey upon the anemone, as well as giving the anemone better water circulation as it fans its fins while swimming around. It is possible that the clownfish also lures fish for the anemone to kill and eat.`,
+    stockQuantity: 15,
+    category: 'FISH',
+    price: 250,
+  },
+  {
+    stockNumber: 'SN-123-010',
+    productName: 'Red Eyed Tree Frog',
+    imageUrl:
+      'https://nationalzoo.si.edu/sites/default/files/styles/1400_scale/public/newsroom/20181129-roshanpatel03.jpg?itok=6ZIFQmw1',
+    productDescription: `Red-eyed tree frogs are recognized around the world as an ambassador for all tropical amphibian species. With their large, red eyes, their blue-green bodies and orange toes—they have a striking beauty about them. They also have adhesive toepads, which enable them to climb up any surface. They are the most recognizable frog in the world! `,
+    stockQuantity: 5,
+    category: 'AMPHIBIANS',
+    price: 2000,
+  },
+  {
+    stockNumber: 'SN-123-021',
+    productName: 'Pink-toed tarantula',
+    latinName: 'Avicularia avicularia',
+    imageUrl:
+      'https://nationalzoo.si.edu/sites/default/files/styles/1400x700_scale_and_crop/public/animals/pinktoedtarantula-001.jpg',
+    productDescription: `The pink-toed tarantula is a small, arboreal species native to the rainforests of South America. The mature pink-toe tarantula has a dark-colored body and pinkish feet, hence its name..
+	`,
+    stockQuantity: 25,
+    category: 'INVERTEBRATES',
+    price: 500,
+    funFact: `The tarantulas are active predators, feeding on a variety of invertebrates as well as small vertebrates like mice, frogs and lizards. Tarantulas hunt at night and rely on their large size to subdue prey.`,
+  },
+  {
+    stockNumber: 'SN-123-022',
+    productName: 'Blue-ringed octopus',
+    latinName: 'Hapalochlaena',
+    imageUrl:
+      'https://oceanconservancy.org/wp-content/uploads/2018/12/David-Evison_Fotolia.jpg',
+    productDescription: `Blue-ringed octopus is a  highly venomous species of octopus that is found in tide pools and coral reefs in the Pacific and Indian oceans. They can be identified by their yellowish skin and characteristic blue and black rings that change color dramatically when the animal is threatened. `,
+    stockQuantity: 8,
+    category: 'AMPHIBIANS',
+    price: 2500,
+    funFact: `The Blue-ringed octopus' venom is 1,000 times more powerful than cyanide, and this tiny octopus packs enough venom to kill 26 humans within minutes.`,
+  },
+  {
+    stockNumber: 'SN-123-023',
+    productName: 'Bluefin Tuna',
+    latinName: 'Thunnus thynnus',
+    imageUrl:
+      'https://upload.wikimedia.org/wikipedia/commons/1/18/Bluefin-big.jpg',
+    productDescription: `Bluefin are the largest tunas and can live up to 40 years. They migrate across all oceans and can dive deeper than 3,000 feet. Bluefin tuna are made for speed: built like torpedoes, have retractable fins and their eyes are set flush to their body. `,
+    stockQuantity: 14,
+    category: 'FISH',
+    price: 5000,
+    funFact: `They are tremendous predators from the moment they hatch, seeking out schools of fish like herring, mackerel, and even eels. They hunt by sight and have the sharpest vision of any bony fish. `,
+  },
+  {
+    stockNumber: 'SN-123-024',
+    productName: 'Electric eel',
+    latinName: 'Electrophorus electricus',
+    imageUrl:
+      'https://nationalzoo.si.edu/sites/default/files/styles/1400x700_scale_and_crop/public/animals/electric-eel-homepage-slide.jpg',
+    productDescription: `The electric eel is a knifefish and is more closely related to catfish and carp than to other eel families. `,
+    stockQuantity: 5,
+    category: 'FISH',
+    price: 1500,
+    funFact: `Electric eels are capable of generating up to 800 volts of electricity!`,
+  },
 ];
 
 const cartItems1 = [
