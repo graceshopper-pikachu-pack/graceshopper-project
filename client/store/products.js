@@ -112,7 +112,6 @@ export const bulkDelete = (productIdsArr) => {
 
         let deletedProducts = [];
         productIdsArr.forEach((productId) => {
-          console.log("token", token);
           let response = axios.delete(`/api/products/${productId}`, {
             headers: {
               authorization: token,

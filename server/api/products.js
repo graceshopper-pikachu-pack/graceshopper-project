@@ -82,8 +82,6 @@ router.post("/", authRequired, async (req, res, next) => {
 // DELETE /api/products/:id (delete product)
 router.delete("/:id", authRequired, async (req, res, next) => {
   try {
-    console.log("request body", req.body);
-    console.log("admin Status", req.adminStatus);
     if (req.adminStatus) {
       const deleteCount = await Product.destroy({
         where: { id: req.params.id },

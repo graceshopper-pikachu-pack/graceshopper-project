@@ -23,9 +23,11 @@ class Admin extends React.Component {
   }
 
   render() {
+
     const adminUser = this.props.users
     console.log("USERS", adminUser)
     console.log("props", this.props);
+
     return (
       <div>
         <Link to="/admin/products">

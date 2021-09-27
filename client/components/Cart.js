@@ -20,7 +20,6 @@ class Cart extends React.Component {
   componentDidMount() {
     const TOKEN = "token";
     const token = window.localStorage.getItem(TOKEN);
-    console.log(token);
     this.props.fetchCart();
 
     this.setState({

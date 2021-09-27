@@ -56,10 +56,10 @@ class EditProduct extends React.Component {
           : "";
         break;
       case "price":
-        if (isNaN(value) || !value.length) {
+        if (isNaN(Number(value)) || !value.length) {
           errors.price = "Please provide a valid price for this animal";
         } else {
-          errors.prrice = "";
+          errors.price = "";
         }
         break;
       case "stockQuantity":
@@ -194,6 +194,7 @@ class EditProduct extends React.Component {
           <small>Category</small>
         </label>
         <select id="dropdown" value={category} onChange={this.selectCategory}>
+          <option value="">Select Category</option>
           <option value="amphibians">Amphibians</option>
           <option value="birds">Birds</option>
           <option value="fish">Fish</option>
@@ -201,7 +202,7 @@ class EditProduct extends React.Component {
           <option value="mammals">Mammals</option>
           <option value="reptiles">Reptiles</option>
         </select>
-        <button type="submit">Submit Edited Animal</button>
+        <button type="submit">Submit New Animal</button>
       </form>
     );
   }
