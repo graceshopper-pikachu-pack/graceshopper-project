@@ -10,7 +10,7 @@ import Cart from "./components/Cart";
 //import AdminPage from "./components/AdminPage";
 import AdminDashboard from "./components/AdminDashboard";
 import Admin from "./components/AdminPage";
-import AdminUser from "./components/AdminViewUsers";
+import AdminView from "./components/AdminViewUsers";
 import EditUser from "./components/EditUser";
 import EditProduct from "./components/EditProduct";
 import AddProduct from "./components/AddProduct";
@@ -46,7 +46,7 @@ class Routes extends Component {
             path="/admin/products/edit/:productId"
             component={EditProduct}
           />
-          <Route exact path="/admin/users" component={AdminUser} />
+          <Route exact path="/admin/users" component={AdminView} />
           <Route
             exact
             path="/admin/users/edit/:userId"

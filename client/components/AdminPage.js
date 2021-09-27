@@ -1,7 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
-import AdminUser from "./AdminViewUsers"
 import { fetchAdminData, updateAdminData } from "../store/admin";
 
 
@@ -27,7 +26,11 @@ class Admin extends React.Component {
     const adminUser = this.props.users
     console.log("USERS", adminUser)
     console.log("props", this.props);
+<<<<<<< Updated upstream
 
+=======
+    // console.log("state users",state.admin.users)
+>>>>>>> Stashed changes
     return (
       <div>
         <Link to="/admin/products">
@@ -40,8 +43,6 @@ class Admin extends React.Component {
             Edit Users
           </button>
         </Link>
-
-        {/* <AdminUser /> */}
       </div>
     );
   }
