@@ -1,8 +1,8 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { NavLink, Link } from 'react-router-dom';
-import { fetchAdminData, updateAdminData } from '../store/admin';
-import ProductsList from './ProductsList';
+import React from "react";
+import { connect } from "react-redux";
+import { NavLink, Link } from "react-router-dom";
+import { fetchAdminData, updateAdminData } from "../store/admin";
+import ProductsList from "./ProductsList";
 
 class Admin extends React.Component {
   constructor() {
@@ -27,12 +27,12 @@ class Admin extends React.Component {
   }
 
   render() {
-    console.log('props', this.props);
+    console.log("props", this.props);
     return (
       <div>
         <button
           type="button"
-          onClick={() => this.props.history.push('/products')}
+          onClick={() => this.props.history.push("/admin/products")}
         >
           Products
         </button>

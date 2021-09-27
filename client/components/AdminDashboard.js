@@ -2,7 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import AdminProduct from "./AdminProduct";
 import {
-  fetchProducts,
+  fetchAdminData,
   filterByAll,
   filterByCategory,
   orderByName,
@@ -34,6 +34,7 @@ class AdminDashboard extends React.Component {
       this.setState({
         products: this.props.products,
       });
+      this.filterProducts();
     }
 
     if (prevProps.filterAndOrder !== this.props.filterAndOrder) {
@@ -44,18 +45,30 @@ class AdminDashboard extends React.Component {
   }
 
   filterProducts(evt) {
-    this.setState({
-      category: evt.target.value,
-    });
+    if (evt) {
+      this.setState({
+        category: evt.target.value,
+      });
 
-    if (evt.target.value === "all") {
-      this.props.filterByAll(this.state.products, this.state.orderBy);
+      if (evt.target.value === "all") {
+        this.props.filterByAll(this.state.products, this.state.orderBy);
+      } else {
+        this.props.filterByCategory(
+          this.state.products,
+          this.state.orderBy,
+          evt.target.value
+        );
+      }
     } else {
-      this.props.filterByCategory(
-        this.state.products,
-        this.state.orderBy,
-        evt.target.value
-      );
+      if (this.state.category === "all") {
+        this.props.filterByAll(this.props.products, this.state.orderBy);
+      } else {
+        this.props.filterByCategory(
+          this.props.products,
+          this.state.orderBy,
+          this.state.category
+        );
+      }
     }
   }
 
@@ -130,6 +143,12 @@ class AdminDashboard extends React.Component {
             </select>
           </div>
         </div>
+        <button
+          type="button"
+          onClick={() => this.props.history.push("/admin/products/add")}
+        >
+          Add Animal
+        </button>
         <div className="column">
           <div className="row">
             <img
@@ -158,7 +177,8 @@ class AdminDashboard extends React.Component {
 
 const mapState = (state) => {
   return {
-    products: state.products,
+    products: state.admin.products,
+    // users: state.admin.users,
     filterAndOrder: state.filterAndOrder,
   };
 };
