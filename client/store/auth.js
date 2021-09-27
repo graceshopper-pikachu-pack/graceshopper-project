@@ -20,14 +20,13 @@ const setAuth = (auth) => ({ type: SET_AUTH, auth });
 export const me = () => async (dispatch) => {
   try {
     // check if there is a cart on the local storage
-    const localCart = window.localStorage.getItem("cart");
+    let localCart = window.localStorage.getItem("cart");
     localCart = JSON.parse(localCart);
     // if there is not, initialize a new empty cart
     if (!localCart) {
       window.localStorage.setItem("cart", JSON.stringify([]));
     }
     const token = getToken();
-    console.log("token", token);
     if (token) {
       window.localStorage.removeItem("cart");
       const res = await axios.get("/auth/me", {

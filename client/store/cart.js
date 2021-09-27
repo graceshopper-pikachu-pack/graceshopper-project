@@ -441,49 +441,62 @@ export const clearLocalCart = () => {
 export const addToUserCart = (localCart) => {
   return async () => {
     try {
-      console.log("add to user cart");
-      console.log(localCart);
-      if (localCart.length) {
-        console.log("hello");
-
+      if (localCart && localCart.length) {
         let cartCopy = [...localCart];
         token = getToken();
-        console.log(token);
+
         const { data } = await axios.get(`/api/cart/cartItems`, {
           headers: {
             authorization: token,
           },
         });
-        console.log("token, data");
-        console.log(token, data);
 
-        for (let i = 0; i < cartCopy.length; i++) {
-          for (let j = 0; j < data.cartItems.length; j++) {
-            if (cartCopy[i].productId === data.cartItems[j].productId) {
-              await axios.put(
-                `/api/cart/cartItem/incrementBy/${data.cartItems[j].id}`,
-                { quantity: cartCopy[i].quantity },
-                {
-                  headers: {
-                    authorization: token,
+        // if there are items in the cart
+        if (data.cartItems.length) {
+          for (let i = 0; i < cartCopy.length; i++) {
+            for (let j = 0; j < data.cartItems.length; j++) {
+              if (cartCopy[i].productId === data.cartItems[j].productId) {
+                await axios.put(
+                  `/api/cart/cartItem/incrementBy/${data.cartItems[j].id}`,
+                  { quantity: cartCopy[i].quantity },
+                  {
+                    headers: {
+                      authorization: token,
+                    },
+                  }
+                );
+                break;
+              } else if (j + 1 === data.cartItems.length) {
+                await axios.post(
+                  `/api/cart/${data.id}`,
+                  {
+                    productId: cartCopy[i].productId,
+                    quantity: cartCopy[i].quantity,
                   },
-                }
-              );
-              break;
-            } else if (j + 1 === data.cartItems.length) {
-              await axios.post(
-                `/api/cart/${data.id}`,
-                {
-                  productId: cartCopy[i].productId,
-                  quantity: cartCopy[i].quantity,
-                },
-                {
-                  headers: {
-                    authorization: token,
-                  },
-                }
-              );
+                  {
+                    headers: {
+                      authorization: token,
+                    },
+                  }
+                );
+              }
             }
+          }
+        } else {
+          // else if it is a completely empty cart
+          for (let i = 0; i < cartCopy.length; i++) {
+            await axios.post(
+              `/api/cart/${data.id}`,
+              {
+                productId: cartCopy[i].productId,
+                quantity: cartCopy[i].quantity,
+              },
+              {
+                headers: {
+                  authorization: token,
+                },
+              }
+            );
           }
         }
       }
