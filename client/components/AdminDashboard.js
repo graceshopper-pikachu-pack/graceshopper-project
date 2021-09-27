@@ -148,8 +148,6 @@ class AdminDashboard extends React.Component {
       return <h4>Loading...</h4>;
     }
 
-    console.log("checkedState", this.state.checkedState);
-
     return (
       <div>
         <div>

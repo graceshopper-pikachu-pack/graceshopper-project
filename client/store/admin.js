@@ -1,4 +1,7 @@
 import axios from "axios";
+import { getToken } from "./index";
+
+let token;
 
 //types
 const SET_ADMIN_DATA = "SET_ADMIN_DATA";
@@ -31,7 +34,12 @@ export const updateDeletedProducts = (productArr) => ({
 export const fetchAdminData = () => {
   return async (dispatch) => {
     try {
-      const { data: userData } = await axios.get(`/api/users`);
+      token = getToken();
+      const { data: userData } = await axios.get(`/api/users`, {
+        headers: {
+          authorization: token,
+        },
+      });
 
       const { data: productsData } = await axios.get(`/api/products`);
 
@@ -45,7 +53,12 @@ export const fetchAdminData = () => {
 export const updateAdminData = (product) => {
   return async (dispatch) => {
     try {
-      const { data } = await axios.put(`/api/products/${product.id}`, product);
+      token = getToken();
+      const { data } = await axios.put(`/api/products/${product.id}`, product, {
+        headers: {
+          authorization: token,
+        },
+      });
       dispatch(edit_admin_data(data));
     } catch (err) {
       console.log.log(err);

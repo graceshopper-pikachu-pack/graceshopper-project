@@ -82,12 +82,14 @@ router.post("/", authRequired, async (req, res, next) => {
 // DELETE /api/products/:id (delete product)
 router.delete("/:id", authRequired, async (req, res, next) => {
   try {
-
-    const deleteCount = await Product.destroy({
-      where: { id: req.params.id },
-    });
-    res.status(200).json(deleteCount);
-
+    console.log("request body", req.body);
+    console.log("admin Status", req.adminStatus);
+    if (req.adminStatus) {
+      const deleteCount = await Product.destroy({
+        where: { id: req.params.id },
+      });
+      res.status(200).json(deleteCount);
+    }
   } catch (err) {
     next(err);
   }
