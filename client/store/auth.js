@@ -36,7 +36,6 @@ export const me = () => async (dispatch) => {
       });
 
       dispatch(addToUserCart(localCart));
-      history.push("/home");
       return dispatch(setAuth(res.data));
     }
   } catch (error) {
@@ -55,6 +54,7 @@ export const authenticate = (formData, method) => async (dispatch) => {
 
     dispatch(clearReduxCart());
     dispatch(me());
+    history.push("/home");
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
   }

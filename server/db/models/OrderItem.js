@@ -15,6 +15,13 @@ const OrderItem = db.define("orderItem", {
       isInt: true,
     },
   },
+  price: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
 });
 
 module.exports = OrderItem;

@@ -1,7 +1,9 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import CartItem from './CartItem';
-import { fetchCart, clearCart, getToken } from '../store';
+
+import React from "react";
+import { connect } from "react-redux";
+import CartItem from "./CartItem";
+import { fetchCart, clearCart, submitOrder, getToken } from "../store";
+
 
 /**
  * COMPONENT
@@ -19,8 +21,7 @@ class Cart extends React.Component {
   }
 
   componentDidMount() {
-    const TOKEN = 'token';
-    const token = window.localStorage.getItem(TOKEN);
+
     this.props.fetchCart();
 
     this.setState({
@@ -56,6 +57,7 @@ class Cart extends React.Component {
     const token = getToken();
 
     if (token) {
+      this.props.submitOrder([...this.state.cart]);
       this.props.clearCart();
       this.props.history.push('/confirmation');
     } else {
@@ -107,9 +109,8 @@ const mapDispatch = (dispatch) => {
   return {
     fetchCart: () => dispatch(fetchCart()),
     clearCart: () => dispatch(clearCart()),
+    submitOrder: (order) => dispatch(submitOrder(order)),
   };
 };
 
-// The `withRouter` wrapper makes sure that updates are not blocked
-// when the url changes
 export default connect(mapState, mapDispatch)(Cart);
