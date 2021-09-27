@@ -17,37 +17,37 @@ const SignupForm = (props) => {
             <label htmlFor="firstName">
               <small>First Name</small>
             </label>
-            <input name="firstName" type="text" />
+            <input name="firstName" type="text" required />
           </div>
           <div>
             <label htmlFor="lastName">
               <small>Last Name</small>
             </label>
-            <input name="lastName" type="text" />
+            <input name="lastName" type="text" required />
           </div>
           <div>
             <label htmlFor="email">
               <small>Email</small>
             </label>
-            <input name="email" type="text" />
+            <input name="email" type="text" required />
           </div>
           <div>
             <label htmlFor="username">
               <small>Username</small>
             </label>
-            <input name="username" type="text" />
+            <input name="username" type="text" required />
           </div>
           <div>
             <label htmlFor="password">
               <small>Password</small>
             </label>
-            <input name="password" type="password" />
+            <input name="password" type="password" required />
           </div>
           <div>
             <label htmlFor="address">
               <small>Address</small>
             </label>
-            <input name="address" type="text" />
+            <input name="address" type="text" required />
           </div>
           <div className="btn-signup">
             <button className="submit-signup" type="submit">
