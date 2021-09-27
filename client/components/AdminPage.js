@@ -26,11 +26,6 @@ class Admin extends React.Component {
     const adminUser = this.props.users
     console.log("USERS", adminUser)
     console.log("props", this.props);
-<<<<<<< Updated upstream
-
-=======
-    // console.log("state users",state.admin.users)
->>>>>>> Stashed changes
     return (
       <div>
         <Link to="/admin/products">
