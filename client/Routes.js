@@ -22,35 +22,31 @@ class Routes extends Component {
 	}
 
 
-	render() {
-		const { isLoggedIn } = this.props;
-		return (
-			<div>
-				{/* code for GENERAL VIEWERS */}
-				<Switch>
-					<Route exact path="/" component={ProductsList} />
-					<Route exact path="/products" component={ProductsList} />
-					<Route exact path="/products/:productId" component={SingleProduct} />
-					<Route exact path="/cart" component={Cart} />
-					{!isLoggedIn ? (
-						<>
-							<Route path="/login" component={Login} />
-							<Route path="/signup" component={Signup} />
-							<Route exact path="/home" component={ProductsList} />
-						</>
-					) : (
-						<Route exact path="/home" component={Home} />
-					)}
-					{/* {isAdmin && (
-						<>
-							<Route exact path="/admin" component={AdminPage} />
-						</>
-					)} */}
-					<Redirect to="/home" />
-				</Switch>
-			</div>
-		);
-	}
+    return (
+      <div>
+        {/* code for GENERAL VIEWERS */}
+        <Switch>
+          <Route path="/home" component={ProductsList} />
+          <Route exact path="/products" component={ProductsList} />
+          <Route exact path="/products/:productId" component={SingleProduct} />
+          <Route exact path="/cart" component={Cart} />
+          <Route exact path="/admin/dashboard" component={AdminDashboard} />
+          {!isLoggedIn && (
+            <>
+              <Route path="/login" component={Login} />
+              <Route path="/signup" component={Signup} />
+              <Route exact path="/admin" component={Admin} />
+            </>
+            /* {!isAdmin && (
+					<Switch>
+						<Route exact path="/admin" exact component={AdminPage} />
+					</Switch> */
+          )}
+          <Redirect to="/home" />
+        </Switch>
+      </div>
+    );
+  }
 
 }
 
