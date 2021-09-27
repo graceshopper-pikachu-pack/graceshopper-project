@@ -36,6 +36,7 @@ export const me = () => async (dispatch) => {
       });
 
       dispatch(addToUserCart(localCart));
+      history.push("/home");
       return dispatch(setAuth(res.data));
     }
   } catch (error) {

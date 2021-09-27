@@ -1,8 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
+import AdminUser from "./AdminViewUsers"
 import { fetchAdminData, updateAdminData } from "../store/admin";
-import ProductsList from "./ProductsList";
+
 
 class Admin extends React.Component {
   constructor() {
@@ -21,24 +22,26 @@ class Admin extends React.Component {
     this.props.updateData(product);
   }
 
-  renderUserState() {
-    this.setState({ current: this.props.users });
-    this.forceUpdate();
-  }
-
   render() {
+
+    const adminUser = this.props.users
+    console.log("USERS", adminUser)
     console.log("props", this.props);
+
     return (
       <div>
-        <button
-          type="button"
-          onClick={() => this.props.history.push("/admin/products")}
-        >
-          Products
-        </button>
-        {/* <button type="button" onClick={() => }>
-          Users
-        </button> */}
+        <Link to="/admin/products">
+          <button type="button">
+            Edit Products
+          </button>
+        </Link>
+        <Link to="/admin/users">
+          <button type="button">
+            Edit Users
+          </button>
+        </Link>
+
+        {/* <AdminUser /> */}
       </div>
     );
   }

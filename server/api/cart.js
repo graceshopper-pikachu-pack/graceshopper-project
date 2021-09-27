@@ -69,7 +69,6 @@ router.delete("/id", authRequired, async (req, res, next) => {
 // GET /api/cart/cartItems (cartItems assoicated with a user)
 router.get("/cartItems", authRequired, async (req, res, next) => {
   try {
-    console.log("req", req);
     const cart = await Cart.findOne({
       where: {
         userId: req.userId,
@@ -80,7 +79,6 @@ router.get("/cartItems", authRequired, async (req, res, next) => {
         },
       ],
     });
-    console.log("cart", cart);
     if (cart) {
       res.status(200).json(cart);
     }

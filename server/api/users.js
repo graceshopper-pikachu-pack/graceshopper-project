@@ -12,7 +12,7 @@ const authRequired = async (req, res, next) => {
   // jwt verify throws an exception when the token isn't valid
   try {
     const response = await jwt.verify(token, secret);
-    console.log(response);
+
     const { id, adminStatus } = await jwt.verify(token, secret);
     req.userId = id;
     req.adminStatus = adminStatus;
@@ -34,7 +34,7 @@ router.get("/", authRequired, async (req, res, next) => {
         // explicitly select only the id and username fields - even though
         // users' passwords are encrypted, it won't help if we just
         // send everything to anyone who asks!
-        attributes: ["id", "username"],
+        attributes: ["id", "username", "firstName", "lastName", "email", "adminStatus", "address"],
       });
       res.status(200).json(users);
     }
