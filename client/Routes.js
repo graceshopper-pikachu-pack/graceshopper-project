@@ -10,6 +10,9 @@ import Cart from "./components/Cart";
 import UserPage from "./components/UserPage";
 //import AdminPage from "./components/AdminPage";
 import AdminDashboard from "./components/AdminDashboard";
+import Admin from "./components/AdminPage";
+import AdminUser from "./components/AdminViewUsers";
+import EditUser from "./components/EditUser";
 import EditProduct from "./components/EditProduct";
 import AddProduct from "./components/AddProduct";
 import ConfirmationPage from "./components/ConfirmationPage";
@@ -34,12 +37,19 @@ class Routes extends Component {
           <Route exact path="/products" component={ProductsList} />
           <Route exact path="/products/:productId" component={SingleProduct} />
           <Route exact path="/cart" component={Cart} />
+          <Route exact path="/admin" component={Admin} />
           <Route exact path="/admin/products" component={AdminDashboard} />
           <Route exact path="/admin/products/add" component={AddProduct} />
           <Route
             exact
             path="/admin/products/edit/:productId"
             component={EditProduct}
+          />
+          <Route exact path="/admin/users" component={AdminUser} />
+          <Route
+            exact
+            path="/admin/users/edit/:userId"
+            component={EditUser}
           />
           {!isLoggedIn ? (
             <Switch>
