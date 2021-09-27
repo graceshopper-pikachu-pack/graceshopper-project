@@ -9,7 +9,6 @@ const secret = process.env.JWT;
 
 const authRequired = async (req, res, next) => {
   // We grab the token from the cookies
-  console.log("banana in the server");
   const token = req.headers.authorization;
   // jwt verify throws an exception when the token isn't valid
   try {
@@ -43,8 +42,53 @@ router.get("/id", authRequired, async (req, res, next) => {
   }
 });
 
-// GET /api/cart/products (a single order w/products assoicated with a user)
+// DELETE /api/cart/id (delete cart by cart Id)
+router.delete("/id", authRequired, async (req, res, next) => {
+  try {
+    const cart = await Cart.findOne({
+      where: {
+        userId: req.userId,
+      },
+      include: [
+        {
+          model: CartItem,
+        },
+      ],
+    });
+
+    if (cart.id) {
+      cart.cartItems.forEach(async (item) => await item.destroy());
+
+      res.status(200).json(cart);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/cart/cartItems (cartItems assoicated with a user)
 router.get("/cartItems", authRequired, async (req, res, next) => {
+  try {
+    const cart = await Cart.findOne({
+      where: {
+        userId: req.userId,
+      },
+      include: [
+        {
+          model: CartItem,
+        },
+      ],
+    });
+    if (cart) {
+      res.status(200).json(cart);
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+// GET /api/cart/cartItem (a single order w/products assoicated with a user)
+router.get("/cartItem", authRequired, async (req, res, next) => {
   try {
     const cart = await Cart.findOne({
       where: {
@@ -57,6 +101,7 @@ router.get("/cartItems", authRequired, async (req, res, next) => {
         },
       ],
     });
+
     if (cart) {
       res.status(200).json(cart);
     }
@@ -80,6 +125,17 @@ router.post("/:cartId", authRequired, async (req, res, next) => {
   }
 });
 
+// GET /api/cartItem/get/:id (gets cartItem by id)
+router.get("/cartItem/get/:id", authRequired, async (req, res, next) => {
+  try {
+    const cartItem = await CartItem.findByPk(req.params.id);
+
+    res.status(200).json(cartItem);
+  } catch (err) {
+    next(err);
+  }
+});
+
 // PUT /api/cartItem/edit/:id (update cartItem by id)
 router.put("/cartItem/edit/:id", authRequired, async (req, res, next) => {
   try {
@@ -88,24 +144,68 @@ router.put("/cartItem/edit/:id", authRequired, async (req, res, next) => {
       returning: true,
     });
 
-    console.log(updatedCartItem);
     res.status(200).json(updatedCartItem);
   } catch (err) {
     next(err);
   }
 });
 
-// PUT /api/cartItem/add/:id (add to cartItem by id)
-router.put("/cartItem/add/:id", authRequired, async (req, res, next) => {
+// PUT /api/cartItem/increment/:id (add to cartItem by id)
+router.put("/cartItem/increment/:id", authRequired, async (req, res, next) => {
   try {
     const cartItem = await CartItem.findByPk(req.params.id);
-    console.log("cartItem", cartItem);
-    const incrementedCart = await cartItem.increment("quantity", {
-      by: req.body.quantity,
-      returning: true,
-    });
-    console.log("incremenbted", incrementedCart);
-    res.status(200).json(incrementedCart);
+
+    if (req.body.stockQuantity >= cartItem.quantity + 1) {
+      const incrementedCart = await cartItem.increment("quantity", {
+        by: 1,
+        returning: true,
+      });
+
+      res.status(200).json(incrementedCart);
+    } else {
+      res.status(400).json({ message: "Quantity exceeds stock quantity" });
+    }
+  } catch (err) {
+    next(err);
+  }
+});
+
+// PUT /api/cartItem/increment/:id (add to cartItem by id)
+router.put(
+  "/cartItem/incrementBy/:id",
+  authRequired,
+  async (req, res, next) => {
+    try {
+      const cartItem = await CartItem.findByPk(req.params.id);
+      // have to make sure they do not exceed stock quantity
+
+      const incrementedCart = await cartItem.increment("quantity", {
+        by: req.body.quantity,
+        returning: true,
+      });
+
+      res.status(200).json(incrementedCart);
+    } catch (err) {
+      next(err);
+    }
+  }
+);
+
+// PUT /api/cartItem/decrement/:id (add to cartItem by id)
+router.put("/cartItem/decrement/:id", authRequired, async (req, res, next) => {
+  try {
+    const cartItem = await CartItem.findByPk(req.params.id);
+
+    if (cartItem.quantity - 1 >= 0) {
+      const decrementedCart = await cartItem.decrement("quantity", {
+        by: 1,
+        returning: true,
+      });
+
+      res.status(200).json(decrementedCart);
+    } else {
+      res.status(400).json({ message: "Quantity must be a positive integer" });
+    }
   } catch (err) {
     next(err);
   }

@@ -1,30 +1,47 @@
 import axios from "axios";
 import history from "../history";
+import { getToken } from "./index";
 
-const TOKEN = "token";
-const token = window.localStorage.getItem(TOKEN);
+let token;
 /**
  * ACTION TYPES
  */
 
 const CLEAR_CART_ITEM = "CLEAR_CART_ITEM";
 const SET_CART_ITEM = "SET_CART_ITEM";
+const EDIT_CART_ITEM = "EDIT_CART_ITEM";
 
 /**
  * ACTION CREATORS
  */
 
-const setCartItem = (item) => ({
+export const setCartItem = (item) => ({
   type: SET_CART_ITEM,
   item,
 });
 
 export const clearCartItem = () => ({ type: CLEAR_CART_ITEM, item: {} });
 
+export const editCartItem = (item) => ({ type: EDIT_CART_ITEM, item });
+
 /**
  * THUNK CREATORS
  */
+
+// FETCH CART ITEM:
+
 export const fetchCartItem = (product) => {
+  return async (dispatch) => {
+    token = getToken();
+    if (token) {
+      dispatch(getDBCartItem(product));
+    } else {
+      dispatch(getLocalCartItem(product));
+    }
+  };
+};
+
+export const getDBCartItem = (product) => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(`/api/cart/cartItems`, {
@@ -41,9 +58,9 @@ export const fetchCartItem = (product) => {
       const cartItem = cart.filter(
         (item) => item.id === Number(product.productId)
       );
-      console.log("cartItem", cartItem);
-
-      dispatch(setCartItem(cartItem[0]));
+      if (cartItem.length) {
+        dispatch(setCartItem(cartItem[0]));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -66,8 +83,11 @@ export const getLocalCartItem = (product) => {
         (item) => item.id === Number(product.productId)
       );
 
-      // put the cart on the redux store
-      dispatch(setCartItem(cartCopy[0]));
+      // if the item we are looking at is in our cart
+      if (cartCopy.length) {
+        // put the cart on the redux store
+        dispatch(setCartItem(cartCopy[0]));
+      }
     } catch (error) {
       console.log(error);
     }
@@ -82,6 +102,10 @@ export default function (state = {}, action) {
       return action.item;
     case SET_CART_ITEM:
       return action.item;
+    case EDIT_CART_ITEM:
+      const stateCopy = { ...state };
+      stateCopy.quantity = action.item.quantity;
+      return stateCopy;
     default:
       return state;
   }

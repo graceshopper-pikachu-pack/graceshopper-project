@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import CartItem from './CartItem';
-import { fetchCart } from '../store';
+import { fetchCart, clearCart, getToken } from '../store';
 
 /**
  * COMPONENT
@@ -12,7 +12,20 @@ class Cart extends React.Component {
     this.state = {
       user: {},
       cart: [],
+      errors: '',
     };
+    this.clearCart = this.clearCart.bind(this);
+    this.placeOrder = this.placeOrder.bind(this);
+  }
+
+  componentDidMount() {
+    const TOKEN = 'token';
+    const token = window.localStorage.getItem(TOKEN);
+    this.props.fetchCart();
+
+    this.setState({
+      cart: this.props.cart,
+    });
   }
 
   componentDidUpdate(prevProps) {
@@ -29,18 +42,51 @@ class Cart extends React.Component {
     }
   }
 
+  clearCart(evt) {
+    evt.preventDefault();
+
+    if (this.state.cart.length) {
+      this.props.clearCart();
+    }
+  }
+
+  placeOrder(evt) {
+    evt.preventDefault();
+
+    const token = getToken();
+
+    if (token) {
+      this.props.clearCart();
+      this.props.history.push('/confirmation');
+    } else {
+      this.setState({
+        errors: 'Please login or sign up to place your order!',
+      });
+    }
+  }
+
   render() {
     const cart = this.state.cart || [];
-    console.log('cart', cart);
 
     return (
       <div>
         {!cart.length ? (
           <h4>Loading...</h4>
         ) : (
-          cart.map((item) => (
-            <CartItem item={item} key={item.id} history={this.props.history} />
-          ))
+          <>
+            {this.state.errors ? (
+              <h6 className="error">{this.state.errors}</h6>
+            ) : null}
+            <button onClick={this.placeOrder}>Place Order</button>
+            <button onClick={this.clearCart}>Clear Cart</button>
+            {cart.map((item) => (
+              <CartItem
+                item={item}
+                key={item.id}
+                history={this.props.history}
+              />
+            ))}
+          </>
         )}
       </div>
     );
@@ -59,7 +105,8 @@ const mapState = (state) => {
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchCart: (userId) => dispatch(fetchCart(userId)),
+    fetchCart: () => dispatch(fetchCart()),
+    clearCart: () => dispatch(clearCart()),
   };
 };
 

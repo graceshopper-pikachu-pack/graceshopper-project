@@ -52,6 +52,7 @@ form div {
   font-family: 'Stick No Bills', sans-serif;
   font-size: 30px;
 }
+
 .navbar_links {
   display: flex;
   flex-direction: row;
@@ -165,6 +166,7 @@ input[type='password'] {
   align-items: center;
   width: 100%;
   height: 100vh;
+
   background-image: url('https://images.unsplash.com/photo-1601870431533-c658027e3d96?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80');
 }
 .signup-input {
@@ -195,4 +197,60 @@ input[type='password'] {
   align-items: center;
   font-family: 'Bebas Neue', cursive;
   font-size: 75px;
+}
+
+/* please feel free to change admin dashboard css */
+.admin-dashboard-icon {
+  width: 25px;
+  height: 25px;
+  margin: 25px 25px;
+  justify-content: center;
+}
+
+.admin-dashboard-img {
+  width: 50px;
+  height: 50px;
+  margin: 10px 10px;
+  justify-content: center;
+}
+
+.admin-dashboard-name {
+  width: 150px;
+  height: 50px;
+  margin: 10px 10px;
+  justify-content: center;
+}
+
+.admin-dashboard-stock-num {
+  width: 100px;
+  height: 50px;
+  margin: 10px 10px;
+  justify-content: center;
+}
+
+.admin-dashboard-price {
+  width: 100px;
+  height: 50px;
+  margin: 10px 10px;
+  justify-content: center;
+}
+
+.admin-dashboard-stock {
+  width: 100px;
+  height: 50px;
+  margin: 10px 10px;
+  justify-content: center;
+}
+
+.admin-dashboard-category {
+  width: 100px;
+  height: 50px;
+  margin: 10px 10px;
+  justify-content: center;
+}
+.admin-dashboard-date {
+  width: 100px;
+  height: 50px;
+  margin: 10px 10px;
+  justify-content: center;
 }

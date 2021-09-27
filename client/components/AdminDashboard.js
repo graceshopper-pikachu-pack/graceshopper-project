@@ -1,34 +1,35 @@
 import React from "react";
 import { connect } from "react-redux";
-import Product from "./Product";
+import AdminProduct from "./AdminProduct";
 import {
-  fetchProducts,
+  fetchAdminData,
   filterByAll,
   filterByCategory,
   orderByName,
   orderByPriceAsc,
   orderByPriceDesc,
-  incrementCartItem,
-  decrementCartItem,
+  bulkDelete,
 } from "../store";
 
-class ProductsList extends React.Component {
+class AdminDashboard extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      filteredAndOrdered: [],
       products: [],
+      filteredAndOrdered: [],
       category: "all",
       orderBy: "name",
+      checkedState: [],
+      checkedProductIds: [],
     };
     this.filterProducts = this.filterProducts.bind(this);
     this.orderProducts = this.orderProducts.bind(this);
-    this.handleIncrement = this.handleIncrement.bind(this);
-    this.handleDecrement = this.handleDecrement.bind(this);
+    this.handleChecked = this.handleChecked.bind(this);
+    this.bulkDelete = this.bulkDelete.bind(this);
   }
 
   componentDidMount() {
-    this.props.fetchProducts();
+    this.props.getData();
   }
 
   componentDidUpdate(prevProps) {
@@ -42,6 +43,13 @@ class ProductsList extends React.Component {
     if (prevProps.filterAndOrder !== this.props.filterAndOrder) {
       this.setState({
         filteredAndOrdered: this.props.filterAndOrder,
+      });
+
+      const checkedState = new Array(this.props.filterAndOrder.length).fill(
+        false
+      );
+      this.setState({
+        checkedState: checkedState,
       });
     }
   }
@@ -79,7 +87,9 @@ class ProductsList extends React.Component {
       orderBy: evt.target.value,
     });
 
-    let products = this.state.filteredAndOrdered;
+    let products = this.state.filteredAndOrdered.length
+      ? this.state.filteredAndOrdered
+      : this.state.products;
 
     if (evt.target.value === "name") {
       this.props.orderByName(products);
@@ -90,73 +100,49 @@ class ProductsList extends React.Component {
     }
   }
 
-  handleIncrement(product, evt) {
-    evt.preventDefault();
-
-    let cartItem;
-    const updatedItems = this.state.filteredAndOrdered.map((item) => {
-      if (item.id === product.id) {
-        if (item.quantity + 1 > item.stockQuantity) {
-          item.errors = "Requested quantity in cart exceeds stock quantity";
-        } else {
-          item.errors = "";
-        }
-        cartItem = { ...item };
+  handleChecked(productIdx, productId) {
+    let updatedCheckedState = [...this.state.checkedState];
+    updatedCheckedState = updatedCheckedState.map((item, index) => {
+      if (index === productIdx) {
+        item = !item;
       }
-
       return item;
     });
 
-    this.setState({
-      filterAndOrder: [...updatedItems],
-    });
+    let checkedProductIds = [...this.state.checkedProductIds];
 
-    // if there are no errors in the quantity
-    if (!cartItem.errors) {
-      this.props.incrementCartItem({
-        productId: cartItem.id,
-        cartItemId: cartItem.cartItemId,
-        quantity: cartItem.quantity,
-        stockQuantity: cartItem.stockQuantity,
-      });
+    if (
+      updatedCheckedState[productIdx] &&
+      !checkedProductIds.includes(productId)
+    ) {
+      checkedProductIds = [productId, ...checkedProductIds];
+    } else {
+      const index = checkedProductIds.indexOf(productId);
+      checkedProductIds.splice(index, 1);
     }
+
+    this.setState({
+      checkedState: updatedCheckedState,
+      checkedProductIds: checkedProductIds,
+    });
   }
 
-  handleDecrement(product, evt) {
+  bulkDelete(evt) {
     evt.preventDefault();
 
-    let cartItem;
-    const updatedItems = this.state.filteredAndOrdered.map((item) => {
-      if (item.id === product.id) {
-        if (item.quantity - 1 < 0) {
-          item.errors = "This item is not in your cart!";
-        } else {
-          item.errors = "";
-        }
-        cartItem = { ...item };
-      }
-
-      return item;
-    });
-
-    this.setState({
-      filterAndOrder: [...updatedItems],
-    });
-
-    // if there are no errors in the quantity
-    if (!cartItem.errors) {
-      this.props.decrementCartItem({
-        productId: cartItem.id,
-        cartItemId: cartItem.cartItemId,
-        quantity: cartItem.quantity,
-      });
+    if (this.state.checkedProductIds.length) {
+      this.props.bulkDelete(this.state.checkedProductIds);
     }
   }
 
   render() {
-    let products = this.state.filteredAndOrdered.length
-      ? this.state.filteredAndOrdered
-      : [];
+    let products = [];
+
+    if (this.state.filteredAndOrdered.length) {
+      products = this.state.filteredAndOrdered;
+    } else {
+      products = this.state.products;
+    }
 
     if (!products.length) {
       return <h4>Loading...</h4>;
@@ -182,7 +168,6 @@ class ProductsList extends React.Component {
             <select
               id="dropdown"
               value={this.state.category}
-              // when the value changes call the method
               onChange={this.filterProducts}
             >
               <option value="all">All Animals</option>
@@ -195,15 +180,37 @@ class ProductsList extends React.Component {
             </select>
           </div>
         </div>
-        {products.map((product) => (
-          <Product
-            product={product}
-            key={product.id}
-            history={this.props.history}
-            handleIncrement={this.handleIncrement}
-            handleDecrement={this.handleDecrement}
-          />
-        ))}
+        <button
+          type="button"
+          onClick={() => this.props.history.push("/admin/products/add")}
+        >
+          Add Animal
+        </button>
+        <button type="button" onClick={this.bulkDelete}>
+          Delete Selected
+        </button>
+        <div className="column">
+          <div className="row">
+            <img
+              className="admin-dashboard-icon"
+              src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Picture_icon_BLACK.svg/1200px-Picture_icon_BLACK.svg.png"
+            />
+            <div className="admin-dashboard-name">Name:</div>
+            <div className="admin-dashboard-stock-num">Stock Number:</div>
+            <div className="admin-dashboard-price">Price:</div>
+            <div className="admin-dashboard-stock">Stock Quantity:</div>
+            <div className="admin-dashboard-category">Category:</div>
+            <div className="admin-dashboard-date">Published:</div>
+          </div>
+          {products.map((product, index) => (
+            <AdminProduct
+              product={product}
+              key={product.id}
+              handleChecked={this.handleChecked}
+              index={index}
+            />
+          ))}
+        </div>
       </div>
     );
   }
@@ -211,14 +218,16 @@ class ProductsList extends React.Component {
 
 const mapState = (state) => {
   return {
-    products: state.products,
+    products: state.admin.products,
+    // users: state.admin.users,
     filterAndOrder: state.filterAndOrder,
   };
 };
 
 const mapDispatch = (dispatch) => {
   return {
-    fetchProducts: () => dispatch(fetchProducts()),
+    getData: () => dispatch(fetchAdminData()),
+    bulkDelete: (productIdsArr) => dispatch(bulkDelete(productIdsArr)),
     filterByAll: (products, orderBy) =>
       dispatch(filterByAll(products, orderBy)),
     filterByCategory: (products, orderBy, category) =>
@@ -226,9 +235,7 @@ const mapDispatch = (dispatch) => {
     orderByName: (products) => dispatch(orderByName(products)),
     orderByPriceAsc: (products) => dispatch(orderByPriceAsc(products)),
     orderByPriceDesc: (products) => dispatch(orderByPriceDesc(products)),
-    incrementCartItem: (cartItem) => dispatch(incrementCartItem(cartItem)),
-    decrementCartItem: (cartItem) => dispatch(decrementCartItem(cartItem)),
   };
 };
 
-export default connect(mapState, mapDispatch)(ProductsList);
+export default connect(mapState, mapDispatch)(AdminDashboard);

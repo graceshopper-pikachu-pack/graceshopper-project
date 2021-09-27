@@ -1,6 +1,8 @@
 import axios from "axios";
 import history from "../history";
+import { getToken } from "./index";
 
+let token;
 /**
  * ACTION TYPES
  */
@@ -28,6 +30,38 @@ export const fetchSingleProduct = (productId) => {
     try {
       const { data } = await axios.get(`/api/products/${productId}`);
       dispatch(setSingleProduct(data));
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const editProduct = (product, productId) => {
+  return async (dispatch) => {
+    try {
+      token = getToken();
+      const { data } = await axios.put(`/api/products/${productId}`, product, {
+        headers: {
+          authorization: token,
+        },
+      });
+      history.push(`/products/${productId}`);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};
+
+export const addProduct = (product) => {
+  return async (dispatch) => {
+    try {
+      token = getToken();
+      const { data } = await axios.post(`/api/products`, product, {
+        headers: {
+          authorization: token,
+        },
+      });
+      history.push(`/products/${data.id}`);
     } catch (error) {
       console.log(error);
     }
