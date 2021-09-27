@@ -7,6 +7,7 @@ import Home from "./components/Home";
 import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
 import Cart from "./components/Cart";
+import UserPage from "./components/UserPage";
 //import AdminPage from "./components/AdminPage";
 import AdminDashboard from "./components/AdminDashboard";
 import EditProduct from "./components/EditProduct";
@@ -22,7 +23,6 @@ class Routes extends Component {
     this.props.loadInitialData();
   }
 
-
   render() {
     const { isLoggedIn } = this.props;
 
@@ -30,7 +30,6 @@ class Routes extends Component {
       <div>
         {/* code for GENERAL VIEWERS */}
         <Switch>
-
           <Route exact path="/" component={ProductsList} />
           <Route exact path="/products" component={ProductsList} />
           <Route exact path="/products/:productId" component={SingleProduct} />
@@ -51,6 +50,7 @@ class Routes extends Component {
           ) : (
             <Switch>
               <Route exact path="/home" component={Home} />
+              <Route exact path="/profile" component={UserPage} />
               <Route exact path="/confirmation" component={ConfirmationPage} />
             </Switch>
           )}
@@ -60,12 +60,11 @@ class Routes extends Component {
 						</>
 					)} */}
 
-          <Redirect to="/home" />
+          {/* <Redirect to="/home" /> */}
         </Switch>
       </div>
     );
   }
-
 }
 
 /**
