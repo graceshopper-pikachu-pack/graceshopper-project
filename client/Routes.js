@@ -16,6 +16,12 @@ import EditUser from "./components/EditUser";
 import EditProduct from "./components/EditProduct";
 import AddProduct from "./components/AddProduct";
 import ConfirmationPage from "./components/ConfirmationPage";
+import {
+  LoggedInRoute,
+  AdminRoute,
+  GuestRoute,
+} from "./components/ProtectedRoutes";
+import NotFound from "./components/NotFound";
 import { me } from "./store";
 
 /**
@@ -27,7 +33,11 @@ class Routes extends Component {
   }
 
   render() {
-    const { isLoggedIn } = this.props;
+    const { isLoggedIn, isAdmin } = this.props;
+
+    if (isLoggedIn === undefined) {
+      return null;
+    }
 
     return (
       <div>
@@ -37,40 +47,71 @@ class Routes extends Component {
           <Route exact path="/products" component={ProductsList} />
           <Route exact path="/products/:productId" component={SingleProduct} />
           <Route exact path="/cart" component={Cart} />
-          <Route exact path="/admin" component={Admin} />
-          <Route exact path="/admin/products" component={AdminDashboard} />
-          <Route exact path="/admin/products/add" component={AddProduct} />
-          <Route
+
+          <GuestRoute
+            isLoggedIn={isLoggedIn}
+            exact
+            path="/login"
+            component={Login}
+          />
+          <GuestRoute
+            isLoggedIn={isLoggedIn}
+            exact
+            path="/signup"
+            component={Signup}
+          />
+
+          <LoggedInRoute
+            isLoggedIn={isLoggedIn}
+            exact
+            path="/home"
+            component={Home}
+          />
+          <LoggedInRoute
+            isLoggedIn={isLoggedIn}
+            exact
+            path="/profile"
+            component={UserPage}
+          />
+          <LoggedInRoute
+            isLoggedIn={isLoggedIn}
+            exact
+            path="/confirmation"
+            component={ConfirmationPage}
+          />
+
+          <AdminRoute isAdmin={isAdmin} exact path="/admin" component={Admin} />
+          <AdminRoute
+            isAdmin={isAdmin}
+            exact
+            path="/admin/products"
+            component={AdminDashboard}
+          />
+          <AdminRoute
+            isAdmin={isAdmin}
+            exact
+            path="/admin/products/add"
+            component={AddProduct}
+          />
+          <AdminRoute
+            isAdmin={isAdmin}
             exact
             path="/admin/products/edit/:productId"
             component={EditProduct}
           />
-          <Route exact path="/admin/users" component={AdminUser} />
-          <Route
+          <AdminRoute
+            isAdmin={isAdmin}
+            exact
+            path="/admin/users"
+            component={AdminUser}
+          />
+          <AdminRoute
+            isAdmin={isAdmin}
             exact
             path="/admin/users/edit/:userId"
             component={EditUser}
           />
-          {!isLoggedIn ? (
-            <Switch>
-              <Route path="/login" component={Login} />
-              <Route path="/signup" component={Signup} />
-              <Route exact path="/home" component={ProductsList} />
-            </Switch>
-          ) : (
-            <Switch>
-              <Route exact path="/home" component={Home} />
-              <Route exact path="/profile" component={UserPage} />
-              <Route exact path="/confirmation" component={ConfirmationPage} />
-            </Switch>
-          )}
-          {/* {isAdmin && (
-						<>
-							<Route exact path="/admin" component={AdminPage} />
-						</>
-					)} */}
-
-          {/* <Redirect to="/home" /> */}
+          <Route path="*" component={NotFound}></Route>
         </Switch>
       </div>
     );
@@ -84,7 +125,8 @@ const mapState = (state) => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
     // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-    isLoggedIn: !!state.auth.id,
+    isLoggedIn: state.auth.loggedIn,
+    isAdmin: state.auth.adminStatus,
   };
 };
 
