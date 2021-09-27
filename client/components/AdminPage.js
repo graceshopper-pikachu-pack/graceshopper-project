@@ -27,7 +27,6 @@ class Admin extends React.Component {
   }
 
   render() {
-    console.log("props", this.props);
     return (
       <div>
         <button

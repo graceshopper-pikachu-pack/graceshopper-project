@@ -19,18 +19,18 @@ const Product = (props) => {
         ) : null}
         <button
           onClick={(evt) => {
-            props.handleIncrement(singleProduct, evt);
-          }}
-        >
-          Add to Cart
-        </button>
-        <h3>Quantity: {singleProduct.quantity}</h3>
-        <button
-          onClick={(evt) => {
             props.handleDecrement(singleProduct, evt);
           }}
         >
           Subtract from Cart
+        </button>
+        <h3>Quantity: {singleProduct.quantity}</h3>
+        <button
+          onClick={(evt) => {
+            props.handleIncrement(singleProduct, evt);
+          }}
+        >
+          Add to Cart
         </button>
       </div>
     </div>
