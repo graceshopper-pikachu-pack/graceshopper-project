@@ -60,12 +60,9 @@ User.prototype.correctPassword = function (candidatePwd) {
 };
 
 User.prototype.generateToken = function () {
-  console.log(this.id, this.adminStatus);
   if (this.adminStatus) {
-    console.log("is admin");
     return jwt.sign({ id: this.id, adminStatus: true }, process.env.JWT);
   } else {
-    console.log("is not");
     return jwt.sign({ id: this.id }, process.env.JWT);
   }
 };

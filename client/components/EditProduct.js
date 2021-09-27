@@ -66,10 +66,10 @@ class EditProduct extends React.Component {
           : "";
         break;
       case "price":
-        if (isNaN(value) || !value.length) {
+        if (isNaN(Number(value)) || !value.length) {
           errors.price = "Please provide a valid price for this animal";
         } else {
-          errors.prrice = "";
+          errors.price = "";
         }
         break;
       case "stockQuantity":

@@ -69,19 +69,18 @@ const products = [
 	{
 		stockNumber: 'SN-123-001',
 		productName: 'Shoebill Stork',
-		imageUrl:
-			'https://animals.sandiegozoo.org/sites/default/files/styles/image_grid_half_width/public/2019-09/shoebill03.jpg',
+		imageUrl: 'https://animals.sandiegozoo.org/sites/default/files/inline-images/shoebill04.jpg',
 		productDescription:
 			'You probably wouldn’t win a staring contest with it, though you’d be hard pressed to look away. Taller than a mailbox, with an eight-foot wingspan, the shoebill is quite a kick to observe! This hefty bird with its lesson-in-gray plumage is endemic to swamps and wetlands of Central and East Africa. Solitary in nature, even when paired with another, the birds like their space and will feed at opposite ends of their territory.',
 		stockQuantity: 2,
 		category: 'birds',
-		price: 800001,
+		price: 800000,
 	},
 	{
 		stockNumber: 'SN-123-002',
 		productName: 'Red Panda',
 		imageUrl:
-			'https://cdn.vox-cdn.com/thumbor/erBglLkGU0eWF6c2PsEWHT2_TE0=/12x0:4907x3263/1400x1400/filters:focal(12x0:4907x3263):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/49388585/16071828377_85109fdee4_o.0.0.jpg',
+			'https://nationalzoo.si.edu/sites/default/files/styles/1400_scale/public/animals/red-panda-003.jpg',
 		productDescription:
 			'The red panda cubs, like many of the zoo’s other animals, were named to honor the land that they are native to. Red pandas are indigenous to the Himalayan mountain region that includes parts of Nepal, Myanmar, China and northern regions of India. “Zeya” is derived from the Burmese language, which is the official language of Myanmar. “Ila” can be translated as “earth” and comes from the ancient Sanskrit language from which many modern languages spoken in India are derived.',
 		stockQuantity: 5,
@@ -91,7 +90,8 @@ const products = [
 	{
 		stockNumber: 'SN-123-003',
 		productName: 'Oriental Small-clawed Otter',
-		imageUrl: 'https://critter.science/wp-content/uploads/2021/02/asco1-1180x520.jpg',
+		imageUrl:
+			'https://nationalzoo.si.edu/sites/default/files/styles/1400x700_scale_and_crop/public/animals/asiansmallclawedotter-001.jpg',
 		productDescription:
 			'Asian small-clawed otters are the smallest of all 13 otter species and are native to Asia. Well adapted to life in the water, these social, intelligent animals spend a majority of their time on land.',
 		stockQuantity: 7,
@@ -122,8 +122,7 @@ const products = [
 	{
 		stockNumber: 'SN-123-006',
 		productName: 'Axolotl',
-		imageUrl:
-			'https://c402277.ssl.cf1.rackcdn.com/photos/20852/images/magazine_medium/axolotl_WWsummer2021.jpg',
+		imageUrl: 'https://s26162.pcdn.co/wp-content/uploads/2020/09/Pink_1.jpg',
 		productDescription:
 			'Shrouded in mystery, and defying typical biological laws like metamorphosis, the axolotl (pronounced AX-oh-lot-ul), a type of salamander, keeps its webbed feet firmly placed in infancy throughout its life. Unlike other salamanders, axolotls are neotenic, meaning they keep juvenile characteristics into adulthood. The axolotl remains aquatic (like larvae) their entire life.Though  vaguely reminiscent of primates, they are actually most closely related to anteaters and armadillos.',
 		stockQuantity: 7,
@@ -139,6 +138,34 @@ const products = [
 		stockQuantity: 2,
 		category: 'reptiles',
 		price: 10000,
+	},
+	{
+		stockNumber: 'SN-123-008',
+		productName: 'Siamese Fighting Fish',
+		imageUrl: 'https://www.peta.org/wp-content/uploads/2019/08/iStock-644996948_itthipolB-1.jpg',
+		productDescription: `Betta fish are native to Asia, where they live in the shallow water of marshes, ponds, or slow-moving streams. Male bettas are devoted fathers who build bubble nests for their young with their mouths and fiercely protect their babies from predators. Just like us, betta fish are diurnal. That means they’re active during the day and sleep at night, requiring darkness to get a good night’s rest.`,
+		stockQuantity: 15,
+		category: 'fish',
+		price: 550,
+	},
+	{
+		stockNumber: 'SN-123-009',
+		productName: 'Common Clownfish',
+		imageUrl: 'https://s28164.pcdn.co/files/common-clownfish-89-1280x720.jpg',
+		productDescription: `Both the anemone and clownfish live in a symbiotic relationship, meaning the anemone benefits from the presence of the clownfish, while the clownfish benefits from living with the anemone. It is thought that the clownfish feeds upon parasites and debris amongst the anemone’s tentacles, and in return scares away fish that may prey upon the anemone, as well as giving the anemone better water circulation as it fans its fins while swimming around. It is possible that the clownfish also lures fish for the anemone to kill and eat.`,
+		stockQuantity: 15,
+		category: 'fish',
+		price: 250,
+	},
+	{
+		stockNumber: 'SN-123-010',
+		productName: 'Red Eyed Tree Frog',
+		imageUrl:
+			'https://nationalzoo.si.edu/sites/default/files/styles/1400_scale/public/newsroom/20181129-roshanpatel03.jpg?itok=6ZIFQmw1',
+		productDescription: `Red-eyed tree frogs are recognized around the world as an ambassador for all tropical amphibian species. With their large, red eyes, their blue-green bodies and orange toes—they have a striking beauty about them. They also have adhesive toepads, which enable them to climb up any surface. They are the most recognizable frog in the world! `,
+		stockQuantity: 5,
+		category: 'amphibians',
+		price: 2000,
 	},
 ];
 

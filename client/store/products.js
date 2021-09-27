@@ -108,9 +108,15 @@ export const bulkDelete = (productIdsArr) => {
   return async (dispatch) => {
     try {
       if (productIdsArr.length) {
+        token = getToken();
+
         let deletedProducts = [];
         productIdsArr.forEach((productId) => {
-          let response = axios.delete(`/api/products/${productId}`);
+          let response = axios.delete(`/api/products/${productId}`, {
+            headers: {
+              authorization: token,
+            },
+          });
           if (response) {
             deletedProducts.push(productId);
           }
