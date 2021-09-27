@@ -11,6 +11,8 @@ const authRequired = async (req, res, next) => {
   const token = req.headers.authorization;
   // jwt verify throws an exception when the token isn't valid
   try {
+    const response = await jwt.verify(token, secret);
+    console.log(response);
     const { id, adminStatus } = await jwt.verify(token, secret);
     req.userId = id;
     req.adminStatus = adminStatus;
