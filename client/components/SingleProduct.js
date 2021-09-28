@@ -44,7 +44,9 @@ class SingleProduct extends React.Component {
     if (prevProps.singleCartItem !== this.props.singleCartItem) {
       this.setState({
         quantity: this.props.singleCartItem.quantity,
-        cartItemId: this.props.singleCartItem.cartItemId,
+
+        cartItemId: this.props.singleCartItem.id,
+]
       });
     }
   }
@@ -116,10 +118,7 @@ class SingleProduct extends React.Component {
                   {singleProduct.price.toLocaleString()}
                 </h3>
                 <h3>{singleProduct.productDescription}</h3>
-                <h5 style={{ color: "red" }}>
-                  NOTE: can only add quantity currently, fix to either buttons
-                  or reduce quantity
-                </h5>
+
                 {errors.quantity ? (
                   <h6 className="error">{errors.quantity}</h6>
                 ) : null}

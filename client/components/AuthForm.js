@@ -1,6 +1,6 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import { authenticate } from '../store';
+import React from "react";
+import { connect } from "react-redux";
+import { authenticate } from "../store";
 
 /**
  * COMPONENT
@@ -13,12 +13,11 @@ const AuthForm = (props) => {
       <form onSubmit={handleSubmit} name={name}>
         <h1 className="login-text"> Our Animals Miss You </h1>
         <div className="signup-input">
-          <div>
-            <label htmlFor="username">
-              <small>Username</small>
-            </label>
-            <input name="username" type="text" required />
-          </div>
+          <label htmlFor="username">
+            <small>Username</small>
+          </label>
+          <input name="username" type="text" required />
+
           <div>
             <label htmlFor="password">
               <small>Password</small>
@@ -50,8 +49,8 @@ const AuthForm = (props) => {
  */
 const mapLogin = (state) => {
   return {
-    name: 'login',
-    displayName: 'Login',
+    name: "login",
+    displayName: "Login",
     error: state.auth.error,
   };
 };
