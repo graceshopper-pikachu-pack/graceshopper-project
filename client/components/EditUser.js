@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import { editUser, fetchSingleUser } from "../store";
+import { editUser } from "../store";
 
 class EditUser extends React.Component {
   constructor(props) {
@@ -42,13 +42,13 @@ class EditUser extends React.Component {
 
     switch (name) {
       case "username":
-        errors.username= !value.length
+        errors.username = !value.length
           ? "Please provide a valid username"
           : "";
         break;
 
       case "firstName":
-        errors.firstName= !value.length
+        errors.firstName = !value.length
           ? "Please provide a valid entry for First Name"
           : "";
         break;
@@ -69,13 +69,11 @@ class EditUser extends React.Component {
 
       case "address":
         if (isNaN(value) || !value.length) {
-          errors.address =
-            "Please provide a valid address for this user";
+          errors.address = "Please provide a valid address for this user";
         } else {
           errors.address = "";
         }
         break;
-
 
       default:
         break;
@@ -112,9 +110,7 @@ class EditUser extends React.Component {
     } = this.state;
     return (
       <form id="edit-user-form" onSubmit={this.handleSubmit}>
-        {errors.username ? (
-          <h6 className="error">{errors.username}</h6>
-        ) : null}
+        {errors.username ? <h6 className="error">{errors.username}</h6> : null}
         <label htmlFor="username">
           <small>Username:</small>
         </label>
@@ -127,7 +123,9 @@ class EditUser extends React.Component {
           }}
         />
 
-        {errors.firstName ? <h6 className="error">{errors.firstName}</h6> : null}
+        {errors.firstName ? (
+          <h6 className="error">{errors.firstName}</h6>
+        ) : null}
         <label htmlFor="firstName">
           <small>First Name</small>
         </label>
@@ -140,21 +138,13 @@ class EditUser extends React.Component {
           }}
         />
 
-        {errors.lastName ? (
-          <h6 className="error">{errors.lastName}</h6>
-        ) : null}
+        {errors.lastName ? <h6 className="error">{errors.lastName}</h6> : null}
         <label htmlFor="lastName">
           <small>Last Name</small>
         </label>
-        <input
-          name="lastName"
-          value={lastName}
-          onChange={this.handleChange}
-        />
+        <input name="lastName" value={lastName} onChange={this.handleChange} />
 
-        {errors.email ? (
-          <h6 className="error">{errors.email}</h6>
-        ) : null}
+        {errors.email ? <h6 className="error">{errors.email}</h6> : null}
         <label htmlFor="email">
           <small>Email</small>
         </label>
@@ -181,14 +171,16 @@ class EditUser extends React.Component {
         />
 
         <label htmlFor="adminStatus">
-            <small>Admin Status</small>
+          <small>Admin Status</small>
         </label>
-        <select id="dropdown" value={adminStatus} onChange={this.selectAdminStatus}>
-            <option value="true">Admin</option>
-            <option value="false">Not Admin</option>
-
+        <select
+          id="dropdown"
+          value={adminStatus}
+          onChange={this.selectAdminStatus}
+        >
+          <option value="true">Admin</option>
+          <option value="false">Not Admin</option>
         </select>
-
 
         <button type="submit">Submit Edited User</button>
       </form>
@@ -205,8 +197,7 @@ const mapState = (state) => {
 const mapDispatch = (dispatch) => {
   return {
     fetchSingleUser: (userId) => dispatch(fetchSingleUser(userId)),
-    editUser: (user, userId) =>
-      dispatch(EditUser(user, userId)),
+    editUser: (user, userId) => dispatch(EditUser(user, userId)),
   };
 };
 
