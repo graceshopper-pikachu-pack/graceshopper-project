@@ -2,6 +2,7 @@ const Sequelize = require("sequelize");
 const db = require("../db");
 const axios = require("axios");
 
+
 const categories = [
   "AMPHIBIANS",
   "BIRDS",
@@ -70,16 +71,19 @@ const Product = db.define("product", {
     type: Sequelize.TEXT,
     defaultValue: `Uh no! We don't have a fun fact for this animal.`,
   },
+
 });
 
 // sets default value if image is empty string
 Product.beforeValidate((product, options) => {
+
   if (options.fields.includes("imageUrl")) {
     if (product.imageUrl === "") {
       product.imageUrl =
         "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/cute-otter-appafo-ghondsary.jpg";
     }
   }
+
 });
 
 module.exports = Product;
