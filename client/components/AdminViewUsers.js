@@ -20,12 +20,10 @@ class AdminView extends React.Component{
   }
 
   render() {
-    // const Checkbox = (this.props) => <input type="checkbox" {...this.props} />;
 
     const adminUsers = this.props.users;
     console.log("user: ", adminUsers)
     console.log("props", this.props)
-    // const route = `/admin/users/edit/${adminUser.id}`;
 
     return (
       <table>

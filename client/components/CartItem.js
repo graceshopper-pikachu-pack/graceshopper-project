@@ -47,7 +47,6 @@ class CartItem extends React.Component {
   handleEdit(evt) {
     evt.preventDefault();
 
-    // if there are no errors in the quantity
     if (!this.state.errors.quantity) {
       this.props.editCart({
         productId: this.props.item.id,
