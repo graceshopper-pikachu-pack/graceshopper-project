@@ -96,6 +96,7 @@ form div {
   background-image: url("https://images.pexels.com/photos/146083/pexels-photo-146083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
   background-size: cover;
   background-repeat: no-repeat;
+
 }
 
 .form-inputs {
@@ -178,7 +179,9 @@ input[type="password"] {
 
 .text {
   padding: 0 20px 20px;
+
   line-height: 200%;
+
 }
 
 .text > button {
@@ -298,6 +301,7 @@ aside {
   -webkit-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
   -moz-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
   box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+<
 }
 
 .admin-product-form {
@@ -362,6 +366,7 @@ aside {
   font-size: 1.5em;
   height: 150px;
   width: 60vw;
+
 }
 
 .btn-login {
@@ -444,6 +449,7 @@ aside {
   max-width: 200px;
   border-radius: 5px;
   margin-right: 5px;
+
 }
 
 .img-single-product {

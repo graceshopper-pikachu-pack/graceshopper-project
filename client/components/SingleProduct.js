@@ -44,7 +44,9 @@ class SingleProduct extends React.Component {
     if (prevProps.singleCartItem !== this.props.singleCartItem) {
       this.setState({
         quantity: this.props.singleCartItem.quantity,
+
         cartItemId: this.props.singleCartItem.id,
+]
       });
     }
   }

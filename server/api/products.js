@@ -7,7 +7,7 @@ const secret = process.env.JWT;
 module.exports = router;
 
 const authRequired = async (req, res, next) => {
-  // We grab the token from the cookies
+  // Grab token from cookies
   const token = req.headers.authorization;
   // jwt verify throws an exception when the token isn't valid
   try {

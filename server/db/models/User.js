@@ -6,7 +6,6 @@ const axios = require("axios");
 
 const SALT_ROUNDS = 5;
 
-//tables for user, (other files)product, cart?, orders?
 const User = db.define("user", {
   username: {
     type: Sequelize.STRING,
