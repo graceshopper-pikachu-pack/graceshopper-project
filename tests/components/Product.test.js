@@ -35,9 +35,7 @@ const seed = require('../../script/seed');
 
 // NOTE: Make sure you pay attention to the path below. This is where your React components should live!
 // ProductsList is the default export from that module, and it is connected to Redux.
-// UnconnectedAllCampuses is a named export from that module, and it is NOT connected
-// to Redux. We're testing BOTH of these components in here.
-//import Product, {ProductsList as UnconnectedAllCampuses} from '../../app/components/ProductsList';
+
 import ProductsList, {
 	ProductsList as UnconnectedProductsList,
 } from '../../client/components/Product';
@@ -61,9 +59,7 @@ describe('Tier One: Products', () => {
 		},
 	];
 	beforeEach(() => {
-		// mockAxios ensures that when our client-side code requests data from the
-		// server, the request is always successful (even if we haven't implemented)
-		// our server yet.
+
 		mockAxios.onGet('/api/products').replyOnce(200, products);
 	});
 	describe('<ProductsList /> component', () => {
@@ -72,8 +68,7 @@ describe('Tier One: Products', () => {
 			getProductsSpy.resetHistory();
 		});
 
-		// This test is interested in the unconnected ProductsList component. It is
-		// exported as a named export in app/components/ProductsList.js
+
 		xit('renders the products passed in as props', () => {
 			const wrapper = mount(
 				<UnconnectedProductsList products={products} getProducts={getProductsSpy} />
@@ -83,8 +78,6 @@ describe('Tier One: Products', () => {
 			// The test is expecting an image for each product, with src set to the
 			// product's imageUrl - the tag HAS TO BE an img src, NOT h1 or span
 
-			/* 	const images = wrapper.find('img').map((node) => node.get(0).props.src);
-			expect(images).to.include.members(['/images/mars.png', '/images/jupiter.jpeg']) */
 		});
 
 		xit('renders DIFFERENT products passed in as props', () => {
@@ -122,17 +115,9 @@ describe('Tier One: Products', () => {
 			// The test is expecting an image for each product, with src set to the
 			// product's imageUrl
 
-			/* 			const images = wrapper.find('img').map((node) => node.get(0).props.src);
-			expect(images).to.include.members(['/images/pluto.png', '/images/mercury.png']); */
 		});
 
-		/* 		xit('*** renders "No Products" if passed an empty array of campuses', () => {
-			throw new Error('replace this error with your own test');
-		});
- */
-		// In a later step, we'll create a thunk, and map that thunk to ProductsList
-		// as getCampuses. For right now, we just need to be sure the component
-		// calls it after it mounts.
+
 		xit('calls this.props.getProducts after mount', async () => {
 			mount(<UnconnectedProductsList products={products} getProducts={getProductsSpy} />);
 			await waitForExpect(() => {
@@ -147,7 +132,6 @@ describe('Tier One: Products', () => {
 			fakeStore = mockStore(initialState);
 		});
 
-		// Check out app/redux/campuses.js for these two tests
 		describe('set/fetch products', () => {
 			xit('setProducts action creator returns a valid action', () => {
 				expect(setProducts(products)).to.deep.equal({
@@ -192,8 +176,7 @@ describe('Tier One: Products', () => {
 
 	describe('Connect: react-redux', () => {
 		// This test is expecting your component to dispatch a thunk after it mounts
-		// Remember that getCampuses prop from an earlier test? Now's a good time
-		// for a mapDispatch.
+
 		it('initializes products from the server when the application loads the /products route', async () => {
 			const reduxStateBeforeMount = store.getState();
 			expect(reduxStateBeforeMount.products).to.deep.equal([]);
@@ -211,7 +194,7 @@ describe('Tier One: Products', () => {
 		});
 
 		// This test is expecting your component to render the campuses from the
-		// Redux store.  Now's a good time for a mapState.
+
 		it('<ProductsList /> renders products from the Redux store', async () => {
 			const wrapper = mount(
 				<Provider store={store}>
@@ -242,7 +225,7 @@ describe('Tier One: Products', () => {
 		});
 
 		// This test expects that you've set up a Route for ProductsList.
-		// You should take a look at app/components/Routes.js
+
 		it('renders <ProductsList /> at /products', () => {
 			const wrapper = mount(
 				<Provider store={store}>
@@ -261,10 +244,8 @@ describe('Tier One: Products', () => {
 	});
 
 	describe('Express API', () => {
-		// Let's test our Express routes WITHOUT actually using the database.
-		// By replacing the findAll methods on our Sequelize models with a spy,
-		// we can ensure that our API tests won't fail just because
-		// our Sequelize models haven't been implemented yet.
+		// Testing our Express routes WITHOUT actually using the database.
+
 		const { findAll: productsFindAll } = Product;
 		beforeEach(() => {
 			Product.findAll = sinon.spy(() => products);
@@ -273,8 +254,6 @@ describe('Tier One: Products', () => {
 			Product.findAll = productsFindAll;
 		});
 
-		// Consider writing your GET route in server/api/products.js. And don't
-		// forget to apply the express router to your API in server/api/index.js!
 		it('GET /api/products responds with all products', async () => {
 			const response = await agent.get('/api/products').expect(200);
 			expect(response.body).to.deep.equal([
