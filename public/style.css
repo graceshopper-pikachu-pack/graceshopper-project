@@ -60,6 +60,10 @@ form div {
 	font-size: 30px;
 }
 
+.navbar_links {
+	display: flex;
+	flex-direction: row;
+}
 .cart-btn {
 	position: relative;
 	cursor: pointer;

@@ -8,6 +8,14 @@ const Cart = db.define("cart", {
     primaryKey: true,
     allowNull: false,
   },
+  totalPrice: {
+    type: Sequelize.INTEGER,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+    defaultValue: 0,
+  },
 });
 
 module.exports = Cart;

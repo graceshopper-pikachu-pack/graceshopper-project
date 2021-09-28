@@ -211,7 +211,7 @@ router.put("/cartItem/decrement/:id", authRequired, async (req, res, next) => {
   }
 });
 
-// PUT /api/cartItem/remove/:id (remove cartItem by id)
+// DELETE /api/cartItem/remove/:id (remove cartItem by id)
 router.delete("/cartItem/delete/:id", authRequired, async (req, res, next) => {
   try {
     const deletedCartItem = await CartItem.findByPk(req.params.id);

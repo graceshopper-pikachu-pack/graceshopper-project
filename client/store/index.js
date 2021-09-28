@@ -7,6 +7,7 @@ import auth from "./auth";
 import singleProduct from "./singleProduct";
 import products from "./products";
 import cart from "./cart";
+import orders from "./orders";
 import singleCartItem from "./singleCartItem";
 import filterAndOrder from "./filterAndOrder";
 
@@ -24,6 +25,7 @@ const reducer = combineReducers({
   singleCartItem,
   filterAndOrder,
   admin,
+  orders,
 });
 
 const middleware = composeWithDevTools(
@@ -39,3 +41,4 @@ export * from "./cart";
 export * from "./singleCartItem";
 export * from "./filterAndOrder";
 export * from "./admin";
+export * from "./orders";

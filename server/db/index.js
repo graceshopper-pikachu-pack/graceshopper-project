@@ -13,8 +13,8 @@ const OrderItem = require("./models/OrderItem");
 User.hasOne(Cart, { foreignKey: "userId" });
 Cart.belongsTo(User, { foreignKey: "userId" });
 
-User.hasMany(Order);
-Order.belongsTo(User);
+User.hasMany(Order, { foreignKey: "userId" });
+Order.belongsTo(User, { foreignKey: "userId" });
 
 Product.hasOne(CartItem, { foreignKey: "productId" });
 CartItem.belongsTo(Product, { foreignKey: "productId" });

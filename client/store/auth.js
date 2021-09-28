@@ -36,8 +36,9 @@ export const me = () => async (dispatch) => {
       });
 
       dispatch(addToUserCart(localCart));
-      history.push("/home");
-      return dispatch(setAuth(res.data));
+      return dispatch(setAuth({ loggedIn: !!res.data.id, ...res.data }));
+    } else {
+      return dispatch(setAuth({ loggedIn: false }));
     }
   } catch (error) {
     console.log(error);
@@ -55,6 +56,7 @@ export const authenticate = (formData, method) => async (dispatch) => {
 
     dispatch(clearReduxCart());
     dispatch(me());
+    history.push("/home");
   } catch (authError) {
     return dispatch(setAuth({ error: authError }));
   }
@@ -67,7 +69,7 @@ export const logout = () => {
     window.localStorage.removeItem("cart");
     localStorage.setItem("cart", JSON.stringify([]));
     dispatch(clearReduxCart());
-    dispatch(setAuth({}));
+    dispatch(setAuth({ loggedIn: false }));
     history.push("/login");
   };
 };
