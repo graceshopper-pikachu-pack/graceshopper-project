@@ -1,16 +1,16 @@
-const Sequelize = require('sequelize');
-const db = require('../db');
-const axios = require('axios');
+const Sequelize = require("sequelize");
+const db = require("../db");
+const axios = require("axios");
 
 const categories = [
-  'AMPHIBIANS',
-  'BIRDS',
-  'FISH',
-  'INVERTEBRATES',
-  'MAMMALS',
-  'REPTILES',
+  "AMPHIBIANS",
+  "BIRDS",
+  "FISH",
+  "INVERTEBRATES",
+  "MAMMALS",
+  "REPTILES",
 ];
-const Product = db.define('product', {
+const Product = db.define("product", {
   stockNumber: {
     type: Sequelize.STRING,
     unique: true,
@@ -35,7 +35,7 @@ const Product = db.define('product', {
   },
   productDescription: {
     type: Sequelize.TEXT,
-    defaultValue: 'There is no description available for this item.',
+    defaultValue: "There is no description available for this item.",
   },
   stockQuantity: {
     type: Sequelize.INTEGER,
@@ -50,13 +50,13 @@ const Product = db.define('product', {
     type: Sequelize.STRING,
     //default is a creative commons png. Change this later?
     defaultValue:
-      'https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/cute-otter-appafo-ghondsary.jpg',
+      "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/cute-otter-appafo-ghondsary.jpg",
   },
   category: {
     type: Sequelize.STRING,
     validate: {
       isIn: [categories],
-      isUpperCase: true,
+      isUppercase: true,
     },
   },
   price: {
@@ -74,10 +74,10 @@ const Product = db.define('product', {
 
 // sets default value if image is empty string
 Product.beforeValidate((product, options) => {
-  if (options.fields.includes('imageUrl')) {
-    if (product.imageUrl === '') {
+  if (options.fields.includes("imageUrl")) {
+    if (product.imageUrl === "") {
       product.imageUrl =
-        'https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/cute-otter-appafo-ghondsary.jpg';
+        "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/cute-otter-appafo-ghondsary.jpg";
     }
   }
 });

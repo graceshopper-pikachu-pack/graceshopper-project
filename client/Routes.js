@@ -8,7 +8,6 @@ import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
 import Cart from "./components/Cart";
 import UserPage from "./components/UserPage";
-//import AdminPage from "./components/AdminPage";
 import AdminDashboard from "./components/AdminDashboard";
 import Admin from "./components/AdminPage";
 import AdminView from "./components/AdminViewUsers";
@@ -104,11 +103,10 @@ class Routes extends Component {
             isAdmin={isAdmin}
             exact
             path="/admin/users"
-            component={AdminUser}
+            component={AdminView}
           />
           <AdminRoute
             isAdmin={isAdmin}
-
             exact
             path="/admin/users/edit/:userId"
             component={EditUser}
@@ -125,8 +123,6 @@ class Routes extends Component {
  */
 const mapState = (state) => {
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: state.auth.loggedIn,
     isAdmin: state.auth.adminStatus,
   };
