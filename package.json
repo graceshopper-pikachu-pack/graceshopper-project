@@ -1,5 +1,4 @@
 {
-
 	"name": "zoo-store",
 	"version": "1.0.0",
 	"description": "A store to adopt the coolest animals found in the world",
@@ -63,5 +62,4 @@
 		"webpack": "^5.15.0",
 		"webpack-cli": "^4.3.1"
 	}
-
 }
