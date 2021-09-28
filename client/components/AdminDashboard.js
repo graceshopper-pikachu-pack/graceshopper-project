@@ -192,10 +192,10 @@ class AdminDashboard extends React.Component {
         <table className="admin-table">
           <thead>
             <tr className="admin-dashboard-row">
-              <td>Selected</td>
+              <td className="checkbox">Selected</td>
               <td>
                 <img
-                  className="admin-dashboard-icon"
+                  className="admin-dashboard-img"
                   src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Picture_icon_BLACK.svg/1200px-Picture_icon_BLACK.svg.png"
                 />
               </td>
@@ -206,6 +206,7 @@ class AdminDashboard extends React.Component {
               <td className="admin-dashboard-stock">Stock Quantity:</td>
               <td className="admin-dashboard-category">Category:</td>
               <td className="admin-dashboard-date">Published:</td>
+              <td className="admin-dashboard-edit">Edit:</td>
             </tr>
           </thead>
           <tbody>

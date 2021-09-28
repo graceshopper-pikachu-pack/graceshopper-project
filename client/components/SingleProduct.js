@@ -25,13 +25,11 @@ class SingleProduct extends React.Component {
   componentDidMount() {
     this.props.fetchSingleProduct(this.props.match.params.productId);
 
-
-		// handles redux store for both guest and signed in
-		this.props.fetchCartItem({
-			productId: this.props.match.params.productId,
-		});
-	}
-
+    // handles redux store for both guest and signed in
+    this.props.fetchCartItem({
+      productId: this.props.match.params.productId,
+    });
+  }
 
   componentWillUnmount() {
     this.props.clearSingleProduct();
@@ -48,7 +46,6 @@ class SingleProduct extends React.Component {
         quantity: this.props.singleCartItem.quantity,
 
         cartItemId: this.props.singleCartItem.id,
-]
       });
     }
   }

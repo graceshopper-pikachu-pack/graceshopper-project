@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 const Checkbox = (props) => (
-  <td>
+  <td className="checkbox">
     <input type="checkbox" {...props} />
   </td>
 );
