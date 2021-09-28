@@ -274,11 +274,11 @@ export const editCart = (product) => {
 export const editDBCart = (product) => {
   return async (dispatch) => {
     try {
-      console.log(product);
       if (Number(product.quantity) === 0) {
         dispatch(deleteDBCartItem(product));
-      } /*else if (product.quantity === 1) {
-      } */ else {
+      } else if (product.cartItemId) {
+        // check if the item exists in the cart
+        token = getToken();
         const { data } = await axios.put(
           `/api/cart/cartItem/edit/${product.cartItemId}`,
           product,
@@ -289,6 +289,24 @@ export const editDBCart = (product) => {
           }
         );
         dispatch(setEditedCart(data[1][0]));
+        history.push("/cart");
+      } else {
+        let response = await axios.get(`/api/cart/id`, {
+          headers: {
+            authorization: token,
+          },
+        });
+
+        response = await axios.post(
+          `/api/cart/${response.data.id}`,
+          { productId: product.productId, quantity: product.quantity },
+          {
+            headers: {
+              authorization: token,
+            },
+          }
+        );
+
         history.push("/cart");
       }
     } catch (error) {
@@ -342,6 +360,7 @@ export const editLocalCartItem = (product) => {
         // put the new copy of the cart on the redux state
         dispatch(setCart(cartCopy));
       }
+      history.push("/cart");
     } catch (error) {
       console.log(error);
     }
@@ -403,18 +422,6 @@ export const deleteLocalCartItem = (cartItem) => {
   };
 };
 
-export const clearCart = () => {
-  return async (dispatch) => {
-    token = getToken();
-    if (token) {
-      dispatch(clearDBCart());
-    } else {
-      dispatch(clearLocalCart());
-    }
-    dispatch(clearReduxCart());
-  };
-};
-
 export const clearDBCart = () => {
   return async () => {
     try {
@@ -436,6 +443,19 @@ export const clearLocalCart = () => {
   } catch (error) {
     console.log(error);
   }
+};
+
+export const clearCart = () => {
+  return async (dispatch) => {
+    token = getToken();
+
+    if (token) {
+      dispatch(clearDBCart());
+    } else {
+      clearLocalCart();
+    }
+    dispatch(clearReduxCart());
+  };
 };
 
 export const addToUserCart = (localCart) => {
