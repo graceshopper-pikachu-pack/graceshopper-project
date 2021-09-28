@@ -177,6 +177,7 @@ input[type='password'] {
 
 .text {
 	padding: 0 20px 20px;
+	line-height: 200%;
 }
 
 .text > button {
@@ -378,11 +379,11 @@ aside {
 	max-width: 200px;
 	border-radius: 5px;
 	margin-right: 5px;
-	object-fit: cover;
 }
 
 .img-single-product {
 	max-height: 600px;
 	border-radius: 5px;
 	margin-right: 5px;
+	object-fit: cover;
 }
