@@ -1,24 +1,29 @@
-import React, { Component, Fragment } from 'react';
-import { connect } from 'react-redux';
-import { withRouter, Route, Switch, Redirect } from 'react-router-dom';
-import { Login } from './components/AuthForm';
-import { Signup } from './components/SignupForm';
-import Home from './components/Home';
-import ProductsList from './components/ProductsList';
-import SingleProduct from './components/SingleProduct';
-import Cart from './components/Cart';
-import UserPage from './components/UserPage';
-//import AdminPage from "./components/AdminPage";
-import AdminDashboard from './components/AdminDashboard';
-import Admin from './components/AdminPage';
-import AdminViewUsers from './components/AdminViewUsers';
-import EditUser from './components/EditUser';
-import EditProduct from './components/EditProduct';
-import AddProduct from './components/AddProduct';
-import ConfirmationPage from './components/ConfirmationPage';
-import { LoggedInRoute, AdminRoute, GuestRoute } from './components/ProtectedRoutes';
-import NotFound from './components/NotFound';
-import { me } from './store';
+
+import React, { Component, Fragment } from "react";
+import { connect } from "react-redux";
+import { withRouter, Route, Switch, Redirect } from "react-router-dom";
+import { Login } from "./components/AuthForm";
+import { Signup } from "./components/SignupForm";
+import Home from "./components/Home";
+import ProductsList from "./components/ProductsList";
+import SingleProduct from "./components/SingleProduct";
+import Cart from "./components/Cart";
+import UserPage from "./components/UserPage";
+import AdminDashboard from "./components/AdminDashboard";
+import Admin from "./components/AdminPage";
+import AdminView from "./components/AdminViewUsers";
+import EditUser from "./components/EditUser";
+import EditProduct from "./components/EditProduct";
+import AddProduct from "./components/AddProduct";
+import ConfirmationPage from "./components/ConfirmationPage";
+import {
+  LoggedInRoute,
+  AdminRoute,
+  GuestRoute,
+} from "./components/ProtectedRoutes";
+import NotFound from "./components/NotFound";
+import { me } from "./store";
+
 
 /**
  * COMPONENT
@@ -66,30 +71,37 @@ class Routes extends Component {
 						component={EditProduct}
 					/>
 
-					<AdminRoute isAdmin={isAdmin} exact path="/admin/users" component={AdminViewUsers} />
-					<AdminRoute
-						isAdmin={isAdmin}
-						exact
-						path="/admin/users/edit/:userId"
-						component={EditUser}
-					/>
-					<Route path="*" component={NotFound}></Route>
-				</Switch>
-			</div>
-		);
-	}
+
+          <AdminRoute
+            isAdmin={isAdmin}
+            exact
+            path="/admin/users"
+            component={AdminView}
+          />
+          <AdminRoute
+            isAdmin={isAdmin}
+            exact
+            path="/admin/users/edit/:userId"
+            component={EditUser}
+          />
+          <Route path="*" component={NotFound}></Route>
+        </Switch>
+      </div>
+    );
+  }
+
 }
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
-	return {
-		// Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-		// Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
-		isLoggedIn: state.auth.loggedIn,
-		isAdmin: state.auth.adminStatus,
-	};
+
+  return {
+    isLoggedIn: state.auth.loggedIn,
+    isAdmin: state.auth.adminStatus,
+  };
+
 };
 
 const mapDispatch = (dispatch) => {
