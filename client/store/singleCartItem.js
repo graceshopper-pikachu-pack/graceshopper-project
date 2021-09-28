@@ -51,13 +51,14 @@ export const getDBCartItem = (product) => {
       });
 
       const cart = data.cartItems.map((item) => {
-        const { quantity, id } = item;
-        return { quantity, cartItemId: id, ...item.product };
+        const { quantity, id, productId } = item;
+        return { quantity, cartItemId: id, productId: productId };
       });
 
       const cartItem = cart.filter(
-        (item) => item.id === Number(product.productId)
+        (item) => item.productId === Number(product.productId)
       );
+
       if (cartItem.length) {
         dispatch(setCartItem(cartItem[0]));
       }

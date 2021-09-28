@@ -42,14 +42,12 @@ const Product = db.define("product", {
     type: Sequelize.INTEGER,
     allowNull: false,
     validate: {
-      //must be zero or greater. No negative.
       min: 0,
       notEmpty: true,
     },
   },
   imageUrl: {
     type: Sequelize.STRING,
-    //default is a creative commons png. Change this later?
     defaultValue:
       "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/cute-otter-appafo-ghondsary.jpg",
   },

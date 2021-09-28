@@ -82,7 +82,7 @@ class CartItem extends React.Component {
         <img src={item.imageUrl} onClick={this.routeToProduct} />
         <div className="row">
           <h4>Product Name: {item.productName}</h4>
-          <h5>Price: {item.price}</h5>
+          <h5>Price: ${item.price}</h5>
 
           {errors.quantity ? (
             <h6 className="error">{errors.quantity}</h6>

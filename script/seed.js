@@ -86,6 +86,7 @@ const products = [
 		latinName: 'Ailurus fulgens',
 		imageUrl:
 			'https://nationalzoo.si.edu/sites/default/files/styles/1400_scale/public/animals/redpanda-002.jpg?itok=9-kbse5G',
+
 		productDescription:
 			'The red panda cubs, like many of the zoo’s other animals, were named to honor the land that they are native to. Red pandas are indigenous to the Himalayan mountain region that includes parts of Nepal, Myanmar, China and northern regions of India. “Zeya” is derived from the Burmese language, which is the official language of Myanmar. “Ila” can be translated as “earth” and comes from the ancient Sanskrit language from which many modern languages spoken in India are derived.',
 		stockQuantity: 5,

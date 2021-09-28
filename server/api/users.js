@@ -11,7 +11,6 @@ const authRequired = async (req, res, next) => {
   const token = req.headers.authorization;
   // jwt verify throws an exception when the token isn't valid
   try {
-    const response = await jwt.verify(token, secret);
 
     const { id, adminStatus } = await jwt.verify(token, secret);
     req.userId = id;
@@ -28,12 +27,10 @@ const authRequired = async (req, res, next) => {
 
 router.get("/", authRequired, async (req, res, next) => {
   try {
-    // only admins should be able to see all users
+    // only admins see all users
     if (req.adminStatus) {
       const users = await User.findAll({
-        // explicitly select only the id and username fields - even though
-        // users' passwords are encrypted, it won't help if we just
-        // send everything to anyone who asks!
+        //fields available to see through admin panel
         attributes: ["id", "username", "firstName", "lastName", "email", "adminStatus", "address"],
       });
       res.status(200).json(users);
@@ -61,7 +58,7 @@ router.delete("/:id", authRequired, async (req, res, next) => {
       await User.destroy({ where: { id: req.params.id } });
       res.sendStatus(204);
     } else {
-      // if a user is deleting themself, confirm they are the user
+      // if a user is deleting self, confirm they are the user
       await User.destroy({ where: { id: req.userId } });
       res.sendStatus(204);
     }
