@@ -13,6 +13,8 @@ class EditProduct extends React.Component {
       price: "",
       stockQuantity: "",
       category: "",
+      latinName: "",
+      funFact: "",
       errors: {
         productName: "",
         imageUrl: "",
@@ -21,6 +23,7 @@ class EditProduct extends React.Component {
         price: "",
         stockQuantity: "",
         category: "",
+        latinName: "",
       },
     };
     this.handleChange = this.handleChange.bind(this);
@@ -46,6 +49,11 @@ class EditProduct extends React.Component {
       case "productName":
         errors.productName = !value.length
           ? "Please provide a name for this animal"
+          : "";
+        break;
+      case "latinName":
+        errors.latinName = !value.length
+          ? "Please provide the latin name for this animal"
           : "";
         break;
       case "imageUrl":
@@ -113,104 +121,137 @@ class EditProduct extends React.Component {
       stockQuantity,
       category,
       errors,
+      latinName,
+      funFact,
     } = this.state;
     return (
-      <form id="edit-product-form" onSubmit={this.handleSubmit}>
-        {errors.productName ? (
-          <h6 className="error">{errors.productName}</h6>
-        ) : null}
-        <label htmlFor="productName">
-          <small>Name:</small>
-        </label>
-        <input
-          name="productName"
-          value={productName}
-          onChange={this.handleChange}
-          style={{
-            border: errors.productName ? "2px solid red" : this.state.value,
-          }}
-        />
+      <form className="admin-product-form" onSubmit={this.handleSubmit}>
+        <div className="admin-product-input">
+          <img src={imageUrl} />
+          {errors.productName ? (
+            <h6 className="admin-error">{errors.productName}</h6>
+          ) : null}
+          <label htmlFor="productName">
+            <small>Name:</small>
+          </label>
+          <input
+            name="productName"
+            value={productName}
+            onChange={this.handleChange}
+            style={{
+              border: errors.productName ? "2px solid red" : this.state.value,
+            }}
+          />
 
-        {errors.imageUrl ? <h6 className="error">{errors.imageUrl}</h6> : null}
-        <label htmlFor="imageUrl">
-          <small>ImageUrl</small>
-        </label>
-        <input
-          name="imageUrl"
-          value={imageUrl}
-          onChange={this.handleChange}
-          style={{
-            border: errors.imageUrl ? "2px solid red" : this.state.value,
-          }}
-        />
+          {errors.latinName ? (
+            <h6 className="admin-error">{errors.latinName}</h6>
+          ) : null}
+          <label htmlFor="latinName">
+            <small>Latin Name:</small>
+          </label>
+          <input
+            name="latinName"
+            value={latinName}
+            onChange={this.handleChange}
+            style={{
+              border: errors.latinName ? "2px solid red" : this.state.value,
+            }}
+          />
 
-        {errors.productDescription ? (
-          <h6 className="error">{errors.productDescription}</h6>
-        ) : null}
-        <label htmlFor="productDescription">
-          <small>Description</small>
-        </label>
-        <input
-          name="productDescription"
-          value={productDescription}
-          onChange={this.handleChange}
-        />
+          {errors.imageUrl ? (
+            <h6 className="admin-error">{errors.imageUrl}</h6>
+          ) : null}
+          <label htmlFor="imageUrl">
+            <small>ImageUrl</small>
+          </label>
+          <input
+            name="imageUrl"
+            value={imageUrl}
+            onChange={this.handleChange}
+            style={{
+              border: errors.imageUrl ? "2px solid red" : this.state.value,
+            }}
+          />
 
-        {errors.stockNumber ? (
-          <h6 className="error">{errors.stockNumber}</h6>
-        ) : null}
-        <label htmlFor="stockNumber">
-          <small>Stock Number</small>
-        </label>
-        <input
-          name="stockNumber"
-          value={stockNumber}
-          onChange={this.handleChange}
-          style={{
-            border: errors.stockNumber ? "2px solid red" : this.state.value,
-          }}
-        />
+          {errors.productDescription ? (
+            <h6 className="admin-error">{errors.productDescription}</h6>
+          ) : null}
+          <label htmlFor="productDescription">
+            <small>Description</small>
+          </label>
+          <textarea
+            name="productDescription"
+            value={productDescription}
+            onChange={this.handleChange}
+          />
 
-        {errors.price ? <h6 className="error">{errors.price}</h6> : null}
-        <label htmlFor="price">
-          <small>Price</small>
-        </label>
-        <input
-          name="price"
-          value={price}
-          onChange={this.handleChange}
-          style={{
-            border: errors.price ? "2px solid red" : this.state.value,
-          }}
-        />
+          {errors.stockNumber ? (
+            <h6 className="admin-error">{errors.stockNumber}</h6>
+          ) : null}
+          <label htmlFor="stockNumber">
+            <small>Stock Number</small>
+          </label>
+          <input
+            name="stockNumber"
+            value={stockNumber}
+            onChange={this.handleChange}
+            style={{
+              border: errors.stockNumber ? "2px solid red" : this.state.value,
+            }}
+          />
 
-        {errors.stockQuantity ? (
-          <h6 className="error">{errors.stockQuantity}</h6>
-        ) : null}
-        <label htmlFor="stockQuantity">
-          <small>Stock Quantity</small>
-        </label>
-        <input
-          name="stockQuantity"
-          value={stockQuantity}
-          onChange={this.handleChange}
-          style={{
-            border: errors.stockQuantity ? "2px solid red" : this.state.value,
-          }}
-        />
+          {errors.price ? (
+            <h6 className="admin-error">{errors.price}</h6>
+          ) : null}
+          <label htmlFor="price">
+            <small>Price</small>
+          </label>
+          <input
+            name="price"
+            value={price}
+            onChange={this.handleChange}
+            style={{
+              border: errors.price ? "2px solid red" : this.state.value,
+            }}
+          />
 
-        <label htmlFor="category">
-          <small>Category</small>
-        </label>
-        <select id="dropdown" value={category} onChange={this.selectCategory}>
-          <option value="amphibians">Amphibians</option>
-          <option value="birds">Birds</option>
-          <option value="fish">Fish</option>
-          <option value="invertebrates">Invertebrates</option>
-          <option value="mammals">Mammals</option>
-          <option value="reptiles">Reptiles</option>
-        </select>
-        <button type="submit">Submit Edited Animal</button>
+          {errors.stockQuantity ? (
+            <h6 className="admin-error">{errors.stockQuantity}</h6>
+          ) : null}
+          <label htmlFor="stockQuantity">
+            <small>Stock Quantity</small>
+          </label>
+          <input
+            name="stockQuantity"
+            value={stockQuantity}
+            onChange={this.handleChange}
+            style={{
+              border: errors.stockQuantity ? "2px solid red" : this.state.value,
+            }}
+          />
+
+          <label htmlFor="funFact">
+            <small>Fun Fact:</small>
+          </label>
+          <textarea
+            name="funFact"
+            value={funFact}
+            onChange={this.handleChange}
+          />
+
+          <label htmlFor="category">
+            <small>Category</small>
+          </label>
+          <select id="dropdown" value={category} onChange={this.selectCategory}>
+            <option value="AMPHIBIANS">Amphibians</option>
+            <option value="BIRDS">Birds</option>
+            <option value="FISH">Fish</option>
+            <option value="INVERTEBRATES">Invertebrates</option>
+            <option value="MAMMALS">Mammals</option>
+            <option value="REPTILES">Reptiles</option>
+          </select>
+          <button type="submit">Submit Edited Animal</button>
+        </div>
       </form>
     );
   }

@@ -96,7 +96,7 @@ form div {
   background-image: url("https://images.pexels.com/photos/146083/pexels-photo-146083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+
 }
 
 .form-inputs {
@@ -179,6 +179,8 @@ input[type="password"] {
 
 .text {
   padding: 0 20px 20px;
+
+  line-height: 200%;
 
 }
 
@@ -287,9 +289,7 @@ aside {
   align-items: center;
   width: 100%;
   height: 100vh;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-attachment: fixed;
+
   background-image: url("https://images.unsplash.com/photo-1601870431533-c658027e3d96?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80");
 }
 .signup-input {
@@ -301,6 +301,72 @@ aside {
   -webkit-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
   -moz-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
   box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+<
+}
+
+.admin-product-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: 100% 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("https://images.squarespace-cdn.com/content/v1/5e11e82c0efb8f0d16a5dbc8/1586866977071-F77KV646XPAXUFZ7HDV8/Sea-Otter-Nursing-Pup-Alaska-CDODDS_CID5069.jpg?format=1000w");
+  background-attachment: fixed;
+}
+.admin-product-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+  box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+}
+
+.admin-error {
+  font-size: 1em;
+  width: 60vw;
+  color: red;
+}
+
+.admin-product-input > img {
+  width: 40vw;
+  height: 50vh;
+  border-radius: 10px;
+  margin: 10px 0px;
+  justify-content: center;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.admin-product-input > select {
+  width: 20vw;
+  font-size: 1em;
+}
+.admin-product-input > label {
+  font-size: 1.5em;
+  width: 60vw;
+}
+
+.admin-product-input > input {
+  font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  padding: 0.3em;
+  margin: 0.5em 0;
+  font-size: 1.5em;
+  width: 60vw;
+}
+.admin-product-input > textarea {
+  font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  padding: 0.3em;
+  margin: 0.5em 0;
+  font-size: 1.5em;
+  height: 150px;
+  width: 60vw;
+
 }
 
 .btn-login {
@@ -383,12 +449,12 @@ aside {
   max-width: 200px;
   border-radius: 5px;
   margin-right: 5px;
-  object-fit: cover;
+
 }
 
 .img-single-product {
   max-height: 600px;
   border-radius: 5px;
   margin-right: 5px;
-
+  object-fit: cover;
 }
