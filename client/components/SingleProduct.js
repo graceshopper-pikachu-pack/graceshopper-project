@@ -99,7 +99,7 @@ class SingleProduct extends React.Component {
 							</aside>
 							<article>
 								<div class="img-text-container">
-									<img src={singleProduct.imageUrl} class="img-single-product" />
+									<img src={singleProduct.imageUrl} />
 									<div class="img-text-block">
 										    <h4>{singleProduct.category}</h4>
 										    <p>{singleProduct.productName}</p>
