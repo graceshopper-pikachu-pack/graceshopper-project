@@ -1,16 +1,16 @@
-const Sequelize = require("sequelize");
-const db = require("../db");
-const axios = require("axios");
+const Sequelize = require('sequelize');
+const db = require('../db');
+const axios = require('axios');
 
 const categories = [
-  "amphibians",
-  "birds",
-  "fish",
-  "invertebrates",
-  "mammals",
-  "reptiles",
+  'AMPHIBIANS',
+  'BIRDS',
+  'FISH',
+  'INVERTEBRATES',
+  'MAMMALS',
+  'REPTILES',
 ];
-const Product = db.define("product", {
+const Product = db.define('product', {
   stockNumber: {
     type: Sequelize.STRING,
     unique: true,
@@ -26,9 +26,16 @@ const Product = db.define("product", {
       notEmpty: true,
     },
   },
+  latinName: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    validate: {
+      notEmpty: true,
+    },
+  },
   productDescription: {
     type: Sequelize.TEXT,
-    defaultValue: "There is no description available for this item.",
+    defaultValue: 'There is no description available for this item.',
   },
   stockQuantity: {
     type: Sequelize.INTEGER,
@@ -43,12 +50,13 @@ const Product = db.define("product", {
     type: Sequelize.STRING,
     //default is a creative commons png. Change this later?
     defaultValue:
-      "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/cute-otter-appafo-ghondsary.jpg",
+      'https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/cute-otter-appafo-ghondsary.jpg',
   },
   category: {
     type: Sequelize.STRING,
     validate: {
       isIn: [categories],
+      isUpperCase: true,
     },
   },
   price: {
@@ -58,28 +66,20 @@ const Product = db.define("product", {
       notEmpty: true,
     },
   },
+  funFact: {
+    type: Sequelize.TEXT,
+    defaultValue: `Uh no! We don't have a fun fact for this animal.`,
+  },
 });
 
 // sets default value if image is empty string
 Product.beforeValidate((product, options) => {
-  if (options.fields.includes("imageUrl")) {
-    if (product.imageUrl === "") {
+  if (options.fields.includes('imageUrl')) {
+    if (product.imageUrl === '') {
       product.imageUrl =
-        "https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/cute-otter-appafo-ghondsary.jpg";
+        'https://images.fineartamerica.com/images/artworkimages/mediumlarge/3/cute-otter-appafo-ghondsary.jpg';
     }
   }
 });
 
 module.exports = Product;
-//where does the increase and decreast of stock quantity happen?
-/**
- * instanceMethods
- */
-
-/**
- * classMethods
- */
-
-/**
- * hooks
- */
