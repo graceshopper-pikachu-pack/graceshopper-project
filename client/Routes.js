@@ -1,3 +1,4 @@
+
 import React, { Component, Fragment } from "react";
 import { connect } from "react-redux";
 import { withRouter, Route, Switch, Redirect } from "react-router-dom";
@@ -8,7 +9,6 @@ import ProductsList from "./components/ProductsList";
 import SingleProduct from "./components/SingleProduct";
 import Cart from "./components/Cart";
 import UserPage from "./components/UserPage";
-//import AdminPage from "./components/AdminPage";
 import AdminDashboard from "./components/AdminDashboard";
 import Admin from "./components/AdminPage";
 import AdminView from "./components/AdminViewUsers";
@@ -24,91 +24,62 @@ import {
 import NotFound from "./components/NotFound";
 import { me } from "./store";
 
+
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData();
-  }
+	componentDidMount() {
+		this.props.loadInitialData();
+	}
 
-  render() {
-    const { isLoggedIn, isAdmin } = this.props;
+	render() {
+		const { isLoggedIn, isAdmin } = this.props;
 
-    if (isLoggedIn === undefined) {
-      return null;
-    }
+		if (isLoggedIn === undefined) {
+			return null;
+		}
 
-    return (
-      <div>
-        {/* code for GENERAL VIEWERS */}
-        <Switch>
-          <Route exact path="/" component={ProductsList} />
-          <Route exact path="/products" component={ProductsList} />
-          <Route exact path="/products/:productId" component={SingleProduct} />
-          <Route exact path="/cart" component={Cart} />
+		return (
+			<div>
+				{/* code for GENERAL VIEWERS */}
+				<Switch>
+					<Route exact path="/" component={ProductsList} />
+					<Route exact path="/products" component={ProductsList} />
+					<Route exact path="/products/:productId" component={SingleProduct} />
+					<Route exact path="/cart" component={Cart} />
 
-          <GuestRoute
-            isLoggedIn={isLoggedIn}
-            exact
-            path="/login"
-            component={Login}
-          />
-          <GuestRoute
-            isLoggedIn={isLoggedIn}
-            exact
-            path="/signup"
-            component={Signup}
-          />
+					<GuestRoute isLoggedIn={isLoggedIn} exact path="/login" component={Login} />
+					<GuestRoute isLoggedIn={isLoggedIn} exact path="/signup" component={Signup} />
 
-          <LoggedInRoute
-            isLoggedIn={isLoggedIn}
-            exact
-            path="/home"
-            component={Home}
-          />
-          <LoggedInRoute
-            isLoggedIn={isLoggedIn}
-            exact
-            path="/profile"
-            component={UserPage}
-          />
-          <LoggedInRoute
-            isLoggedIn={isLoggedIn}
-            exact
-            path="/confirmation"
-            component={ConfirmationPage}
-          />
+					<LoggedInRoute isLoggedIn={isLoggedIn} exact path="/home" component={Home} />
+					<LoggedInRoute isLoggedIn={isLoggedIn} exact path="/profile" component={UserPage} />
+					<LoggedInRoute
+						isLoggedIn={isLoggedIn}
+						exact
+						path="/confirmation"
+						component={ConfirmationPage}
+					/>
 
-          <AdminRoute isAdmin={isAdmin} exact path="/admin" component={Admin} />
-          <AdminRoute
-            isAdmin={isAdmin}
-            exact
-            path="/admin/products"
-            component={AdminDashboard}
-          />
-          <AdminRoute
-            isAdmin={isAdmin}
-            exact
-            path="/admin/products/add"
-            component={AddProduct}
-          />
-          <AdminRoute
-            isAdmin={isAdmin}
-            exact
-            path="/admin/products/edit/:productId"
-            component={EditProduct}
-          />
+					<AdminRoute isAdmin={isAdmin} exact path="/admin" component={Admin} />
+					<AdminRoute isAdmin={isAdmin} exact path="/admin/products" component={AdminDashboard} />
+					<AdminRoute isAdmin={isAdmin} exact path="/admin/products/add" component={AddProduct} />
+					<AdminRoute
+						isAdmin={isAdmin}
+						exact
+						path="/admin/products/edit/:productId"
+						component={EditProduct}
+					/>
+
 
           <AdminRoute
             isAdmin={isAdmin}
             exact
             path="/admin/users"
-            component={AdminUser}
+            component={AdminView}
           />
           <AdminRoute
             isAdmin={isAdmin}
-
             exact
             path="/admin/users/edit/:userId"
             component={EditUser}
@@ -118,26 +89,27 @@ class Routes extends Component {
       </div>
     );
   }
+
 }
 
 /**
  * CONTAINER
  */
 const mapState = (state) => {
+
   return {
-    // Being 'logged in' for our purposes will be defined has having a state.auth that has a truthy id.
-    // Otherwise, state.auth will be an empty object, and state.auth.id will be falsey
     isLoggedIn: state.auth.loggedIn,
     isAdmin: state.auth.adminStatus,
   };
+
 };
 
 const mapDispatch = (dispatch) => {
-  return {
-    loadInitialData() {
-      dispatch(me());
-    },
-  };
+	return {
+		loadInitialData() {
+			dispatch(me());
+		},
+	};
 };
 
 // The `withRouter` wrapper makes sure that updates are not blocked

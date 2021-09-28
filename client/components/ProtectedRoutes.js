@@ -26,8 +26,6 @@ export const LoggedInRoute = ({
 };
 
 export const AdminRoute = ({ component: Component, isAdmin, ...rest }) => {
-  console.log(isAdmin);
-  console.log("admin", isAdmin);
   return (
     <Route
       {...rest}
