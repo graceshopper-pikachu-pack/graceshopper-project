@@ -35,7 +35,7 @@ class Admin extends React.Component {
         </Link>
         <Link to="/admin/users">
           <button type="button">
-            Edit Users
+            View Users
           </button>
         </Link>
       </div>

@@ -20,7 +20,7 @@ class SingleProduct extends React.Component {
 	componentDidMount() {
 		this.props.fetchSingleProduct(this.props.match.params.productId);
 
-		// handles in the redux store for both guest and signed in
+		// handles redux store for both guest and signed in
 		this.props.fetchCartItem({
 			productId: this.props.match.params.productId,
 		});
