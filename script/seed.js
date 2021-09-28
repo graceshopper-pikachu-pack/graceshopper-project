@@ -69,6 +69,7 @@ const products = [
   {
     stockNumber: 'SN-123-001',
     productName: 'Shoebill Stork',
+    latinName: 'Balaeniceps Rex',
     imageUrl:
       'https://animals.sandiegozoo.org/sites/default/files/styles/image_grid_half_width/public/2019-09/shoebill03.jpg',
     productDescription:
@@ -76,10 +77,12 @@ const products = [
     stockQuantity: 2,
     category: 'BIRDS',
     price: 800001,
+    funFact: "Young shoebills will fight with one another. It is known that shoebill storks are shy animals that prefer to be alone. They also have territorial behaviors."
   },
   {
     stockNumber: 'SN-123-002',
     productName: 'Red Panda',
+    latinName: "Ailurus fulgens",
     imageUrl:
       'https://cdn.vox-cdn.com/thumbor/erBglLkGU0eWF6c2PsEWHT2_TE0=/12x0:4907x3263/1400x1400/filters:focal(12x0:4907x3263):format(jpeg)/cdn.vox-cdn.com/uploads/chorus_image/image/49388585/16071828377_85109fdee4_o.0.0.jpg',
     productDescription:
@@ -87,10 +90,12 @@ const products = [
     stockQuantity: 5,
     category: 'MAMMALS',
     price: 30000,
+    funFact: "They’re vegetarian carnivores. Wait! What? Yep, its true. That is because the word ‘carnivore’ doesn’t necessarily imply a meat-eater but can refer to their biological order. As they’re descended from carnivorous ancestors but rarely eat anything more than bamboo and a few insects they are classed as vegetarian carnivores. Go figure?!"
   },
   {
     stockNumber: 'SN-123-003',
     productName: 'Oriental Small-clawed Otter',
+    latinName: "Aonyx Cinereus",
     imageUrl:
       'https://critter.science/wp-content/uploads/2021/02/asco1-1180x520.jpg',
     productDescription:
@@ -98,10 +103,12 @@ const products = [
     stockQuantity: 7,
     category: 'MAMMALS',
     price: 40000,
+    funFact: "Their coat of tightly packed under-fur and long guard hairs  are water repellent. Air pockets within their coat keep them insulated and dry while under water, so it is very important that otters groom regularly and reintroduce air into their coats. Their ears are small and, like their nostrils, can be closed while the animal swims under water."
   },
   {
     stockNumber: 'SN-123-004',
     productName: 'Mandarin Duck',
+    latinName: "Aix Galericulata",
     imageUrl:
       'https://pyxis.nymag.com/v1/imgs/6aa/326/8227a769871ef982b00bf715b101e5d961-6-hot-duck-b.rsocial.w1200.jpg',
     productDescription:
@@ -109,10 +116,12 @@ const products = [
     stockQuantity: 8,
     category: 'BIRDS',
     price: 1000,
+    funFact: "Mandarin ducks are highly social, flying in large flocks during winter. Their pair bonds are very strong and they will return to the same mate if they survive."
   },
   {
     stockNumber: 'SN-123-005',
     productName: 'Ring-tail Lemur',
+    latinName: "Lemur catta",
     imageUrl:
       'https://nationalzoo.si.edu/sites/default/files/animals/20110407-071mm.jpg',
     productDescription:
@@ -120,10 +129,12 @@ const products = [
     stockQuantity: 3,
     category: 'MAMMALS',
     price: 25000,
+    funFact: "Ring-tailed lemurs are meticulously clean animals. After feeding they groom themselves thoroughly, using its comb-like teeth and the long claw on the second toe of its hind foot."
   },
   {
     stockNumber: 'SN-123-006',
     productName: 'Axolotl',
+    latinName: "Ambystoma mexicanum",
     imageUrl:
       'https://c402277.ssl.cf1.rackcdn.com/photos/20852/images/magazine_medium/axolotl_WWsummer2021.jpg',
     productDescription:
@@ -131,16 +142,20 @@ const products = [
     stockQuantity: 7,
     category: 'AMPHIBIANS',
     price: 500,
+    funFact: "They have a large genome. With 32 billion DNA bases and a genome 10 times the size of a human’s, sequencing the DNA of axolotls is a challenge for scientists."
   },
   {
     stockNumber: 'SN-123-007',
     productName: 'Aldabra Tortoise',
+    latinName: "Aldabrachelys gigantea",
     imageUrl:
       'https://nationalzoo.si.edu/sites/default/files/styles/1400x700_scale_and_crop/public/animals/aldabratortoise-003.jpg',
     productDescription: `Aldabra tortoises are easily domesticated and can learn to identify their keepers in a short time. Aldabras are one of the world's largest land tortoises. Males are considerably larger than females and have longer, thicker tails.`,
     stockQuantity: 2,
     category: 'REPTILES',
     price: 10000,
+    funFact: "The Aldabra tortoise is one of the longest-lived animals on earth, if not the longest. No one knows exactly how long these animals are capable of living, but they are believed to easily surpass 100 years. So far, the tortoises studied have outlived the scientists studying them, and proper records have not been maintained."
+
   },
   {
     stockNumber: 'SN-123-008',
@@ -235,7 +250,7 @@ const products = [
     category: 'INVERTEBRATES',
     price: 525,
     latinName: "Zygoptera",
-    funFacts: "With a lifespan that may last from a few weeks to several years, depending on the species, most often, once they reach adulthood, they will only live a few weeks. During that short span, they lay hundreds or thousands of eggs. Depending on the water temperature, incubation may take anywhere from 5 days to several months."
+    funFact: "With a lifespan that may last from a few weeks to several years, depending on the species, most often, once they reach adulthood, they will only live a few weeks. During that short span, they lay hundreds or thousands of eggs. Depending on the water temperature, incubation may take anywhere from 5 days to several months."
   },
   {
     stockNumber: 'AM-123-007',
@@ -248,7 +263,7 @@ const products = [
     category: 'MAMMALS',
     price: 525,
     latinName: "Tachyglossidae",
-    funFacts: "Egg laying mammals are called monotremes. There are only three monotremes in the world: the long-beaked echidna, short-beaked echidna, and platypus. Both male and female echidnas have a pouch on the belly making it difficult to tell one from the other. The echidna's snout is very sensitive and can feel vibrations"
+    funFact: "Egg laying mammals are called monotremes. There are only three monotremes in the world: the long-beaked echidna, short-beaked echidna, and platypus. Both male and female echidnas have a pouch on the belly making it difficult to tell one from the other. The echidna's snout is very sensitive and can feel vibrations"
   },
   {
     stockNumber: 'AM-123-008',
@@ -261,7 +276,7 @@ const products = [
     category: 'BIRDS',
     price: 525,
     latinName: "Coronatus",
-    funFacts: "A crowned eagle can swoop after prey in the air at 100 miles (160 kilometers) per hour yet brake to a halt within 20 feet (6 meters). It pushes its powerful wings against the air currents to slow down. The flight of the crowned eagle is remarkably quiet, much like the silent flight of owls."
+    funFact: "A crowned eagle can swoop after prey in the air at 100 miles (160 kilometers) per hour yet brake to a halt within 20 feet (6 meters). It pushes its powerful wings against the air currents to slow down. The flight of the crowned eagle is remarkably quiet, much like the silent flight of owls."
   },
   {
     stockNumber: 'AM-123-009',
@@ -274,7 +289,7 @@ const products = [
     category: 'REPTILES',
     price: 200,
     latinName: "Iguanidae",
-    funFacts: "Marine iguanas of the Galápagos Islands (off the coast of Ecuador) are excellent swimmers. n the Animal Kingdom, males often have the brightest colors, but not among green iguanas; males are often a bright orange, females are green, and the juveniles are a brilliant green."
+    funFact: "Marine iguanas of the Galápagos Islands (off the coast of Ecuador) are excellent swimmers. n the Animal Kingdom, males often have the brightest colors, but not among green iguanas; males are often a bright orange, females are green, and the juveniles are a brilliant green."
   },
   {
     stockNumber: 'AM-123-010',
@@ -287,7 +302,7 @@ const products = [
     category: 'AMPHIBIANS',
     price: 525,
     latinName: "Mantellidae",
-    funFacts: "The golden mantella is the most well known. Individuals can be yellow, bright orange, or orange-red in color. The variegated mantella lives in the high grasslands of Central Madagascar. It burrows during the dry season to keep from drying out."
+    funFact: "The golden mantella is the most well known. Individuals can be yellow, bright orange, or orange-red in color. The variegated mantella lives in the high grasslands of Central Madagascar. It burrows during the dry season to keep from drying out."
   },
   {
     stockNumber: 'AM-123-011',
@@ -300,7 +315,7 @@ const products = [
     category: 'INVERTEBRATES',
     price: 1223,
     latinName: "Dendrolagus matschiei",
-    funFacts: "Jump to it! Matschie’s tree kangaroos can leap 60 feet to the ground without injury. Like water off a duck’s back. Curly whorls on the tree kangaroo’s back fur let water run right off it."
+    funFact: "Jump to it! Matschie’s tree kangaroos can leap 60 feet to the ground without injury. Like water off a duck’s back. Curly whorls on the tree kangaroo’s back fur let water run right off it."
   },
 
 ];
