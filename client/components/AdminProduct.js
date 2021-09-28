@@ -1,14 +1,18 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-const Checkbox = (props) => <input type="checkbox" {...props} />;
+const Checkbox = (props) => (
+  <td>
+    <input type="checkbox" {...props} />
+  </td>
+);
 
 const AdminProduct = (props) => {
   const adminProduct = props.product;
   const route = `/admin/products/edit/${adminProduct.id}`;
 
   return (
-    <div className="row">
+    <tr className="admin-dashboard-row" key={adminProduct.id}>
       <Checkbox
         id={adminProduct.id}
         name={adminProduct.productName}
@@ -16,17 +20,23 @@ const AdminProduct = (props) => {
         checked={adminProduct.checked}
         onChange={() => props.handleChecked(props.index, adminProduct.id)}
       />
-      <img className="admin-dashboard-img" src={adminProduct.imageUrl} />
-      <div className="admin-dashboard-name">{adminProduct.productName}</div>
-      <div className="admin-dashboard-stock-num">
-        {adminProduct.stockNumber}
-      </div>
-      <div className="admin-dashboard-price">{adminProduct.price}</div>
-      <div className="admin-dashboard-stock">{adminProduct.stockQuantity}</div>
-      <div className="admin-dashboard-category">{adminProduct.category}</div>
-      <div className="admin-dashboard-date">{adminProduct.createdAt}</div>
-      <Link to={route}>Edit</Link>
-    </div>
+
+      <td>
+        <img className="admin-dashboard-img" src={adminProduct.imageUrl} />
+      </td>
+      <td className="admin-dashboard-name">{adminProduct.productName}</td>
+      <td className="admin-dashboard-latin-name">{adminProduct.latinName}</td>
+      <td className="admin-dashboard-stock-num">{adminProduct.stockNumber}</td>
+      <td className="admin-dashboard-price">{adminProduct.price}</td>
+      <td className="admin-dashboard-stock">{adminProduct.stockQuantity}</td>
+      <td className="admin-dashboard-category">{adminProduct.category}</td>
+      <td className="admin-dashboard-date">
+        {adminProduct.createdAt.slice(0, 10)}
+      </td>
+      <td>
+        <Link to={route}>Edit</Link>
+      </td>
+    </tr>
   );
 };
 

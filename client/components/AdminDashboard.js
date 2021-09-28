@@ -189,28 +189,36 @@ class AdminDashboard extends React.Component {
         <button type="button" onClick={this.bulkDelete}>
           Delete Selected
         </button>
-        <div className="column">
-          <div className="row">
-            <img
-              className="admin-dashboard-icon"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Picture_icon_BLACK.svg/1200px-Picture_icon_BLACK.svg.png"
-            />
-            <div className="admin-dashboard-name">Name:</div>
-            <div className="admin-dashboard-stock-num">Stock Number:</div>
-            <div className="admin-dashboard-price">Price:</div>
-            <div className="admin-dashboard-stock">Stock Quantity:</div>
-            <div className="admin-dashboard-category">Category:</div>
-            <div className="admin-dashboard-date">Published:</div>
-          </div>
-          {products.map((product, index) => (
-            <AdminProduct
-              product={product}
-              key={product.id}
-              handleChecked={this.handleChecked}
-              index={index}
-            />
-          ))}
-        </div>
+        <table className="admin-table">
+          <thead>
+            <tr className="admin-dashboard-row">
+              <td>Selected</td>
+              <td>
+                <img
+                  className="admin-dashboard-icon"
+                  src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/Picture_icon_BLACK.svg/1200px-Picture_icon_BLACK.svg.png"
+                />
+              </td>
+              <td className="admin-dashboard-name">Name:</td>
+              <td className="admin-dashboard-latin-name">Latin Name:</td>
+              <td className="admin-dashboard-stock-num">Stock Number:</td>
+              <td className="admin-dashboard-price">Price:</td>
+              <td className="admin-dashboard-stock">Stock Quantity:</td>
+              <td className="admin-dashboard-category">Category:</td>
+              <td className="admin-dashboard-date">Published:</td>
+            </tr>
+          </thead>
+          <tbody>
+            {products.map((product, index) => (
+              <AdminProduct
+                product={product}
+                key={product.id}
+                handleChecked={this.handleChecked}
+                index={index}
+              />
+            ))}
+          </tbody>
+        </table>
       </div>
     );
   }

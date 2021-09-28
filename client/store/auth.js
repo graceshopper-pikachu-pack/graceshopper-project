@@ -36,10 +36,10 @@ export const me = () => async (dispatch) => {
       });
 
       dispatch(addToUserCart(localCart));
-      history.push("/home");
+
       return dispatch(setAuth({ loggedIn: !!res.data.id, ...res.data }));
     } else {
-      return dispatch(setAuth({ loggedIn: false }));
+      return dispatch(setAuth({ loggedIn: false, isAdmin: false }));
     }
   } catch (error) {
     console.log(error);
@@ -54,11 +54,13 @@ export const authenticate = (formData, method) => async (dispatch) => {
     const res = await axios.post(`/auth/${method}`, formData);
 
     window.localStorage.setItem(TOKEN, res.data.token);
-
+    history.push("/home");
     dispatch(clearReduxCart());
     dispatch(me());
   } catch (authError) {
-    return dispatch(setAuth({ error: authError, loggedIn: false }));
+    return dispatch(
+      setAuth({ error: authError, loggedIn: false, isAdmin: false })
+    );
   }
 };
 
@@ -69,7 +71,7 @@ export const logout = () => {
     window.localStorage.removeItem("cart");
     localStorage.setItem("cart", JSON.stringify([]));
     dispatch(clearReduxCart());
-    dispatch(setAuth({ loggedIn: false }));
+    dispatch(setAuth({ loggedIn: false, isAdmin: false }));
     history.push("/login");
   };
 };
