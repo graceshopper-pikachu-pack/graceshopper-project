@@ -171,12 +171,12 @@ class AdminDashboard extends React.Component {
               onChange={this.filterProducts}
             >
               <option value="all">All Animals</option>
-              <option value="amphibians">Amphibians</option>
-              <option value="birds">Birds</option>
-              <option value="fish">Fish</option>
-              <option value="invertebrates">Invertebrates</option>
-              <option value="mammals">Mammals</option>
-              <option value="reptiles">Reptiles</option>
+              <option value="AMPHIBIANS">Amphibians</option>
+              <option value="BIRDS">Birds</option>
+              <option value="FISH">Fish</option>
+              <option value="INVERTEBRATES">Invertebrates</option>
+              <option value="MAMMALS">Mammals</option>
+              <option value="REPTILES">Reptiles</option>
             </select>
           </div>
         </div>
