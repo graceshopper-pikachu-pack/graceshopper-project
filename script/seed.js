@@ -160,6 +160,7 @@ const products = [
   {
     stockNumber: 'SN-123-008',
     productName: 'Siamese Fighting Fish',
+    latinName: 'Fishy Fishicae',
     imageUrl:
       'https://www.peta.org/wp-content/uploads/2019/08/iStock-644996948_itthipolB-1.jpg',
     productDescription: `Betta fish are native to Asia, where they live in the shallow water of marshes, ponds, or slow-moving streams. Male bettas are devoted fathers who build bubble nests for their young with their mouths and fiercely protect their babies from predators. Just like us, betta fish are diurnal. That means they’re active during the day and sleep at night, requiring darkness to get a good night’s rest.`,
@@ -170,7 +171,7 @@ const products = [
   {
     stockNumber: 'SN-123-009',
     productName: 'Common Clownfish',
-    latinName: 'Amphiprioninae'
+    latinName: 'Amphiprioninae',
     imageUrl: 'https://s28164.pcdn.co/files/common-clownfish-89-1280x720.jpg',
     productDescription: `Both the anemone and clownfish live in a symbiotic relationship, meaning the anemone benefits from the presence of the clownfish, while the clownfish benefits from living with the anemone. It is thought that the clownfish feeds upon parasites and debris amongst the anemone’s tentacles, and in return scares away fish that may prey upon the anemone, as well as giving the anemone better water circulation as it fans its fins while swimming around. It is possible that the clownfish also lures fish for the anemone to kill and eat.`,
     stockQuantity: 15,
@@ -181,7 +182,7 @@ const products = [
   {
     stockNumber: 'SN-123-010',
     productName: 'Red Eyed Tree Frog',
-    latinName: 'Agalychnis callidryas'
+    latinName: 'Agalychnis callidryas',
     imageUrl:
       'https://nationalzoo.si.edu/sites/default/files/styles/1400_scale/public/newsroom/20181129-roshanpatel03.jpg?itok=6ZIFQmw1',
     productDescription: `Red-eyed tree frogs are recognized around the world as an ambassador for all tropical amphibian species. With their large, red eyes, their blue-green bodies and orange toes—they have a striking beauty about them. They also have adhesive toepads, which enable them to climb up any surface. They are the most recognizable frog in the world! `,
