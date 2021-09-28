@@ -155,21 +155,25 @@ const products = [
   {
     stockNumber: 'SN-123-009',
     productName: 'Common Clownfish',
+    latinName: 'Amphiprioninae'
     imageUrl: 'https://s28164.pcdn.co/files/common-clownfish-89-1280x720.jpg',
     productDescription: `Both the anemone and clownfish live in a symbiotic relationship, meaning the anemone benefits from the presence of the clownfish, while the clownfish benefits from living with the anemone. It is thought that the clownfish feeds upon parasites and debris amongst the anemone’s tentacles, and in return scares away fish that may prey upon the anemone, as well as giving the anemone better water circulation as it fans its fins while swimming around. It is possible that the clownfish also lures fish for the anemone to kill and eat.`,
     stockQuantity: 15,
     category: 'FISH',
     price: 250,
+    funFact: "Schools of clownfish have a strict hierarchy, with the most aggressive female at the top.  All clownfish are born male. When the dominant female dies, the dominant male will turn itself into a female."
   },
   {
     stockNumber: 'SN-123-010',
     productName: 'Red Eyed Tree Frog',
+    latinName: 'Agalychnis callidryas'
     imageUrl:
       'https://nationalzoo.si.edu/sites/default/files/styles/1400_scale/public/newsroom/20181129-roshanpatel03.jpg?itok=6ZIFQmw1',
     productDescription: `Red-eyed tree frogs are recognized around the world as an ambassador for all tropical amphibian species. With their large, red eyes, their blue-green bodies and orange toes—they have a striking beauty about them. They also have adhesive toepads, which enable them to climb up any surface. They are the most recognizable frog in the world! `,
     stockQuantity: 5,
     category: 'AMPHIBIANS',
     price: 2000,
+    funFact: 'Frogs, in general, are a pretty old bunch. Fossils show that frogs have been around for hundreds of millions of years; red-eyed tree frogs specifically emerged roughly 10 million years ago. These amphibians are arboreal, meaning they spend a lot of time hiding in the trees. The frogs live in tropical lowlands in Central America and northern South America, and though one might think that its bright red eyes and blue and yellow markings would put the amphibian in danger, the crafty frog actually uses its flashy colors to its advantage.'
   },
   {
     stockNumber: 'SN-123-021',
@@ -220,6 +224,85 @@ const products = [
     price: 1500,
     funFact: `Electric eels are capable of generating up to 800 volts of electricity!`,
   },
+  {
+    stockNumber: 'AM-123-006',
+    productName: 'Damselfly',
+    imageUrl:
+      'https://animals.sandiegozoo.org/sites/default/files/2016-10/animals_hero_dragonfly.jpg',
+    productDescription:
+      'Meet another kind of dinosaur: When you think of dinosaurs, you might think of those found in the movie Jurassic Park. But there are many other prehistoric animals that are still around today. And some lived even before dinosaurs first appeared: dragonflies and damselflies! These two insects are in the same taxonomic family, Odonata. They look pretty similar and are often called odonates.',
+    stockQuantity: 20,
+    category: 'INVERTEBRATES',
+    price: 525,
+    latinName: "Zygoptera",
+    funFacts: "With a lifespan that may last from a few weeks to several years, depending on the species, most often, once they reach adulthood, they will only live a few weeks. During that short span, they lay hundreds or thousands of eggs. Depending on the water temperature, incubation may take anywhere from 5 days to several months."
+  },
+  {
+    stockNumber: 'AM-123-007',
+    productName: 'Echidna',
+    imageUrl:
+      'https://animals.sandiegozoo.org/sites/default/files/2016-09/animals_hero_echidna.jpg',
+    productDescription:
+      'The echidna (ih-KID-na), or spiny anteater, is an unusual mammal. It is so different from any other that it still puzzles researchers and scientists. The echidna has remained unchanged since prehistoric times, finding ways to survive while other species became extinct. But what really sets the echidna apart from other mammals? Female echidnas lay eggs! Egg-laying mammals are called monotremes. There are only five monotremes in the world: four echidna species, and one platypus species.',
+    stockQuantity: 20,
+    category: 'MAMMALS',
+    price: 525,
+    latinName: "Tachyglossidae",
+    funFacts: "Egg laying mammals are called monotremes. There are only three monotremes in the world: the long-beaked echidna, short-beaked echidna, and platypus. Both male and female echidnas have a pouch on the belly making it difficult to tell one from the other. The echidna's snout is very sensitive and can feel vibrations"
+  },
+  {
+    stockNumber: 'AM-123-008',
+    productName: 'Crowned Eagle',
+    imageUrl:
+      'https://animals.sandiegozoo.org/sites/default/files/2016-10/animal_hero_african_crowned_eagle.jpg',
+    productDescription:
+      "The most powerful eagle in Africa. Crowned eagles are not the largest eagles in Africa—martial eagles claim that title—but they are the most powerful. Their legs are thick, and they have a very long talon on each back toe that helps them kill animals more than four times their size. Crowned eagles live in the tall woodland forests and rain forests of Africa. They are often seen on Africa's savannas as well. Built for flying among trees, the crowned eagle's wings are short and broad, and its long tail helps guide the bird like a rudder guides a boat. These features allow the eagle to fly easily through the branches.",
+    stockQuantity: 10,
+    category: 'BIRDS',
+    price: 525,
+    latinName: "Coronatus",
+    funFacts: "A crowned eagle can swoop after prey in the air at 100 miles (160 kilometers) per hour yet brake to a halt within 20 feet (6 meters). It pushes its powerful wings against the air currents to slow down. The flight of the crowned eagle is remarkably quiet, much like the silent flight of owls."
+  },
+  {
+    stockNumber: 'AM-123-009',
+    productName: 'Iguana',
+    imageUrl:
+      'https://animals.sandiegozoo.org/sites/default/files/2017-12/animals_hero_blue-iguana.jpg',
+    productDescription:
+      'Iguanas are some of the largest lizards found in the Americas, with their whiplike tail making up about half of that length. Like other reptiles, iguanas are cold-blooded, egg-laying animals with an excellent ability to adapt to their environment. Iguana species vary greatly in size, color, behavior, and their endangered status in the wild. Some, like the green iguana, are quite common; others, like Fiji’s banded iguanas, are endangered. Iguanas native to San Diego County are the desert iguana and the chuckwalla.',
+    stockQuantity: 33,
+    category: 'REPTILES',
+    price: 200,
+    latinName: "Iguanidae",
+    funFacts: "Marine iguanas of the Galápagos Islands (off the coast of Ecuador) are excellent swimmers. n the Animal Kingdom, males often have the brightest colors, but not among green iguanas; males are often a bright orange, females are green, and the juveniles are a brilliant green."
+  },
+  {
+    stockNumber: 'AM-123-010',
+    productName: 'Mantella',
+    imageUrl:
+      'https://animals.sandiegozoo.org/sites/default/files/2016-10/animals_hero_mantella.jpg',
+    productDescription:
+      'Poisonous jewels of Madagascar: Tiny mantella frogs are among the most brightly colored and spectacular of all frogs. Most can be found in a variety of color combinations—inky black with brilliant splotches of orange, bronze, yellow, blue, or emerald green. These bright, eye-catching colors serve as a warning to predators that the little frogs are poisonous.',
+    stockQuantity: 20,
+    category: 'AMPHIBIANS',
+    price: 525,
+    latinName: "Mantellidae",
+    funFacts: "The golden mantella is the most well known. Individuals can be yellow, bright orange, or orange-red in color. The variegated mantella lives in the high grasslands of Central Madagascar. It burrows during the dry season to keep from drying out."
+  },
+  {
+    stockNumber: 'AM-123-011',
+    productName: 'Matschie Tree Kangaroo',
+    imageUrl:
+      'https://animals.sandiegozoo.org/sites/default/files/2017-12/animals_hero_matschiestreekangaroo.jpg',
+    productDescription:
+      'In forests of towering trees covered in moss and ferns lives the elusive and remarkable tree kangaroo. Locals call it the “ghost of the forest” because it is so hard to find and moves so quickly. No one is exactly sure when this small marsupial in the kangaroo family took to the trees, but it is clearly well adapted for life on high, with long, bark-gripping claws, strong limbs for climbing, and a long tail for balance. These are good traits to have for an animal that spends most of its time 100 feet or more above the ground, nibbling ferns and orchids and looking out at dizzying views over the forest canopy.',
+    stockQuantity: 8,
+    category: 'INVERTEBRATES',
+    price: 1223,
+    latinName: "Dendrolagus matschiei",
+    funFacts: "Jump to it! Matschie’s tree kangaroos can leap 60 feet to the ground without injury. Like water off a duck’s back. Curly whorls on the tree kangaroo’s back fur let water run right off it."
+  },
+
 ];
 
 const cartItems1 = [
