@@ -404,3 +404,33 @@ aside {
 .img-no-items-cart {
   padding: 30px;
 }
+
+.full-cart-btns {
+  display: flex;
+  flex-direction: column-reverse;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.cartitem-column {
+  margin: 40px auto;
+}
+.cartitem-table {
+  width: 90%;
+}
+
+.cartitem-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cartitem-quantity-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+input.cartitem-quantity {
+  width: 20%;
+  background-color: whitesmoke;
+}

@@ -83,8 +83,10 @@ class Cart extends React.Component {
             {this.state.errors ? (
               <h6 className='error'>{this.state.errors}</h6>
             ) : null}
-            <button onClick={this.placeOrder}>Place Order</button>
-            <button onClick={this.clearCart}>Clear Cart</button>
+            <div className='full-cart-btns'>
+              <button onClick={this.placeOrder}>Place Order</button>
+              <button onClick={this.clearCart}>Clear Cart</button>
+            </div>
             {cart.map((item) => (
               <CartItem
                 item={item}
