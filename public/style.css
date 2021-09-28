@@ -407,9 +407,9 @@ aside {
 
 .full-cart-btns {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
+  align-self: flex-end;
   justify-content: space-around;
-  align-items: center;
 }
 
 .cartitem-column {
