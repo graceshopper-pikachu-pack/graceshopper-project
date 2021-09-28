@@ -93,23 +93,27 @@ class SingleProduct extends React.Component {
 							<h2>{singleProduct.productName}</h2>
 						</header>
 						<div id="single-product-main">
-							<aside>Fun Facts</aside>
+							<aside>
+								<h3>Fun Facts</h3>
+								    <h4>{singleProduct.funFact}</h4>
+							</aside>
 							<article>
 								<div class="img-text-container">
-									<img src={singleProduct.imageUrl} />
+									<img src={singleProduct.imageUrl} class="img-single-product" />
 									<div class="img-text-block">
 										    <h4>{singleProduct.category}</h4>
 										    <p>{singleProduct.productName}</p>
+										    <p>{singleProduct.latinName}</p>
 									</div>
 								</div>
-								<h3>Minimal Donation Amount: ${singleProduct.price}</h3>
+								<h3>Minimal Donation Amount: ${singleProduct.price.toLocaleString()}</h3>
 								<h3>{singleProduct.productDescription}</h3>
-								<h4 style={{ color: 'red' }}>
+								<h5 style={{ color: 'red' }}>
 									NOTE: can only add quantity currently, fix to either buttons or reduce quantity
-								</h4>
+								</h5>
 								{errors.quantity ? <h6 className="error">{errors.quantity}</h6> : null}
 								<label htmlFor="quantity">
-									<small>Current Quantity:</small>
+									<h4>Current Quantity:</h4>
 								</label>
 								<input
 									name="quantity"
@@ -122,7 +126,6 @@ class SingleProduct extends React.Component {
 								/>
 								<button onClick={this.handleEdit}>Add to Cart</button>
 							</article>
-							<nav>Fun Facts</nav>
 						</div>
 					</div>
 				)}

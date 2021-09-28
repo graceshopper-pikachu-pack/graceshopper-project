@@ -181,16 +181,17 @@ class ProductsList extends React.Component {
 						</select>
 					</div>
 				</div>
-				<div id="grid-layout"></div>
-				{products.map((product) => (
-					<Product
-						product={product}
-						key={product.id}
-						history={this.props.history}
-						handleIncrement={this.handleIncrement}
-						handleDecrement={this.handleDecrement}
-					/>
-				))}
+				<div id="grid-layout">
+					{products.map((product) => (
+						<Product
+							product={product}
+							key={product.id}
+							history={this.props.history}
+							handleIncrement={this.handleIncrement}
+							handleDecrement={this.handleDecrement}
+						/>
+					))}
+				</div>
 			</div>
 		);
 	}

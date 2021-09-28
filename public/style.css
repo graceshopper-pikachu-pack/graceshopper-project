@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 * {
 	box-sizing: border-box;
@@ -8,8 +9,8 @@
 }
 
 body {
-	font-family: sans-serif;
-	font-size: 20px;
+	font-family: 'Open Sans', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+	font-size: 1em;
 }
 
 a {
@@ -31,10 +32,18 @@ form div {
 }
 
 .menu-bar {
+	flex-direction: row;
+	flex-wrap: wrap;
+	align-content: flex-end;
 	display: flex;
 	justify-content: space-between;
 	align-items: center;
-	position: absolute;
+	position: sticky;
+	width: 500px;
+	margin: 0 auto;
+	width: 100%;
+	z-index: 1;
+	padding: 12px 20px 12px 40px; /* Add some padding */
 }
 
 .navbar {
@@ -56,7 +65,7 @@ form div {
 
 .navbar_logo {
 	display: flex;
-	font-family: 'Stick No Bills', sans-serif;
+	font-family: 'Stick No Bills';
 	font-size: 30px;
 }
 
@@ -106,8 +115,8 @@ form div {
 
 .signup-text {
 	color: white;
-	font-family: 'Bebas Neue', cursive;
-	font-size: 50px;
+	font-size: 3em;
+	text-transform: capitalize;
 }
 
 input[type='text'] {
@@ -150,12 +159,16 @@ input[type='password'] {
 	align-content: center;
 }
 
+.row {
+	display: flex;
+	flex-direction: column;
+}
+
 .single-product-body {
 	display: flex;
 	min-height: 100vh;
 	flex-direction: column;
 	margin: 0;
-	font-family: 'Stick No Bills', sans-serif;
 }
 
 #single-product-main {
@@ -207,16 +220,12 @@ aside {
 	position: absolute;
 	bottom: 20px;
 	right: 20px;
-	background: rgba(255, 255, 255, 0.9) none repeat scroll 0 0;
+	font-style: italic;
+	background: rgba(255, 255, 255, 0.5) none repeat scroll 0 0;
 	color: black;
-	padding-left: 20px;
-	padding-right: 20px;
+	padding-left: 60px;
+	padding-right: 0px;
 	z-index: 2;
-}
-
-.row {
-	display: flex;
-	flex-direction: column;
 }
 
 .column {
@@ -230,10 +239,6 @@ aside {
 /* Middle column */
 .column.middle {
 	flex: 2;
-}
-
-.mr1 {
-	margin-right: 0.5em;
 }
 
 .header {
@@ -279,7 +284,7 @@ aside {
 	justify-content: space-around;
 	color: skyblue;
 	align-items: center;
-	font-family: 'Bebas Neue', cursive;
+	text-transform: capitalize;
 	font-size: 75px;
 }
 
@@ -339,9 +344,16 @@ aside {
 	justify-content: center;
 }
 
-/* img {
+.img-products-list {
 	max-height: 400px;
-	max-width: 400px;
+	max-width: 200px;
 	border-radius: 5px;
 	margin-right: 5px;
-} */
+	object-fit: cover;
+}
+
+.img-single-product {
+	max-height: 1000px;
+	border-radius: 5px;
+	margin-right: 5px;
+}
