@@ -128,9 +128,10 @@ router.post("/:cartId", authRequired, async (req, res, next) => {
 // GET /api/cartItem/get/:id (gets cartItem by id)
 router.get("/cartItem/get/:id", authRequired, async (req, res, next) => {
   try {
-    const cartItem = await CartItem.findByPk(req.params.id);
-
-    res.status(200).json(cartItem);
+    if (req.userId) {
+      const cartItem = await CartItem.findOne(req.params.id);
+      res.status(200).json(cartItem);
+    }
   } catch (err) {
     next(err);
   }

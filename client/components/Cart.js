@@ -1,9 +1,7 @@
-
 import React from "react";
 import { connect } from "react-redux";
 import CartItem from "./CartItem";
 import { fetchCart, clearCart, submitOrder, getToken } from "../store";
-
 
 /**
  * COMPONENT
@@ -14,14 +12,13 @@ class Cart extends React.Component {
     this.state = {
       user: {},
       cart: [],
-      errors: '',
+      errors: "",
     };
     this.clearCart = this.clearCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
   }
 
   componentDidMount() {
-
     this.props.fetchCart();
 
     this.setState({
@@ -59,10 +56,10 @@ class Cart extends React.Component {
     if (token) {
       this.props.submitOrder([...this.state.cart]);
       this.props.clearCart();
-      this.props.history.push('/confirmation');
+      this.props.history.push("/confirmation");
     } else {
       this.setState({
-        errors: 'Please login or sign up to place your order!',
+        errors: "Please login or sign up to place your order!",
       });
     }
   }
@@ -73,7 +70,7 @@ class Cart extends React.Component {
     return (
       <div>
         {!cart.length ? (
-          <h4>Loading...</h4>
+          <h4>There are no items in your cart!</h4>
         ) : (
           <>
             {this.state.errors ? (
