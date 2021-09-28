@@ -79,7 +79,6 @@ const products = [
 		price: 800001,
 		funFact:
 			'Young shoebills will fight with one another. It is known that shoebill storks are shy animals that prefer to be alone. They also have territorial behaviors.',
-
 	},
 	{
 		stockNumber: 'SN-123-002',
@@ -95,7 +94,6 @@ const products = [
 		price: 30000,
 		funFact:
 			'They’re vegetarian carnivores. Wait! What? Yep, its true. That is because the word ‘carnivore’ doesn’t necessarily imply a meat-eater but can refer to their biological order. As they’re descended from carnivorous ancestors but rarely eat anything more than bamboo and a few insects they are classed as vegetarian carnivores. Go figure?!',
-
 	},
 	{
 		stockNumber: 'SN-123-003',
@@ -109,13 +107,11 @@ const products = [
 		price: 40000,
 		funFact:
 			'Their coat of tightly packed under-fur and long guard hairs  are water repellent. Air pockets within their coat keep them insulated and dry while under water, so it is very important that otters groom regularly and reintroduce air into their coats. Their ears are small and, like their nostrils, can be closed while the animal swims under water.',
-
 	},
 	{
 		stockNumber: 'SN-123-004',
 		productName: 'Mandarin Duck',
 		latinName: 'Aix Galericulata',
-
 		imageUrl:
 			'https://pyxis.nymag.com/v1/imgs/6aa/326/8227a769871ef982b00bf715b101e5d961-6-hot-duck-b.rsocial.w1200.jpg',
 		productDescription:
@@ -125,7 +121,6 @@ const products = [
 		price: 1000,
 		funFact:
 			'Mandarin ducks are highly social, flying in large flocks during winter. Their pair bonds are very strong and they will return to the same mate if they survive.',
-
 	},
 	{
 		stockNumber: 'SN-123-005',
@@ -139,8 +134,7 @@ const products = [
 		price: 25000,
 		funFact:
 			'Ring-tailed lemurs are meticulously clean animals. After feeding they groom themselves thoroughly, using its comb-like teeth and the long claw on the second toe of its hind foot.',
-
-},
+	},
 	{
 		stockNumber: 'SN-123-006',
 		productName: 'Axolotl',
@@ -153,7 +147,6 @@ const products = [
 		price: 500,
 		funFact:
 			'They have a large genome. With 32 billion DNA bases and a genome 10 times the size of a human’s, sequencing the DNA of axolotls is a challenge for scientists.',
-
 	},
 	{
 		stockNumber: 'SN-123-007',
@@ -167,7 +160,6 @@ const products = [
 		price: 10000,
 		funFact:
 			'The Aldabra tortoise is one of the longest-lived animals on earth, if not the longest. No one knows exactly how long these animals are capable of living, but they are believed to easily surpass 100 years. So far, the tortoises studied have outlived the scientists studying them, and proper records have not been maintained.',
-
 	},
 	{
 		stockNumber: 'SN-123-008',
