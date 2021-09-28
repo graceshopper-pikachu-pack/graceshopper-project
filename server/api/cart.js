@@ -8,7 +8,7 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.JWT;
 
 const authRequired = async (req, res, next) => {
-  // We grab the token from the cookies
+  // Grabs the token from the cookies
   const token = req.headers.authorization;
   // jwt verify throws an exception when the token isn't valid
   try {
@@ -27,14 +27,14 @@ const authRequired = async (req, res, next) => {
 // GET /api/cart/id (gets cart Id)
 router.get("/id", authRequired, async (req, res, next) => {
   try {
-    // find the cart associated with the user
+    // find cart associated with user
     const cart = await Cart.findOne({
       where: {
         userId: req.userId,
       },
     });
     if (cart) {
-      // send back the cartId
+      // send back cartId
       res.status(200).json(cart);
     }
   } catch (err) {
@@ -177,7 +177,7 @@ router.put(
   async (req, res, next) => {
     try {
       const cartItem = await CartItem.findByPk(req.params.id);
-      // have to make sure they do not exceed stock quantity
+      // ensures stock quantity is not exceeded
 
       const incrementedCart = await cartItem.increment("quantity", {
         by: req.body.quantity,

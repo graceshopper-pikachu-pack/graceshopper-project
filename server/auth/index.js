@@ -34,7 +34,7 @@ router.get("/me", async (req, res, next) => {
   }
 });
 
-// GET /api/users/:id (get single user) -- might actually not need
+// GET /api/users/:id (get single user)
 router.get("/users/:id", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);

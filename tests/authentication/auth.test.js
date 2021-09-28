@@ -18,7 +18,7 @@ describe('thunk creators', () => {
 	const initialState = { user: {} };
 
 	beforeEach(() => {
-		//no browser available, we need to stub out localStorage
+
 		global.window = {
 			localStorage: {
 				removeItem: () => {},
