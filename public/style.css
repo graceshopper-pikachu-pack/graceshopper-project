@@ -394,6 +394,17 @@ aside {
   box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
 }
 
+.login-input {
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+  box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+}
+
 .admin-product-form {
   display: flex;
   flex-direction: column;
