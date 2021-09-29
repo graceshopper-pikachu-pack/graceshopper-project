@@ -26,20 +26,30 @@ class AdminView extends React.Component{
     console.log("props", this.props)
 
     return (
-      <table>
+      <table className="admin-table">
+        <thead >
+            <tr className="admin-dashboard-head">
+              <td className="admin-dashboard-name">UserName:</td>
+              <td className="admin-dashboard-latin-name">First Name:</td>
+              <td className="admin-dashboard-stock-num">Last Name:</td>
+              <td className="admin-dashboard-price">Email:</td>
+              <td className="admin-dashboard-stock">Admin:</td>
 
-      {adminUsers.map((adminUser) => {
+            </tr>
+          </thead>
+
+          {adminUsers.map((adminUser) => {
         return(
           <tbody key={adminUser.id}>
-              <tr className="admin-dashboard-usernames" >
-                <td>Username: {adminUser.username} </td>
-                <td>First Name: {adminUser.firstName} </td>
-                <td> Last Name: {adminUser.lastName} </td>
-                <td> Email: {adminUser.email} </td>
-                <td> Admin Status: {adminUser.adminStatus.toString()} </td>
+            <tr className="admin-dashboard-head">
+              <td>{adminUser.username} </td>
+              <td> {adminUser.firstName} </td>
+              <td>{adminUser.lastName} </td>
+              <td>{adminUser.email} </td>
+              <td>{adminUser.adminStatus.toString()} </td>
 
-              </tr>
-              </tbody>
+            </tr>
+            </tbody>
         )
       })}
 
