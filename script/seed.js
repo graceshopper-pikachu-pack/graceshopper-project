@@ -323,10 +323,23 @@ const products = [
 			'In forests of towering trees covered in moss and ferns lives the elusive and remarkable tree kangaroo. Locals call it the “ghost of the forest” because it is so hard to find and moves so quickly. No one is exactly sure when this small marsupial in the kangaroo family took to the trees, but it is clearly well adapted for life on high, with long, bark-gripping claws, strong limbs for climbing, and a long tail for balance. These are good traits to have for an animal that spends most of its time 100 feet or more above the ground, nibbling ferns and orchids and looking out at dizzying views over the forest canopy.',
 		stockQuantity: 8,
 		category: 'INVERTEBRATES',
-		price: 1223,
+		price: 1050,
 		latinName: 'Dendrolagus matschiei',
 		funFact:
 			'Jump to it! Matschie’s tree kangaroos can leap 60 feet to the ground without injury. Like water off a duck’s back. Curly whorls on the tree kangaroo’s back fur let water run right off it.',
+	},
+	{
+		stockNumber: 'AM-123-012',
+		productName: 'Panther Chameleon',
+		imageUrl:
+			'https://6lli539m39y3hpkelqsm3c2fg-wpengine.netdna-ssl.com/wp-content/uploads/2021/07/shutterstock_chameleon.jpg',
+		productDescription:
+			'Lovely lizards. In the reptile world, there are some bizarre shapes and colors, but some of the most striking variations are found in the chameleons. These colorful lizards are known for their ability to change their color; their long, sticky tongue; and their eyes, which can be moved independently of each other.',
+		stockQuantity: 10,
+		category: 'REPTILES',
+		price: 975,
+		latinName: 'Furcifer pardalis',
+		funFact: `A chameleon's tongue can be shot out to an extraordinary length: in some types, the tongue is longer than the body. Chameleons seem to prefer running water to still water. Chameleons shed their skin in pieces. How often they shed depends on how quickly they grow.`,
 	},
 ];
 
