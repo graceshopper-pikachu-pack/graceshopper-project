@@ -710,8 +710,9 @@ aside {
   align-items: center;
 }
 .cartitem-quantity-col {
-  display: flex;
-  flex-direction: column;
+
+  display: table-cell;
+
   align-items: center;
 }
 .vertical {
