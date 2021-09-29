@@ -216,7 +216,7 @@ const products = [
 		imageUrl: 'https://oceanconservancy.org/wp-content/uploads/2018/12/David-Evison_Fotolia.jpg',
 		productDescription: `Blue-ringed octopus is a  highly venomous species of octopus that is found in tide pools and coral reefs in the Pacific and Indian oceans. They can be identified by their yellowish skin and characteristic blue and black rings that change color dramatically when the animal is threatened. `,
 		stockQuantity: 8,
-		category: 'AMPHIBIANS',
+		category: 'INVERTEBRATES',
 		price: 2500,
 		funFact: `The Blue-ringed octopus' venom is 1,000 times more powerful than cyanide, and this tiny octopus packs enough venom to kill 26 humans within minutes.`,
 	},
@@ -322,7 +322,7 @@ const products = [
 		productDescription:
 			'In forests of towering trees covered in moss and ferns lives the elusive and remarkable tree kangaroo. Locals call it the “ghost of the forest” because it is so hard to find and moves so quickly. No one is exactly sure when this small marsupial in the kangaroo family took to the trees, but it is clearly well adapted for life on high, with long, bark-gripping claws, strong limbs for climbing, and a long tail for balance. These are good traits to have for an animal that spends most of its time 100 feet or more above the ground, nibbling ferns and orchids and looking out at dizzying views over the forest canopy.',
 		stockQuantity: 8,
-		category: 'INVERTEBRATES',
+		category: 'MAMMALS',
 		price: 1050,
 		latinName: 'Dendrolagus matschiei',
 		funFact:
