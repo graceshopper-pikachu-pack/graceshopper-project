@@ -458,17 +458,70 @@ aside {
 
 /* please feel free to change admin dashboard css */
 
-.admin-dashboard-icon {
-  width: 25px;
-  height: 25px;
-  margin: 25px 25px;
+
+.admin-table {
+  position: relative;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.admin-dashboard-head {
+  display: flex;
+  justify-content: space-around;
+  flex: 1 0 auto;
+  background: rgba(0, 0, 0, 0.05);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.15);
+  padding: 5px 5px;
+  line-height: normal;
+  position: relative;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 0 0 0 transparent;
+  width: 100vw;
+  height: 10vh;
+}
+.admin-table * {
+  box-sizing: border-box;
+}
+
+.admin-dashboard-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex: 1 0 auto;
+  background: rgba(0, 0, 0, 0.01);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.15);
+  padding: 5px 5px;
+  line-height: normal;
+  position: relative;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: inset 0 0 0 0 transparent;
+  width: 100vw;
+  height: 10vh;
+}
+
+.checkbox {
+  align-self: center;
+  width: 50px;
+  height: 50px;
+  margin: 10px 10px;
+  align-self: center;
   justify-content: center;
+  vertical-align: middle;
+
 }
 
 .admin-dashboard-img {
   width: 50px;
   height: 50px;
   margin: 10px 10px;
+
+  align-self: center;
+
   justify-content: center;
 }
 
@@ -476,6 +529,18 @@ aside {
   width: 150px;
   height: 50px;
   margin: 10px 10px;
+
+  align-self: center;
+  justify-content: center;
+  display: table-cell;
+  vertical-align: middle;
+}
+.admin-dashboard-latin-name {
+  width: 150px;
+  height: 50px;
+  margin: 10px 10px;
+  align-self: center;
+
   justify-content: center;
 }
 
@@ -483,6 +548,9 @@ aside {
   width: 100px;
   height: 50px;
   margin: 10px 10px;
+
+  align-self: center;
+
   justify-content: center;
 }
 
@@ -491,6 +559,9 @@ aside {
   height: 50px;
   margin: 10px 10px;
   justify-content: center;
+
+  align-self: center;
+
 }
 
 .admin-dashboard-stock {
@@ -498,6 +569,9 @@ aside {
   height: 50px;
   margin: 10px 10px;
   justify-content: center;
+
+  align-self: center;
+
 }
 
 .admin-dashboard-category {
@@ -505,12 +579,18 @@ aside {
   height: 50px;
   margin: 10px 10px;
   justify-content: center;
+
+  align-self: center;
+
 }
 .admin-dashboard-date {
   width: 100px;
   height: 50px;
   margin: 10px 10px;
   justify-content: center;
+
+  align-self: center;
+
 }
 
 /* images */
