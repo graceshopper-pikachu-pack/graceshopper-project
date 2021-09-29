@@ -1,9 +1,10 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
-import { logout } from '../store';
+import React from "react";
+import { Link } from "react-router-dom";
+import { connect } from "react-redux";
+import { logout } from "../store";
 
 const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => {
+
 	return (
 		<nav className="navbar">
 			<div className="navbar_logo">
@@ -52,6 +53,7 @@ const Navbar = ({ handleClick, isLoggedIn, isAdmin }) => {
 			</ul>
 		</nav>
 	);
+
 };
 
 /**

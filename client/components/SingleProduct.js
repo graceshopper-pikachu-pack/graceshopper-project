@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { fetchSingleProduct, clearSingleProduct, editCart, fetchCartItem } from '../store';
 
 class SingleProduct extends React.Component {
+
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -104,7 +105,7 @@ class SingleProduct extends React.Component {
 								<div class="img-single-product">
 									<img src={singleProduct.imageUrl} />
 								</div>
-								<h2>Minimal Donation Amount: ${singleProduct.price.toLocaleString()}.00</h2>
+								<h2>Minimum Donation Amount: ${singleProduct.price.toLocaleString()}.00</h2>
 								<h3>{singleProduct.productDescription}</h3>
 
 								{errors.quantity ? <h6 className="error">{errors.quantity}</h6> : null}
@@ -128,6 +129,7 @@ class SingleProduct extends React.Component {
 			</div>
 		);
 	}
+
 }
 
 const mapState = (state) => {

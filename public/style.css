@@ -9,8 +9,10 @@
 }
 
 body {
+
 	font-family: 'Open Sans', 'Source Sans Pro', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 	font-size: 1em;
+
 }
 
 a {
@@ -70,10 +72,12 @@ form div {
 }
 
 .navbar_logo {
+
 	display: flex;
 	font-family: 'Stick No Bills';
 	font-size: 30px;
 	text-transform: uppercase;
+
 }
 
 .navbar_links {
@@ -162,6 +166,7 @@ html {
 }
 
 .form-content {
+
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -169,6 +174,7 @@ html {
 	background-image: url('https://images.pexels.com/photos/146083/pexels-photo-146083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
 	background-size: cover;
 	background-repeat: no-repeat;
+
 }
 
 .form-inputs {
@@ -188,6 +194,7 @@ html {
 }
 
 .signup-text {
+
 	color: white;
 	font-size: 3em;
 	text-transform: capitalize;
@@ -215,6 +222,7 @@ input[type='password'] {
 	border-bottom: 1px solid #05f7ff;
 	box-sizing: border-box;
 	outline: none;
+
 }
 .submit-signup {
 	font-size: 20px;
@@ -345,14 +353,17 @@ aside {
 }
 
 .header {
+
 	display: flex;
 	text-align: center;
 	font-family: 'Stick No Bills', 'Open Sans';
 	font-size: 15px;
+
 }
 
 /* Log-in, Sign-up */
 .login-form {
+
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -432,6 +443,7 @@ aside {
 	font-size: 1.5em;
 	height: 150px;
 	width: 60vw;
+
 }
 
 .btn-login {
@@ -454,6 +466,7 @@ aside {
 }
 
 /* please feel free to change admin dashboard css */
+
 .admin-dashboard-icon {
 	width: 25px;
 	height: 25px;
@@ -533,6 +546,7 @@ aside {
 	max-width: 200px;
 	border-radius: 5px;
 	margin-right: 5px;
+
 }
 
 .img-single-product {
@@ -541,4 +555,49 @@ aside {
 	border-radius: 5px;
 	margin-right: 5px;
 	object-fit: cover;
+}
+
+/* cart */
+.cart-message {
+  font-size: 25px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  padding: 20px;
+}
+
+.img-no-items-cart {
+  padding: 30px;
+}
+
+.full-cart-btns {
+  display: flex;
+  flex-direction: column;
+  align-self: flex-end;
+  justify-content: space-around;
+}
+
+.cartitem-column {
+  margin: 40px auto;
+}
+.cartitem-table {
+  width: 90%;
+}
+
+.cartitem-name {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cartitem-quantity-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+
+input.cartitem-quantity {
+  width: 20%;
+  background-color: whitesmoke;
 }
