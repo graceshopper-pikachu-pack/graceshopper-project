@@ -245,10 +245,10 @@ input[type='password'] {
 	box-shadow: 2px 2px 6px 0px rgba(0, 0, 0, 0.3);
 }
 
-.grid > article img {
+/* .grid > article img {
 	max-width: 100%;
 }
-
+ */
 .text {
 	padding: 0 20px 20px;
 
@@ -271,7 +271,6 @@ input[type='password'] {
 	display: flex;
 	min-height: 100vh;
 	flex-direction: column;
-	margin: 0;
 }
 
 #single-product-main {
@@ -296,6 +295,7 @@ input[type='password'] {
 	order: 1;
 }
 header {
+	flex-direction: column;
 	text-align: center;
 	display: flex;
 	align-items: center;
@@ -316,7 +316,6 @@ aside {
 
 .img-text-container {
 	position: relative;
-	width: 100%;
 }
 
 .img-text-block {
@@ -538,6 +537,7 @@ aside {
 
 .img-single-product {
 	max-height: 600px;
+	max-width: 600px;
 	border-radius: 5px;
 	margin-right: 5px;
 	object-fit: cover;

@@ -93,7 +93,7 @@ class SingleProduct extends React.Component {
 						<header>
 							<h1>{singleProduct.productName}</h1>
 							<h2>Latin Name:{singleProduct.latinName}</h2>
-							<h4>{singleProduct.category}</h4>
+							<h3>{singleProduct.category}</h3>
 						</header>
 						<div id="single-product-main">
 							<aside>
@@ -101,7 +101,7 @@ class SingleProduct extends React.Component {
 								    <h3>{singleProduct.funFact}</h3>
 							</aside>
 							<article>
-								<div class="img-text-container">
+								<div class="img-single-product">
 									<img src={singleProduct.imageUrl} />
 								</div>
 								<h2>Minimal Donation Amount: ${singleProduct.price.toLocaleString()}.00</h2>
