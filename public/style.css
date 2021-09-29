@@ -96,7 +96,7 @@ form div {
   background-image: url('https://images.pexels.com/photos/146083/pexels-photo-146083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
   background-size: cover;
   background-repeat: no-repeat;
-  background-attachment: fixed;
+
 }
 
 .form-inputs {
@@ -179,6 +179,7 @@ input[type='password'] {
 
 .text {
   padding: 0 20px 20px;
+
 }
 
 .text > button {
@@ -286,10 +287,12 @@ aside {
   align-items: center;
   width: 100%;
   height: 100vh;
+
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-image: url('https://images.unsplash.com/photo-1601870431533-c658027e3d96?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80');
+
 }
 .signup-input {
   display: flex;
@@ -300,6 +303,72 @@ aside {
   -webkit-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
   -moz-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
   box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+<
+}
+
+.admin-product-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-size: 100% 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-image: url("https://images.squarespace-cdn.com/content/v1/5e11e82c0efb8f0d16a5dbc8/1586866977071-F77KV646XPAXUFZ7HDV8/Sea-Otter-Nursing-Pup-Alaska-CDODDS_CID5069.jpg?format=1000w");
+  background-attachment: fixed;
+}
+.admin-product-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 40px;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  -webkit-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+  -moz-box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+  box-shadow: -1px 0px 29px 12px rgba(0, 0, 0, 0.77);
+}
+
+.admin-error {
+  font-size: 1em;
+  width: 60vw;
+  color: red;
+}
+
+.admin-product-input > img {
+  width: 40vw;
+  height: 50vh;
+  border-radius: 10px;
+  margin: 10px 0px;
+  justify-content: center;
+  box-shadow: 0 4px 10px 0 rgba(0, 0, 0, 0.2);
+}
+
+.admin-product-input > select {
+  width: 20vw;
+  font-size: 1em;
+}
+.admin-product-input > label {
+  font-size: 1.5em;
+  width: 60vw;
+}
+
+.admin-product-input > input {
+  font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  padding: 0.3em;
+  margin: 0.5em 0;
+  font-size: 1.5em;
+  width: 60vw;
+}
+.admin-product-input > textarea {
+  font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica,
+    Arial, sans-serif;
+  padding: 0.3em;
+  margin: 0.5em 0;
+  font-size: 1.5em;
+  height: 150px;
+  width: 60vw;
+
 }
 
 .btn-login {
@@ -322,31 +391,95 @@ aside {
 }
 
 /* please feel free to change admin dashboard css */
-.admin-dashboard-icon {
-  width: 25px;
-  height: 25px;
-  margin: 25px 25px;
-  justify-content: center;
+.admin-table {
+  position: relative;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  flex-direction: column;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.admin-table > head {
+	display: flex;
+	justify-content: space-around;
+  flex: 1 0 auto;
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.15);
+  padding: 5px 5px;
+  line-height: normal;
+  position: relative;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 0 0 0 transparent;
+	width: 100vw;
+  height: 10vh;
+}
+
+.admin-table * {
+  box-sizing: border-box;
+}
+
+
+.admin-dashboard-row {
+	display: flex;
+	align-items: center;
+	justify-content: space-around;
+  flex: 1 0 auto;
+  background: rgba(0, 0, 0, 0.03);
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 2px 15px 0 rgba(0, 0, 0, 0.15);
+  padding: 5px 5px;
+  line-height: normal;
+  position: relative;
+  border-right: 1px solid rgba(0, 0, 0, 0.05);
+	box-shadow: inset 0 0 0 0 transparent;
+	width: 100vw;
+  height: 10vh;
+}
+
+.checkbox {
+	align-self: center;
+  width: 50px;
+  height: 50px;
+  margin: 10px 10px;
+  align-self: center;
+	justify-content: center;
+	vertical-align: middle;
 }
 
 .admin-dashboard-img {
   width: 50px;
   height: 50px;
-  margin: 10px 10px;
+	margin: 10px 10px;
+	align-self: center;
   justify-content: center;
 }
 
 .admin-dashboard-name {
   width: 150px;
   height: 50px;
-  margin: 10px 10px;
+	margin: 10px 10px;
+	align-self: center;
+	justify-content: center;
+	display: table-cell;
+	vertical-align: middle
+
+}
+.admin-dashboard-latin-name {
+  width: 150px;
+  height: 50px;
+	margin: 10px 10px;
+	align-self: center;
   justify-content: center;
+
 }
 
 .admin-dashboard-stock-num {
   width: 100px;
   height: 50px;
   margin: 10px 10px;
+  align-self: center;
   justify-content: center;
 }
 
@@ -354,27 +487,31 @@ aside {
   width: 100px;
   height: 50px;
   margin: 10px 10px;
-  justify-content: center;
+	justify-content: center;
+	align-self: center;
 }
 
 .admin-dashboard-stock {
   width: 100px;
   height: 50px;
   margin: 10px 10px;
-  justify-content: center;
+	justify-content: center;
+	align-self: center;
 }
 
 .admin-dashboard-category {
   width: 100px;
   height: 50px;
   margin: 10px 10px;
-  justify-content: center;
+	justify-content: center;
+	align-self: center;
 }
 .admin-dashboard-date {
   width: 100px;
   height: 50px;
   margin: 10px 10px;
-  justify-content: center;
+	justify-content: center;
+	align-self: center;
 }
 
 .img-products-list {
@@ -382,13 +519,14 @@ aside {
   max-width: 200px;
   border-radius: 5px;
   margin-right: 5px;
-  object-fit: cover;
+
 }
 
 .img-single-product {
   max-height: 600px;
   border-radius: 5px;
   margin-right: 5px;
+
 }
 
 /* cart */
@@ -429,6 +567,7 @@ aside {
   flex-direction: column;
   align-items: center;
 }
+
 
 input.cartitem-quantity {
   width: 20%;

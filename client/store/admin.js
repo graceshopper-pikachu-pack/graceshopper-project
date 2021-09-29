@@ -53,6 +53,7 @@ export const fetchAdminData = () => {
 export const updateAdminData = (product) => {
   return async (dispatch) => {
     try {
+      console.log(product);
       token = getToken();
       const { data } = await axios.put(`/api/products/${product.id}`, product, {
         headers: {

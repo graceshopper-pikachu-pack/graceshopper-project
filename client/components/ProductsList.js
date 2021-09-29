@@ -111,7 +111,6 @@ class ProductsList extends React.Component {
       filterAndOrder: [...updatedItems],
     });
 
-    // if there are no errors in the quantity
     if (!cartItem.errors) {
       this.props.incrementCartItem({
         productId: cartItem.id,
@@ -143,7 +142,6 @@ class ProductsList extends React.Component {
       filterAndOrder: [...updatedItems],
     });
 
-    // if there are no errors in the quantity
     if (!cartItem.errors) {
       this.props.decrementCartItem({
         productId: cartItem.id,
