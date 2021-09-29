@@ -1,6 +1,6 @@
-import React from "react";
-import { connect } from "react-redux";
-import { editCart, deleteCartItem } from "../store";
+import React from 'react';
+import { connect } from 'react-redux';
+import { editCart, deleteCartItem } from '../store';
 
 class CartItem extends React.Component {
   constructor(props) {
@@ -8,7 +8,7 @@ class CartItem extends React.Component {
     this.state = {
       quantity: 0,
       errors: {
-        quantity: "",
+        quantity: '',
       },
     };
     this.handleChange = this.handleChange.bind(this);
@@ -31,11 +31,11 @@ class CartItem extends React.Component {
     let errors = this.state.errors;
     // error handling for valid quantity
     if (isNaN(value) || parseInt(value) !== Number(value) || value < 0) {
-      errors.quantity = "Please input a valid number";
+      errors.quantity = 'Please input a valid number';
     } else if (value > this.props.item.stockQuantity) {
-      errors.quantity = "Requested quantity in cart exceeds stock quantity";
+      errors.quantity = 'Requested quantity in cart exceeds stock quantity';
     } else {
-      errors.quantity = "";
+      errors.quantity = '';
     }
 
     this.setState({
@@ -77,30 +77,51 @@ class CartItem extends React.Component {
     const { quantity, errors } = this.state;
     const item = this.props.item;
     return (
-      <div className="column">
-        <img src={item.imageUrl} onClick={this.routeToProduct} />
-        <div className="row">
-          <h4>Product Name: {item.productName}</h4>
-          <h5>Price: ${item.price}</h5>
+      <div className='cartitem-column'>
+        <table className='cartitem-table'>
+          <thead className='cartitem-head'>
+            <tr>
+              <th>Product</th>
+              <th>Quantity</th>
+              <th>Subtotal</th>
+            </tr>
+          </thead>
+          <tbody className='cartitem-info'>
+            <tr>
+              <td>
+                <div className='cartitem-name'>
+                  <img
+                    src={item.imageUrl}
+                    width='300'
+                    onClick={this.routeToProduct}
+                  />
+                  <div>
+                    <p>{item.productName}</p>
+                    <button onClick={this.handleRemove}>Remove Item</button>
+                  </div>
+                </div>
+              </td>
+              <td className='cartitem-quantity-col'>
+                <input
+                  className='cartitem-quantity'
+                  name='quantity'
+                  type='text'
+                  value={quantity}
+                  onChange={this.handleChange}
+                  style={{
+                    border: errors.quantity
+                      ? '2px solid red'
+                      : this.state.value,
+                  }}
+                />
+                <button onClick={this.handleEdit}>Change Quantity</button>
+              </td>
+              <td> $ {item.price}.00</td>
+            </tr>
+          </tbody>
+        </table>
 
-          {errors.quantity ? (
-            <h6 className="error">{errors.quantity}</h6>
-          ) : null}
-          <label htmlFor="quantity">
-            <small>Quantity in Cart:</small>
-          </label>
-          <input
-            name="quantity"
-            type="text"
-            value={quantity}
-            onChange={this.handleChange}
-            style={{
-              border: errors.quantity ? "2px solid red" : this.state.value,
-            }}
-          />
-          <button onClick={this.handleEdit}>Change Quantity</button>
-          <button onClick={this.handleRemove}>Remove Item</button>
-        </div>
+        {errors.quantity ? <h6 className='error'>{errors.quantity}</h6> : null}
       </div>
     );
   }
