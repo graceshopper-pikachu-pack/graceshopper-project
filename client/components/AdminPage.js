@@ -3,7 +3,6 @@ import { connect } from "react-redux";
 import { NavLink, Link } from "react-router-dom";
 import { fetchAdminData, updateAdminData } from "../store/admin";
 
-
 class Admin extends React.Component {
   constructor() {
     super();
@@ -22,22 +21,18 @@ class Admin extends React.Component {
   }
 
   render() {
+    const adminUser = this.props.users;
 
-    const adminUser = this.props.users
-    console.log("USERS", adminUser)
-    console.log("props", this.props);
     return (
-      <div>
-        <Link to="/admin/products">
-          <button type="button">
-            Edit Products
-          </button>
-        </Link>
-        <Link to="/admin/users">
-          <button type="button">
-            View Users
-          </button>
-        </Link>
+      <div className="admin-container">
+        <div className="admin-page">
+          <Link className="admin-link" to="/admin/products">
+            <span className="admin-span">Edit Animals</span>
+          </Link>
+          <Link className="admin-link" to="/admin/users">
+            <span className="admin-span">View Users</span>
+          </Link>
+        </div>
       </div>
     );
   }
