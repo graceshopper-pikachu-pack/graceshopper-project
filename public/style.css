@@ -710,8 +710,15 @@ aside {
   align-items: center;
 }
 .cartitem-quantity-col {
+
   display: table-cell;
+
   align-items: center;
+}
+.vertical {
+  display: flex;
+  flex-direction: column;
+  width: 60px;
 }
 
 input.cartitem-quantity {
