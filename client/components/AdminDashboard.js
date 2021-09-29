@@ -191,7 +191,7 @@ class AdminDashboard extends React.Component {
         </button>
         <table className="admin-table">
           <thead>
-            <tr className="admin-dashboard-row">
+            <tr className="admin-dashboard-head">
               <td className="checkbox">Selected</td>
               <td>
                 <img
