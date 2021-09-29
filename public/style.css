@@ -401,6 +401,12 @@ aside {
   color: red;
 }
 
+.error {
+  font-size: 0.8em;
+
+  color: red;
+}
+
 .admin-product-input > img {
   width: 40vw;
   height: 50vh;
@@ -458,7 +464,6 @@ aside {
 
 /* please feel free to change admin dashboard css */
 
-
 .admin-table {
   position: relative;
   display: flex;
@@ -470,6 +475,7 @@ aside {
 
 .admin-dashboard-head {
   display: flex;
+  align-items: center;
   justify-content: space-around;
   flex: 1 0 auto;
   background: rgba(0, 0, 0, 0.05);
@@ -512,7 +518,6 @@ aside {
   align-self: center;
   justify-content: center;
   vertical-align: middle;
-
 }
 
 .admin-dashboard-img {
@@ -561,7 +566,6 @@ aside {
   justify-content: center;
 
   align-self: center;
-
 }
 
 .admin-dashboard-stock {
@@ -571,7 +575,6 @@ aside {
   justify-content: center;
 
   align-self: center;
-
 }
 
 .admin-dashboard-category {
@@ -581,7 +584,6 @@ aside {
   justify-content: center;
 
   align-self: center;
-
 }
 .admin-dashboard-date {
   width: 100px;
@@ -590,7 +592,6 @@ aside {
   justify-content: center;
 
   align-self: center;
-
 }
 
 /* images */
@@ -620,14 +621,15 @@ aside {
 }
 
 .img-single-product {
-  max-height: 600px;
-  max-width: 600px;
+  max-height: 85vh;
+  max-width: 78vw;
   border-radius: 5px;
   margin-right: 5px;
   object-fit: cover;
 }
 
 /* cart */
+
 .cart-message {
   font-size: 25px;
   display: flex;
@@ -651,6 +653,21 @@ aside {
 .cartitem-column {
   margin: 40px auto;
 }
+.cartitem-info {
+  display: table-row-group;
+  vertical-align: middle;
+  flex-direction: row;
+  align-items: center;
+}
+.cartitem-row {
+  vertical-align: middle;
+}
+.cartitem-row > td {
+  text-align: center;
+}
+.cartitem-row > th {
+  text-align: center;
+}
 .cartitem-table {
   width: 90%;
 }
@@ -661,8 +678,8 @@ aside {
   align-items: center;
 }
 .cartitem-quantity-col {
-  display: flex;
-  flex-direction: column;
+  display: table-cell;
+
   align-items: center;
 }
 
@@ -670,6 +687,7 @@ input.cartitem-quantity {
   width: 20%;
   background-color: whitesmoke;
 }
+
 .admin-container {
   display: flex;
   justify-content: space-evenly;

@@ -1,7 +1,7 @@
-import React from 'react';
-import { connect } from 'react-redux';
-import CartItem from './CartItem';
-import { fetchCart, clearCart, submitOrder, getToken } from '../store';
+import React from "react";
+import { connect } from "react-redux";
+import CartItem from "./CartItem";
+import { fetchCart, clearCart, submitOrder, getToken } from "../store";
 
 /**
  * COMPONENT
@@ -12,10 +12,12 @@ class Cart extends React.Component {
     this.state = {
       user: {},
       cart: [],
-      errors: '',
+      errors: "",
+      totalPrice: 0,
     };
     this.clearCart = this.clearCart.bind(this);
     this.placeOrder = this.placeOrder.bind(this);
+    this.calculateTotalPrice = this.calculateTotalPrice.bind(this);
   }
 
   componentDidMount() {
@@ -37,7 +39,17 @@ class Cart extends React.Component {
       this.setState({
         cart: this.props.cart,
       });
+      this.calculateTotalPrice(this.props.cart);
     }
+  }
+
+  calculateTotalPrice(cart) {
+    let totalPrice = 0;
+    cart.forEach((cartItem) => {
+      totalPrice += cartItem.price * cartItem.quantity;
+    });
+
+    this.setState({ totalPrice: totalPrice });
   }
 
   clearCart(evt) {
@@ -56,10 +68,10 @@ class Cart extends React.Component {
     if (token) {
       this.props.submitOrder([...this.state.cart]);
       this.props.clearCart();
-      this.props.history.push('/confirmation');
+      this.props.history.push("/confirmation");
     } else {
       this.setState({
-        errors: 'Please login or sign up to place your order!',
+        errors: "Please login or sign up to place your order!",
       });
     }
   }
@@ -70,29 +82,49 @@ class Cart extends React.Component {
     return (
       <div>
         {!cart.length ? (
-          <div className='cart-message'>
+          <div className="cart-message">
             <h4>There are no items in your cart!</h4>
             <img
-              className='img-no-items-cart'
-              src='https://images.alphacoders.com/997/thumb-1920-997932.jpg'
-              width='1000'
+              className="img-no-items-cart"
+              src="https://images.alphacoders.com/997/thumb-1920-997932.jpg"
+              width="1000"
             />
           </div>
         ) : (
-          <div className='full-cart'>
+          <div className="full-cart">
             {this.state.errors ? (
-              <h6 className='error'>{this.state.errors}</h6>
+              <h6 className="error">{this.state.errors}</h6>
             ) : null}
-            <div className='full-cart-btns'>
+            <div className="full-cart-btns">
               <button onClick={this.placeOrder}>Place Order</button>
               <button onClick={this.clearCart}>Clear Cart</button>
+              <h2 className="total-price">
+                Subtotal: ${this.state.totalPrice}.00
+              </h2>
             </div>
+
             {cart.map((item) => (
-              <CartItem
-                item={item}
-                key={item.id}
-                history={this.props.history}
-              />
+              <div key={item.id} className="cartitem-column">
+                <table className="cartitem-table">
+                  <thead className="cartitem-head">
+                    <tr className="cartitem-row">
+                      <th>Product:</th>
+                      <th>Quantity:</th>
+                      <th>Total Animal Price:</th>
+                    </tr>
+                  </thead>
+                  <tbody className="cartitem-info">
+                    <tr className="cartitem-row">
+                      <CartItem
+                        item={item}
+                        key={item.id}
+                        history={this.props.history}
+                      />
+                      <td> $ {item.price * item.quantity}.00</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
             ))}
           </div>
         )}
