@@ -115,11 +115,7 @@ class Cart extends React.Component {
                   </thead>
                   <tbody className="cartitem-info">
                     <tr className="cartitem-row">
-                      <CartItem
-                        item={item}
-                        key={item.id}
-                        history={this.props.history}
-                      />
+                      <CartItem item={item} history={this.props.history} />
                       <td> $ {item.price * item.quantity}.00</td>
                     </tr>
                   </tbody>
