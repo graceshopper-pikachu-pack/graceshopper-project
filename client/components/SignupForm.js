@@ -9,52 +9,52 @@ const SignupForm = (props) => {
   const { name, displayName, handleSubmit, error } = props;
 
   return (
-    <div className="form-content">
+    <div className='form-content'>
       <form onSubmit={handleSubmit} name={name}>
-        <h1 className="signup-text">🐜 Join our Animal Family today 🦓</h1>
-        <div className="form-inputs">
+        <h1 className='signup-text'>🐜 Join our Animal Family today 🦓</h1>
+        <div className='form-inputs'>
           <div>
-            <label htmlFor="firstName">
+            <label htmlFor='firstName'>
               <small>First Name</small>
             </label>
-            <input name="firstName" type="text" required />
+            <input name='firstName' type='text' required />
           </div>
           <div>
-            <label htmlFor="lastName">
+            <label htmlFor='lastName'>
               <small>Last Name</small>
             </label>
-            <input name="lastName" type="text" required />
+            <input name='lastName' type='text' required />
           </div>
-          <div>
-            <label htmlFor="email">
+          <div className='signup-email'>
+            <label htmlFor='email'>
               <small>Email</small>
             </label>
-            <input name="email" type="text" required />
+            <input name='email' type='text' required />
           </div>
-          <div>
-            <label htmlFor="username">
+          <div className='signup-username'>
+            <label htmlFor='username'>
               <small>Username</small>
             </label>
-            <input name="username" type="text" required />
+            <input name='username' type='text' required />
           </div>
-          <div>
-            <label htmlFor="password">
+          <div className='signup-pass'>
+            <label htmlFor='password'>
               <small>Password</small>
             </label>
-            <input name="password" type="password" required />
+            <input name='password' type='password' required />
           </div>
-          <div>
-            <label htmlFor="address">
+          <div className='signup-add'>
+            <label htmlFor='address'>
               <small>Address</small>
             </label>
-            <input name="address" type="text" required />
+            <input name='address' type='text' required />
           </div>
-          <div className="btn-signup">
-            <button className="submit-signup" type="submit">
+          <div className='btn-signup'>
+            <button className='submit-signup' type='submit'>
               {displayName}
             </button>
-            <span className="form-input-login">
-              Already have an account? Login <a href="/login"> here </a>
+            <span className='form-input-login'>
+              Already have an account? Login <a href='/login'> here </a>
             </span>
           </div>
         </div>

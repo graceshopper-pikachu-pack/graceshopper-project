@@ -1,6 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@300&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Open+Sans&display=swap");
+@import url('https://fonts.googleapis.com/css2?family=Stick+No+Bills:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 
 * {
   box-sizing: border-box;
@@ -9,7 +9,7 @@
 }
 
 body {
-  font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica,
+  font-family: 'Open Sans', 'Source Sans Pro', 'Helvetica Neue', Helvetica,
     Arial, sans-serif;
   font-size: 1em;
 }
@@ -72,7 +72,7 @@ form div {
 
 .navbar_logo {
   display: flex;
-  font-family: "Stick No Bills";
+  font-family: 'Stick No Bills';
   font-size: 30px;
   text-transform: uppercase;
 }
@@ -130,7 +130,7 @@ html {
   background-size: cover;
   position: relative;
   /* The image used */
-  background-image: url("https://www.wallpapers13.com/wp-content/uploads/2016/04/Cheetahs-cubs-and-big-cats-predators-HD-Wallpaper-3840x2400-1920x1080.jpg");
+  background-image: url('https://www.wallpapers13.com/wp-content/uploads/2016/04/Cheetahs-cubs-and-big-cats-predators-HD-Wallpaper-3840x2400-1920x1080.jpg');
 }
 .homepage-button {
   color: white;
@@ -167,7 +167,7 @@ html {
   flex-direction: column;
   align-items: center;
   width: 100%;
-  background-image: url("https://images.pexels.com/photos/146083/pexels-photo-146083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2");
+  background-image: url('https://images.pexels.com/photos/146083/pexels-photo-146083.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2');
   background-size: cover;
   background-repeat: no-repeat;
 }
@@ -194,7 +194,28 @@ html {
   text-transform: capitalize;
 }
 
-input[type="text"] {
+.signup-email {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+.signup-username {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+.signup-pass {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+.signup-add {
+  display: flex;
+  flex-direction: column;
+  width: 350px;
+}
+
+input[type='text'] {
   background: rgba(255, 255, 255, 0.2);
   font-size: 1.5rem;
   font-weight: 300;
@@ -206,7 +227,7 @@ input[type="text"] {
   border-bottom: 1px solid #05f7ff;
   outline: none;
 }
-input[type="password"] {
+input[type='password'] {
   background: rgba(255, 255, 255, 0.2);
   font-size: 1.5rem;
   width: 100%;
@@ -348,7 +369,7 @@ aside {
 .header {
   display: flex;
   text-align: center;
-  font-family: "Stick No Bills", "Open Sans";
+  font-family: 'Stick No Bills', 'Open Sans';
   font-size: 15px;
 }
 
@@ -360,7 +381,7 @@ aside {
   width: 100%;
   height: 100vh;
 
-  background-image: url("https://images.unsplash.com/photo-1601870431533-c658027e3d96?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80");
+  background-image: url('https://images.unsplash.com/photo-1601870431533-c658027e3d96?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1740&q=80');
 }
 .signup-input {
   display: flex;
@@ -380,7 +401,7 @@ aside {
   background-size: 100% 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  background-image: url("https://images.squarespace-cdn.com/content/v1/5e11e82c0efb8f0d16a5dbc8/1586866977071-F77KV646XPAXUFZ7HDV8/Sea-Otter-Nursing-Pup-Alaska-CDODDS_CID5069.jpg?format=1000w");
+  background-image: url('https://images.squarespace-cdn.com/content/v1/5e11e82c0efb8f0d16a5dbc8/1586866977071-F77KV646XPAXUFZ7HDV8/Sea-Otter-Nursing-Pup-Alaska-CDODDS_CID5069.jpg?format=1000w');
   background-attachment: fixed;
 }
 .admin-product-input {
@@ -420,7 +441,7 @@ aside {
 }
 
 .admin-product-input > input {
-  font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica,
+  font-family: 'Open Sans', 'Source Sans Pro', 'Helvetica Neue', Helvetica,
     Arial, sans-serif;
   padding: 0.3em;
   margin: 0.5em 0;
@@ -428,7 +449,7 @@ aside {
   width: 60vw;
 }
 .admin-product-input > textarea {
-  font-family: "Open Sans", "Source Sans Pro", "Helvetica Neue", Helvetica,
+  font-family: 'Open Sans', 'Source Sans Pro', 'Helvetica Neue', Helvetica,
     Arial, sans-serif;
   padding: 0.3em;
   margin: 0.5em 0;
@@ -457,7 +478,6 @@ aside {
 }
 
 /* please feel free to change admin dashboard css */
-
 
 .admin-table {
   position: relative;
@@ -512,7 +532,6 @@ aside {
   align-self: center;
   justify-content: center;
   vertical-align: middle;
-
 }
 
 .admin-dashboard-img {
@@ -561,7 +580,6 @@ aside {
   justify-content: center;
 
   align-self: center;
-
 }
 
 .admin-dashboard-stock {
@@ -571,7 +589,6 @@ aside {
   justify-content: center;
 
   align-self: center;
-
 }
 
 .admin-dashboard-category {
@@ -581,7 +598,6 @@ aside {
   justify-content: center;
 
   align-self: center;
-
 }
 .admin-dashboard-date {
   width: 100px;
@@ -590,7 +606,6 @@ aside {
   justify-content: center;
 
   align-self: center;
-
 }
 
 /* images */
